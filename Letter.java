@@ -5,9 +5,11 @@ public class Letter
     
     public Letter(char c, int i)
     {
+
         letter = c;
         pointValue = i;
     }
+    
     
     public char getLetter()
     {
