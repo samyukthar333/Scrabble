@@ -6,7 +6,8 @@ public class Board
     
     public Board()
     {
-        board = new Square[15][15];
+        board = new Square[15][15]; 
+        
         for(int i = 0; i <= MAX_X; i++)
         {
             for(int j = 0; j <= MAX_Y; j++)
@@ -15,9 +16,21 @@ public class Board
                 {
                     board[i][j] = new Square(null, 4);
                 }
-                else if(((i>0||i<5)&&(j>0||j<5)&&(i==j||i==14-j))||(i==7&&j==7))
+                else if(((i>0||i<MAX_X*5/14)&&(j>0||j<MAX_Y*5/14)&&(i==j||i==MAX_Y-j))||(i==MAX_X/2&&MAX_Y==MAX_Y/2))
                 {
                     board[i][j] = new Square(null, 3);
+                }
+               /* else if()
+                {
+                    board[i][j] = new Square(null, 2);
+                }
+                else if()
+                {
+                    board[i][j] = new Square(null, 1);
+                }*/
+                else
+                {
+                    board[i][j] = new Square(null, 0);
                 }
             }
         }
@@ -26,6 +39,14 @@ public class Board
     public Square getSquare(int r, int c)
     {
         return board[r][c];
+    }
+    
+    /**
+     * places word if possible. If not possible returns -1. Else returns number of points the word is worth
+     */
+    public int placeWord(String word, Square start, boolean direction)
+    {
+        return -1; //TODO FIX THIS!!!
     }
     
     

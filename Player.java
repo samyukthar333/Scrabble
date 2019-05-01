@@ -40,7 +40,7 @@ public class Player
     
     public void executeTurn()
     {
-        int input;
+        int input = 0;
         //get input, and store as value from 0 to 2 
         if(input==0)
         {
@@ -53,14 +53,17 @@ public class Player
         
     }
     
-    public void play()
+    private void play()
     {
         //get input 
     }
     
-    public void exchange()
+    private void exchange()
     {
-        //ask for input of 3 letters from player
-        myLetters.add(/*inputs*/);
+        //ask for input of 3 letters from player one at a time
+        myLetters.add(null/*inputs*/);
+        myLetters.add(null/*inputs*/);
+        myLetters.add(null/*inputs*/);
+        
     }
 }
