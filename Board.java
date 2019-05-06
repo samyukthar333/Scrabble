@@ -47,7 +47,7 @@ public class Board
     }
 
 
-    private void flipHorizontally( )
+    private void flipHorizontally()
     {
         for ( int i = 0; i < board.length; i++ )
             for ( int j = 0; j < board[0].length; j++ )
@@ -65,7 +65,11 @@ public class Board
 
     public Square getSquare( int r, int c )
     {
-        return board[r][c];
+        if ( isValid( r, c ) )
+        {
+            return board[r][c];
+        }
+        return null;
     }
 
 
@@ -114,9 +118,23 @@ public class Board
             for ( int j = 0; j < 15; j++ )
             {
                 Square square = board[i][j];
-                if ( getOccupiedNeighbors( square ).size() <= 1 )
+                int number = getOccupiedNeighbors( square ).size();
+                if ( number == 0 || number == 1 )
                 {
-
+                    placeableLocs.add( square );
+                }
+                else if ( number == 2 )
+                {
+                    // if theres diagonal squares next to the location, then we
+                    // are not considering for now
+                    if ( getSquare( i - 1, j ) != null && getSquare( i + 1, j ) != null )
+                    {
+                        placeableLocs.add( square );
+                    }
+                    else if ( getSquare( i, j - 1 ) != null && getSquare( i, j + 1 ) != null )
+                    {
+                        placeableLocs.add( square );
+                    }
                 }
             }
         }
