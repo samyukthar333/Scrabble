@@ -28,7 +28,7 @@ public class Game
         chooseFirstPlayer();
     }
     
-    public void chooseFirstPlayer()
+    private void chooseFirstPlayer()
     {
         char pl1;
         char pl2;
@@ -42,7 +42,7 @@ public class Game
             currentPlayer = player2;
     }
     
-    public void switchPlayers()
+    private void switchPlayers()
     {
         if(currentPlayer.equals( player1 ))
             currentPlayer= player2;
@@ -52,16 +52,8 @@ public class Game
     
     public void play()
     {
-        
+        switchPlayers();
     }
     
-    /**
-     * TODO Write your method description here.
-     * @param args
-     */
-    public static void main( String[] args )
-    {
-
-    }
-
+//should we have a main class here?
 }

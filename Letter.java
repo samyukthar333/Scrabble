@@ -61,6 +61,8 @@ public class Letter
             pointValue = 4;
         else if ( letter == 'Z' )
             pointValue = 10;
+        else if (letter == ' ')
+            pointValue = 0;
     }
 
 

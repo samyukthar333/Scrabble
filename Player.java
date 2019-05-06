@@ -61,9 +61,9 @@ public class Player
     private void exchange()
     {
         //ask for input of 3 letters from player one at a time
-        myLetters.add(null/*inputs*/);
-        myLetters.add(null/*inputs*/);
-        myLetters.add(null/*inputs*/);
+        myLetters.remove(null/*inputs*/);
+        myLetters.remove(null/*inputs*/);
+        myLetters.remove(null/*inputs*/);
         
     }
 }
