@@ -15,25 +15,38 @@
  */
 public class Square
 {   
-    Letter letter;
+    private Letter letter;
     //special square or not -- 0 for nothing, 1 for double letter score,
     //2 for triple letter score, 3 for double word score, and 4 for triple letter score
-    int special;
+    private int special;
+    private int myX;
+    private int myY;
     
-    public Square(Letter letter, int special)
+    public Square(int special, int x, int y)
     {
-        this.letter = letter;
+        myX = x;
+        myY = y;
+        letter = null;
         this.special = special;
     }
     
-    public Square()
+    public Square(int x, int y)
     {
+        myX = x;
+        myY = y;
         letter = null;
-         
         special = 0;
     }
     
+    public int getRow()
+    {
+        return myX;
+    }
     
+    public int getCol()
+    {
+        return myY;
+    }
     
     public void setLetter(Letter letter)
     {
@@ -65,5 +78,9 @@ public class Square
         return special != 0;
     }
     
+    public void removeSpecial()
+    {
+        special = 0;
+    }
     
 }

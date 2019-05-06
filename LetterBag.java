@@ -3,114 +3,198 @@ import java.util.ArrayList;
 
 public class LetterBag
 {
-    ArrayList<Letter> letters = new ArrayList<Letter>();
+    private ArrayList<Letter> letters;
 
-
+    /**
+     * initalizes arraylist letters
+     */
     public LetterBag()
+    {
+        letters = new ArrayList<Letter>();
+        initLetters();
+    }
+    
+    /**
+     * 
+     * initializes all letters according to how often they appear in the scrabble bag
+     */
+    public void initLetters()
     {
         for ( int i = 0; i < 9; i++ )
         {
-            letters.add( new Letter( 'A', 1 ) );
+            letters.add( new Letter( 'A' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'B', 4 ) );
+            letters.add( new Letter( 'B' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'C', 4 ) );
+            letters.add( new Letter( 'C' ) );
         }
         for ( int i = 0; i < 4; i++ )
         {
-            letters.add( new Letter( 'D', 2 ) );
+            letters.add( new Letter( 'D' ) );
         }
         for ( int i = 0; i < 12; i++ )
         {
-            letters.add( new Letter( 'E', 1 ) );
+            letters.add( new Letter( 'E' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'F', 4 ) );
+            letters.add( new Letter( 'F' ) );
         }
         for ( int i = 0; i < 3; i++ )
         {
-            letters.add( new Letter( 'G', 3 ) );
+            letters.add( new Letter( 'G' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'H', 3 ) );
+            letters.add( new Letter( 'H' ) );
         }
         for ( int i = 0; i < 9; i++ )
         {
-            letters.add( new Letter( 'I', 1 ) );
+            letters.add( new Letter( 'I' ) );
         }
         for ( int i = 0; i < 1; i++ )
         {
-            letters.add( new Letter( 'J', 10 ) );
+            letters.add( new Letter( 'J' ) );
         }
         for ( int i = 0; i < 1; i++ )
         {
-            letters.add( new Letter( 'K', 5 ) );
+            letters.add( new Letter( 'K' ) );
         }
         for ( int i = 0; i < 4; i++ )
         {
-            letters.add( new Letter( 'L', 2 ) );
+            letters.add( new Letter( 'L' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'M', 4 ) );
+            letters.add( new Letter( 'M' ) );
         }
         for ( int i = 0; i < 6; i++ )
         {
-            letters.add( new Letter( 'N', 2 ) );
+            letters.add( new Letter( 'N' ) );
         }
         for ( int i = 0; i < 8; i++ )
         {
-            letters.add( new Letter( 'O', 1 ) );
+            letters.add( new Letter( 'O' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'P', 4 ) );
+            letters.add( new Letter( 'P' ) );
         }
         for ( int i = 0; i < 1; i++ )
         {
-            letters.add( new Letter( 'Q', 10 ) );
+            letters.add( new Letter( 'Q' ) );
         }
         for ( int i = 0; i < 6; i++ )
         {
-            letters.add( new Letter( 'R', 1 ) );
+            letters.add( new Letter( 'R' ) );
         }
         for ( int i = 0; i < 4; i++ )
         {
-            letters.add( new Letter( 'S', 1 ) );
+            letters.add( new Letter( 'S' ) );
         }
         for ( int i = 0; i < 6; i++ )
         {
-            letters.add( new Letter( 'T', 1 ) );
+            letters.add( new Letter( 'T' ) );
         }
         for ( int i = 0; i < 4; i++ )
         {
-            letters.add( new Letter( 'U', 2 ) );
+            letters.add( new Letter( 'U' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'V', 5 ) );
+            letters.add( new Letter( 'V' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'W', 4 ) );
+            letters.add( new Letter( 'W' ) );
         }
         for ( int i = 0; i < 1; i++ )
         {
-            letters.add( new Letter( 'X', 8 ) );
+            letters.add( new Letter( 'X' ) );
         }
         for ( int i = 0; i < 2; i++ )
         {
-            letters.add( new Letter( 'Y', 3 ) );
+            letters.add( new Letter( 'Y' ) );
         }
         for ( int i = 0; i < 1; i++ )
         {
-            letters.add( new Letter( 'Z', 10 ) );
+            letters.add( new Letter( 'Z' ) );
         }
+    }
+    /**
+     * 
+     * return a list of letters from the bag PRECONDITION: num>0
+     * @param num number of letters to return
+     * @return null if letters is empty, arraylist of letters
+     */
+    public ArrayList<Letter> getRandomLetters(int num)
+    {
+        if(letters.size()==0)
+        {
+            return null;
+        }
+        ArrayList<Letter> letterlist = new ArrayList<Letter>();
+        
+        for(int i = 0; i<num; i++)
+        {
+            int rand = (int)(Math.random()*letters.size());
+            letterlist.add( letters.remove(rand) );
+            
+        }
+        return letterlist;
+    }
+    
+    /**
+     * 
+     * Return a letter without removing it from the list
+     * @return random letter
+     */
+    public Letter getRandomLetterWithoutRemoving()
+    {
+        if(letters.size()==0)
+        {
+            return null;
+        }
+        int rand = (int)(Math.random()*letters.size());
+        return letters.get(rand);
+           
+    }
+    
+    /**
+     * 
+     * remove and return a random letter
+     * @return a random letter
+     */
+    public Letter getRandomLetter()
+    {
+        if(letters.size()==0)
+        {
+            return null;
+        }
+        int rand = (int)(Math.random()*letters.size());
+        return letters.remove(rand);
+           
+    }
+    
+    public void add(Letter letter)
+    {
+        letters.add( letter );
+    }
+    
+    public void add(ArrayList<Letter> letterlist)
+    {
+        for(Letter letter: letterlist)
+        {
+            letters.add(letter);
+        }
+    }
+    
+    public boolean isEmpty()
+    {
+        return (letters.isEmpty());
     }
 }
