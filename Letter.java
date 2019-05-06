@@ -1,72 +1,75 @@
 public class Letter
 {
     private char letter;
+
     private int pointValue;
-    
-    public Letter(char c)
+
+
+    public Letter( char c )
     {
 
         letter = Character.toUpperCase( c );
-        if(letter=='A')
+        if ( letter == 'A' )
             pointValue = 1;
-        else if(letter=='B')
+        else if ( letter == 'B' )
             pointValue = 3;
-        else if(letter=='C')
+        else if ( letter == 'C' )
             pointValue = 3;
-        else if(letter=='D')
+        else if ( letter == 'D' )
             pointValue = 2;
-        else if(letter=='E')
+        else if ( letter == 'E' )
             pointValue = 1;
-        else if(letter=='F')
+        else if ( letter == 'F' )
             pointValue = 4;
-        else if(letter=='G')
+        else if ( letter == 'G' )
             pointValue = 2;
-        else if(letter=='H')
+        else if ( letter == 'H' )
             pointValue = 4;
-        else if(letter=='I')
+        else if ( letter == 'I' )
             pointValue = 1;
-        else if(letter=='J')
+        else if ( letter == 'J' )
             pointValue = 8;
-        else if(letter=='K')
+        else if ( letter == 'K' )
             pointValue = 5;
-        else if(letter=='L')
+        else if ( letter == 'L' )
             pointValue = 1;
-        else if(letter=='M')
+        else if ( letter == 'M' )
             pointValue = 3;
-        else if(letter=='N')
+        else if ( letter == 'N' )
             pointValue = 1;
-        else if(letter=='O')
+        else if ( letter == 'O' )
             pointValue = 1;
-        else if(letter=='P')
+        else if ( letter == 'P' )
             pointValue = 3;
-        else if(letter=='Q')
+        else if ( letter == 'Q' )
             pointValue = 10;
-        else if(letter=='R')
+        else if ( letter == 'R' )
             pointValue = 1;
-        else if(letter=='S')
+        else if ( letter == 'S' )
             pointValue = 1;
-        else if(letter=='T')
+        else if ( letter == 'T' )
             pointValue = 1;
-        else if(letter=='U')
+        else if ( letter == 'U' )
             pointValue = 1;
-        else if(letter=='V')
+        else if ( letter == 'V' )
             pointValue = 4;
-        else if(letter=='W')
+        else if ( letter == 'W' )
             pointValue = 4;
-        else if(letter=='X')
+        else if ( letter == 'X' )
             pointValue = 8;
-        else if(letter=='Y')
+        else if ( letter == 'Y' )
             pointValue = 4;
-        else if(letter=='Z')
+        else if ( letter == 'Z' )
             pointValue = 10;
     }
-    
-    
+
+
     public char getLetter()
     {
         return letter;
     }
-    
+
+
     public int getPointValue()
     {
         return pointValue;
