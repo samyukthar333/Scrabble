@@ -9,8 +9,11 @@ public class Letter
         letter = c;
         pointValue = i;
     }
-    
-    
+    /**
+     * 
+     * TODO Write your method description here.
+     * @return
+     */
     public char getLetter()
     {
         return letter;
