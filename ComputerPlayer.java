@@ -1,4 +1,4 @@
-
+//DO THIS CLASS AFTER IMPLEMENTING A GAME WITH TWO HUMAN PLAYERS
 /**
  *  TODO Write a one-sentence summary of your class here.
  *  TODO Follow it with additional details about its purpose, what abstraction
