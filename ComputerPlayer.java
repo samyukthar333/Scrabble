@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 //DO THIS CLASS AFTER IMPLEMENTING A GAME WITH TWO HUMAN PLAYERS
 /**
  *  TODO Write a one-sentence summary of your class here.
@@ -21,6 +23,7 @@ public class ComputerPlayer extends Player
     
     public void exchange()
     {
-        
+        ArrayList<Letter> myLetters = new ArrayList<Letter>();
+        super.exchange(myLetters);
     }
 }

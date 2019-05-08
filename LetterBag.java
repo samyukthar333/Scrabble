@@ -164,6 +164,11 @@ public class LetterBag
            
     }
     
+    public int size()
+    {
+        return letters.size();
+    }
+    
     /**
      * 
      * remove and return a random letter

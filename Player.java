@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 /**
  *  TODO Write a one-sentence summary of your class here.
@@ -48,7 +49,8 @@ public class Player
         }
         else if(input == 1)
         {
-            exchange();
+            exchange(exchangeInput());
+            
         }
         
     }
@@ -58,12 +60,20 @@ public class Player
         //get input 
     }
     
-    private void exchange()
+    private ArrayList<Letter> exchangeInput()
     {
         //ask for input of 3 letters from player one at a time
-        myLetters.remove(null/*inputs*/);
-        myLetters.remove(null/*inputs*/);
-        myLetters.remove(null/*inputs*/);
+       return new ArrayList<Letter> ();
         
+    }
+    
+    public void exchange(ArrayList<Letter> myUseless)
+    {
+        
+        for(Letter letter : myUseless)
+        {
+            myLetters.remove( letter );
+            
+        }
     }
 }

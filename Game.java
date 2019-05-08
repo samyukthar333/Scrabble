@@ -1,4 +1,5 @@
-//SHOULD THIS CLASS HAVE THE GUI??
+import java.util.ArrayList;
+
 /**
  *  TODO Write a one-sentence summary of your class here.
  *  TODO Follow it with additional details about its purpose, what abstraction
@@ -28,6 +29,17 @@ public class Game
         chooseFirstPlayer();
     }
     
+    public void putLetters(ArrayList<Letter> myLetters)
+    {
+        myBag.add( myLetters );
+        
+    }
+    
+    public ArrayList<Letter> getRandomThree()
+    {
+        return myBag.getRandomLetters(3);
+        
+    }
     private void chooseFirstPlayer()
     {
         char pl1;
