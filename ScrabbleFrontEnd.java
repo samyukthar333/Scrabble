@@ -83,7 +83,7 @@ public class ScrabbleFrontEnd extends JPanel
     private static void createAndShowGUI(){
         int xSize = 800;
         int ySize = 800;
-        JFrame frame = new JFrame("Scrabble - APCS Lynbrook Lab by Richa, S, A");
+        JFrame frame = new JFrame("Scrabble");
         frame.setPreferredSize(new Dimension(xSize, ySize));
         //frame.setMinimumSize(new Dimension(xSize, ySize));
         frame.setSize(xSize, ySize);
