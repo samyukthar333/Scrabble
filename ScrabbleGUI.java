@@ -14,5 +14,5 @@ public class ScrabbleGUI extends JPanel
         setLayout(new GridLayout(1, 0, 0, 0));
 
     }
-
 }
+
