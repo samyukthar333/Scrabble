@@ -75,6 +75,7 @@ public class Board
 
     public ArrayList<Square> getPlaceableLocs()
     {
+        fixPlaceableLocs();
         return placeableLocs;
     }
 
@@ -139,6 +140,47 @@ public class Board
             }
         }
 
+    }
+    
+    public ArrayList<Integer> sort(ArrayList<Integer> myArray)
+    {
+        quickSort(myArray, 0, myArray.size()-1);
+        return myArray;
+    }
+    
+    private ArrayList<Integer> quickSort(ArrayList<Integer> myArray, int low, int high)
+    {
+        if(low<high)
+        {
+            int partLoc = partitionArray(myArray,low, high);
+            
+            quickSort(myArray, low, partLoc -1);
+            quickSort(myArray, partLoc + 1, high);
+        }
+        return myArray;
+    }
+    
+    private int partitionArray(ArrayList<Integer> myArray, int low, int high)
+    {
+        int pivot = myArray.get( high );
+        int small = low -1;
+        for(int i = low; i<high; i++)
+        {
+            if(myArray.get( i )>pivot)
+            {
+                small++;
+                int temp = myArray.get( small );
+                myArray.set( small, myArray.get( i ) );
+                myArray.set( i, temp );
+                
+            }
+            
+            
+        }
+        int temp = myArray.get( small + 1);
+        myArray.set( small + 1, myArray.get( high ) );
+        myArray.set( high, temp );
+        return small + 1;
     }
 
 
