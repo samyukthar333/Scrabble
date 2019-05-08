@@ -141,43 +141,45 @@ public class Board
         }
 
     }
-    
-    public ArrayList<Integer> sort(ArrayList<Integer> myArray)
+
+
+    public ArrayList<Integer> sort( ArrayList<Integer> myArray )
     {
-        quickSort(myArray, 0, myArray.size()-1);
+        quickSort( myArray, 0, myArray.size() - 1 );
         return myArray;
     }
-    
-    private ArrayList<Integer> quickSort(ArrayList<Integer> myArray, int low, int high)
+
+
+    private ArrayList<Integer> quickSort( ArrayList<Integer> myArray, int low, int high )
     {
-        if(low<high)
+        if ( low < high )
         {
-            int partLoc = partitionArray(myArray,low, high);
-            
-            quickSort(myArray, low, partLoc -1);
-            quickSort(myArray, partLoc + 1, high);
+            int partLoc = partitionArray( myArray, low, high );
+
+            quickSort( myArray, low, partLoc - 1 );
+            quickSort( myArray, partLoc + 1, high );
         }
         return myArray;
     }
-    
-    private int partitionArray(ArrayList<Integer> myArray, int low, int high)
+
+
+    private int partitionArray( ArrayList<Integer> myArray, int low, int high )
     {
         int pivot = myArray.get( high );
-        int small = low -1;
-        for(int i = low; i<high; i++)
+        int small = low - 1;
+        for ( int i = low; i < high; i++ )
         {
-            if(myArray.get( i )>pivot)
+            if ( myArray.get( i ) > pivot )
             {
                 small++;
                 int temp = myArray.get( small );
                 myArray.set( small, myArray.get( i ) );
                 myArray.set( i, temp );
-                
+
             }
-            
-            
+
         }
-        int temp = myArray.get( small + 1);
+        int temp = myArray.get( small + 1 );
         myArray.set( small + 1, myArray.get( high ) );
         myArray.set( high, temp );
         return small + 1;
@@ -187,10 +189,26 @@ public class Board
     /**
      * places word if possible. If not possible returns false, else true
      */
-    public boolean placeWord( String word, Square start, boolean direction )
+    public boolean placeWord( ArrayList<Square> input, Square start, boolean direction )
     {
-
-        return false; // FIX
+        ArrayList<Integer> rowVals = null;
+        ArrayList<Integer> columnVals = null;
+        for (Square square : input) {
+            rowVals.add( square.getRow() );
+            columnVals.add( square.getCol() );
+        }
+        for (int x = 0; x < rowVals.size(); x++) { // checks if all the row values are the same
+            
+        }
+        for (int y = 0; y < columnVals.size(); y++) { // checks if all the column values are the same
+            
+        }
+        if (true) { // checks if the list of acceptable words contains the input
+           return true;
+        }
+        else {
+            return false;
+        }
     }
 
 
