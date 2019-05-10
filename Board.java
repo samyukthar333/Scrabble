@@ -191,33 +191,114 @@ public class Board
      */
     public boolean placeWord( ArrayList<Square> input, Square start, boolean direction )
     {
-        ArrayList<Integer> rowVals = null;
-        ArrayList<Integer> columnVals = null;
+        Square[][] temp = board;
+        ArrayList<Integer> rowVals = new ArrayList<Integer>();
+        ArrayList<Integer> columnVals = new ArrayList<Integer>();
         for (Square square : input) {
             rowVals.add( square.getRow() );
             columnVals.add( square.getCol() );
+            if(temp[square.getRow()][square.getCol()].getLetter()!=null)
+            {
+                return false;
+            }
+            temp[square.getRow()][square.getCol()].setLetter( square.getLetter() );
         }
-        for (int x = 0; x < rowVals.size(); x++) { // checks if all the row values are the same
-            
+        int same = rowVals.get( 0 );
+        boolean isRow = true, isCol = true; //if true, then is a column word else row word \\ temporary initialization
+        for (int x = 1; x < rowVals.size(); x++) // checks if all the row values are the same
+        {
+            if(rowVals.get( x )!=same)
+            {
+                isRow = false;
+                break;
+            }
+            isRow = true;
         }
-        for (int y = 0; y < columnVals.size(); y++) { // checks if all the column values are the same
-            
+        same = rowVals.get( 0 );
+        for (int y = 1; y < columnVals.size(); y++)  // checks if all the column values are the same
+        {
+            if(rowVals.get( y )!=same)
+            {
+                isCol = false;
+                break;
+            }
+            isCol = true;
         }
-        if (true) { // checks if the list of acceptable words contains the input
-           return true;
+        if(isRow) //if row word, sent to private helper method
+        {
+            same = rowVals.get( 0 );
+            columnVals = sort(columnVals);
+            return placeRow(temp, columnVals, same);
         }
-        else {
-            return false;
+        if(isCol) //if row word, sent to private helper method
+        {
+            same = columnVals.get( 0 );
+            rowVals = sort(rowVals);
+            return placeColumn(temp, rowVals, same);
         }
+
+        return false;
     }
 
+    private boolean placeRow(Square[][] temp, ArrayList<Integer> columnVals, int row)
+    {
+        int start = 0;
+        for(int i = columnVals.get( 0 ); i>0; i--)
+        {
+            if(temp[row][i].getLetter()==null)
+            {
+                start = i+1;
+                break;
+            }
+        }
+        String word = "";
+        for(int i = start; i<=14; i++)
+        {
+            if(temp[row][i].getLetter()==null)
+            {
+                break;
+            }
+            word += temp[row][i].getLetter().getLetter();
+        }
+        if(!Words.isWord( word ))
+        {
+            return false;
+        }
+        return true; //fixxxx
+    }
+    private boolean placeColumn(Square[][] temp, ArrayList<Integer> rowVals, int col)
+    {
+        int start = 0;
+        for(int i = rowVals.get( 0 ); i>0; i--)
+        {
+            if(temp[i][col].getLetter()==null)
+            {
+                start = i+1;
+                break;
+            }
+        }
+        String word = "";
+        for(int i = start; i<=14; i++)
+        {
+            if(temp[i][col].getLetter()==null)
+            {
+                break;
+            }
+            word += temp[i][col].getLetter().getLetter();
+        }
+        if(!Words.isWord( word ))
+        {
+            return false;
+        }
+        
+        return true; //fixxxx
+    }
 
     public boolean addLetter( Letter letter, Square square )
     {
-        if ( board[square.getRow()][square.getCol()].getLetter() != null )
+        if (!isValid(square.getRow(),square.getCol()) || board[square.getRow()][square.getCol()].getLetter() != null )
             return false;
         board[square.getRow()][square.getCol()].setLetter( letter );
         return true;
     }
-
 }

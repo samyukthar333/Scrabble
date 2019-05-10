@@ -6,23 +6,17 @@ import java.util.Scanner;
 
 public class Words
 {
-    private Map<String, Integer> words;
+    public static final Map<String, Integer> words = initWords("/Scrabble/Collins Scrabble Words (2015)");
     
-    public Words(String fileName)
-    {
-        words = new HashMap<String, Integer>();
-        initWords(fileName);
-
-
-    }
     
     /**
      * initializes words with filename given
      * 
      * @param fileName name of file
      */
-    public void initWords(String fileName)
+    public static Map<String,Integer> initWords(String fileName)
     {
+        Map<String, Integer> temp = new HashMap<String, Integer>();
         Scanner inFile;
         try
         {
@@ -43,14 +37,16 @@ public class Words
                 {
                     points+=new Letter(tempword.charAt( i )).getPointValue();
                 }
-                words.put( tempword, points );
+                temp.put( tempword, points );
             }
             inFile.close();
+            
         }
         catch(FileNotFoundException ex)
         {
             System.out.println( "your filename is incorrect" );
         }
+        return temp;
         
     }
     
@@ -60,7 +56,7 @@ public class Words
      * @param word to check
      * @return whether the given string is a word
      */
-    public boolean isWord(String word)
+    public static boolean isWord(String word)
     {
         return (words.containsKey( word ));
     }
@@ -71,7 +67,7 @@ public class Words
      * @param word word to get points for
      * @return number of points of given word or -1 if word does not exist
      */
-    public int getPoints(String word)
+    public static int getPoints(String word)
     {
         if(!isWord(word))
             return -1;

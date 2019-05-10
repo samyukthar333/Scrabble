@@ -8,7 +8,7 @@ public class PlayerLetters
 
     public boolean add( Letter letter )
     {
-        if ( playerletters.size() >= 6 )
+        if ( playerletters.size() >= 7 )
         {
             return false;
         }
@@ -33,8 +33,29 @@ public class PlayerLetters
         }
     }
 
-
-    public ArrayList<Letter> returnplayerletters( ArrayList<Letter> playerletters )
+    public Letter removeIndex( int index )
+    {
+        Letter letter = null;
+        if ( playerletters.size()>index )
+        {
+            letter = playerletters.get( index );
+            playerletters.remove( letter );
+            
+        }
+        return letter;
+    }
+    
+    /**
+     * returns size of playerLetters
+     *
+     * @return size of playerLetters
+     */
+    public int size()
+    {
+        return playerletters.size();
+    }
+    
+    public ArrayList<Letter> getLetters( )
     {
         return playerletters;
     }

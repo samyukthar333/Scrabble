@@ -21,9 +21,17 @@ public class ComputerPlayer extends Player
         super();
     }
     
+    /**
+     * exchanges 3 random letters with 3 letters from the bag
+     * TODO Write your method description here.
+     */
     public void exchange()
     {
-        ArrayList<Letter> myLetters = new ArrayList<Letter>();
-        super.exchange(myLetters);
+        ArrayList<Letter> letters = new ArrayList<Letter>();
+        for(int i = 0; i<3; i++)
+        {
+            myLetters.add( myLetters.removeIndex( (int)(Math.random()*(myLetters.size() -1 )) ));
+        }
+        super.exchange(letters);
     }
 }

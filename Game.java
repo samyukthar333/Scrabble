@@ -17,12 +17,10 @@ public class Game
     private Player player1;
     private Player player2;
     private Player currentPlayer;
-    private Words myWords;
     private LetterBag myBag;
     
     public Game()
     {
-        myWords = new Words("Collins Scrabble Words (2015)");
         player1 = new Player();
         player2 = new Player();
         myBag = new LetterBag();
@@ -40,10 +38,10 @@ public class Game
         return myBag.getRandomLetters(3);
         
     }
+    
     private void chooseFirstPlayer()
     {
-        char pl1;
-        char pl2;
+        char pl1, pl2;
         do {
             pl1 = myBag.getRandomLetterWithoutRemoving().getLetter();
             pl2 = myBag.getRandomLetterWithoutRemoving().getLetter();
@@ -64,8 +62,7 @@ public class Game
     
     public void play()
     {
+        //need to fix
         switchPlayers();
     }
-    
-//should we have a main class here?
 }
