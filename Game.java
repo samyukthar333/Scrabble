@@ -18,6 +18,7 @@ public class Game
     private Player player2;
     private Player currentPlayer;
     private LetterBag myBag;
+    private Board board;
     
     public Game()
     {

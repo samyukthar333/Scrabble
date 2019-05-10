@@ -189,7 +189,7 @@ public class Board
     /**
      * places word if possible. If not possible returns false, else true
      */
-    public boolean placeWord( ArrayList<Square> input, Square start, boolean direction )
+    public boolean placeWord( ArrayList<Square> input, Square start )
     {
         Square[][] temp = board;
         ArrayList<Integer> rowVals = new ArrayList<Integer>();
@@ -223,6 +223,10 @@ public class Board
                 break;
             }
             isCol = true;
+        }
+        if ( isRow && isCol )
+        {
+            return false; // cannot be the same values for all tiles
         }
         if(isRow) //if row word, sent to private helper method
         {
@@ -301,4 +305,23 @@ public class Board
         board[square.getRow()][square.getCol()].setLetter( letter );
         return true;
     }
+    
+    public static void main( String[] args )
+    {
+        // Square s1 = new Square( 2, 2 );
+        // Square s2 = new Square( 2, 2 );
+        // Square s3 = new Square( 2, 2 );
+        // Square s4 = new Square( 2, 2 );
+        // Square s5 = new Square( 2, 2 );
+        // ArrayList<Square> input = new ArrayList<Square>();
+        // input.add( s1 );
+        // input.add( s2 );
+        // input.add( s3 );
+        // input.add( s4 );
+        // input.add( s5 );
+        // System.out.println( placeWord( input, s1, true ) );
+        // testing purposes
+    }
+
+
 }
