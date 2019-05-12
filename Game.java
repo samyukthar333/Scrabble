@@ -22,6 +22,7 @@ public class Game
     
     public Game()
     {
+        board = new Board();
         player1 = new Player();
         player2 = new Player();
         myBag = new LetterBag();

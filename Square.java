@@ -1,9 +1,7 @@
 /**
  * 
  * 
- *  TODO Write a one-sentence summary of your class here.
- *  TODO Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  Represents a square/tile on the Scrabble board.
  *
  *  @author  sramanan007
  *  @version Apr 30, 2019
@@ -50,6 +48,20 @@ public class Square
         special = 0;
     }
     
+    public Square(Letter letter, int x, int y)
+    {
+        if(x<15||x>=0)
+            myX = x;
+        else
+            myX = -1;
+        if(y<15||y>=0)
+            myY = y;
+        else
+            myY = -1;
+        this.letter = letter;
+        special = 0;
+    }
+    
     public int getRow()
     {
         return myX;
@@ -93,6 +105,29 @@ public class Square
     public void removeSpecial()
     {
         special = 0;
+    }
+    
+    public int getPoints()
+    {
+        if(special == 0) //none
+            return letter.getPointValue();
+        else if(special == 1) //double letter
+            return letter.getPointValue()*2;
+        else if(special == 2) //triple letter
+            return letter.getPointValue()*3;
+        else if(special == 3) //double word
+            return -10;
+        else //triple word
+            return -20;
+        
+    }
+    public String toString()
+    {
+        if(letter == null)
+        {
+            return " ";
+        }
+        return "" + letter.getLetter();
     }
     
 }

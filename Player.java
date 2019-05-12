@@ -49,7 +49,7 @@ public class Player
         }
         else if(input == 1)
         {
-            exchange(exchangeInput());
+            exchange(exchangeInput(), new ArrayList<Letter>());
             
         }
         
@@ -63,18 +63,19 @@ public class Player
     private ArrayList<Letter> exchangeInput()
     {
         //ask for input of 3 letters from player one at a time
-       return new ArrayList<Letter> ();
+       return new ArrayList<Letter>();
         
     }
     
-    public void exchange(ArrayList<Letter> myUseless)
+    public void exchange(ArrayList<Letter> myUseless, ArrayList<Letter> threeNew)
     {
-        
         for(Letter letter : myUseless)
         {
             myLetters.remove( letter );
-            
-            
+        }
+        for(Letter letter : threeNew)
+        {
+            myLetters.add( letter );
         }
     }
 }

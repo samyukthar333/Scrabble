@@ -6,7 +6,7 @@ import java.util.Scanner;
 
 public class Words
 {
-    public static final Map<String, Integer> words = initWords("/Scrabble/Collins Scrabble Words (2015)");
+    public static final Map<String, Integer> words = initWords("Collins Scrabble Words (2015)");
     
     
     /**
@@ -16,6 +16,7 @@ public class Words
      */
     public static Map<String,Integer> initWords(String fileName)
     {
+       
         Map<String, Integer> temp = new HashMap<String, Integer>();
         Scanner inFile;
         try
@@ -23,16 +24,19 @@ public class Words
             if ( new File( fileName ).isFile() )
             {
                 inFile = new Scanner( new File( fileName ) );
+                
             }
             else
             {
                 inFile = new Scanner( fileName );
+                
             }
-            
+            inFile.nextLine();
             while ( inFile.hasNext() )
             {
                 String tempword = inFile.next();
                 int points = 0;
+                
                 for(int i = 0; i<tempword.length(); i++)
                 {
                     points+=new Letter(tempword.charAt( i )).getPointValue();
@@ -58,6 +62,7 @@ public class Words
      */
     public static boolean isWord(String word)
     {
+        
         return (words.containsKey( word ));
     }
     
