@@ -8,6 +8,9 @@ public class Board
     private ArrayList<Square> placeableLocs;
 
 
+    /**
+     * initializes board to special squares
+     */
     public Board()
     {
 
@@ -19,7 +22,10 @@ public class Board
 
     }
 
-
+    /**
+     * 
+     * initializes board
+     */
     private void initBoard()
     {
         board[0][0].setSpecial( 4 );
@@ -45,7 +51,10 @@ public class Board
 
     }
 
-
+    /**
+     * 
+     * flips board horizontally
+     */
     private void flipHorizontally()
     {
         for ( int i = 0; i < board.length; i++ )
@@ -53,7 +62,10 @@ public class Board
                 board[i][board[0].length - 1 - j].setSpecial( board[i][j].getSpecial() );
     }
 
-
+    /**
+     * 
+     * flips board vertically
+     */
     private void flipVertically()
     {
         for ( int i = 0; i < board.length; i++ )
@@ -61,7 +73,13 @@ public class Board
                 board[board.length - 1 - i][j].setSpecial( board[i][j].getSpecial() );
     }
 
-
+    /**
+     * 
+     * returns square if coordinates are valid
+     * @param r row
+     * @param c col
+     * @return square
+     */
     public Square getSquare( int r, int c )
     {
         if ( isValid( r, c ) )
@@ -71,20 +89,34 @@ public class Board
         return null;
     }
 
-
+    /**
+     * 
+     * get the placeable locations on board (for computer player use)
+     * @return placeable locations
+     */
     public ArrayList<Square> getPlaceableLocs()
     {
         fixPlaceableLocs();
         return placeableLocs;
     }
 
-
+    /**
+     * returns whether the coordinates are valid on the board
+     * @param x row
+     * @param y col
+     * @return whether the coordinates are valid on the board
+     */
     public boolean isValid( int x, int y )
     {
         return ( x >= 0 && x < 15 && y >= 0 && y < 15 );
     }
 
-
+    /**
+     * 
+     * returns all squares next to given square that are occupied (have letters)
+     * @param square to check
+     * @return arraylist of occupied squares
+     */
     public ArrayList<Square> getOccupiedNeighbors( Square square )
     {
         ArrayList<Square> myOccNeighbors = new ArrayList<Square>();
@@ -107,7 +139,10 @@ public class Board
         return myOccNeighbors;
     }
 
-
+    /**
+     * 
+     *  fixes placeable locations to not include any with 3 or more neighbors or 2 neighbors that are not diagonals to each other
+     */
     public void fixPlaceableLocs()
     {
 
@@ -142,6 +177,12 @@ public class Board
     }
 
 
+    /**
+     * main sort method
+     * 
+     * @param myArray arraylist to sort
+     * @return the sorted arraylist *pretty useless tbh
+     */
     private ArrayList<Integer> sort( ArrayList<Integer> myArray )
     {
         quickSort( myArray, 0, myArray.size() - 1 );
@@ -149,6 +190,15 @@ public class Board
     }
 
 
+    /**
+     * 
+     * helper method to sort array
+     * quicksort algorithm
+     * @param myArray array to sort
+     * @param low low bound
+     * @param high high bound
+     * @return sorted array
+     */
     private ArrayList<Integer> quickSort( ArrayList<Integer> myArray, int low, int high )
     {
         if ( low < high )
@@ -161,7 +211,14 @@ public class Board
         return myArray;
     }
 
-
+    /**
+     * 
+     * another helper method for quicksort
+     * @param myArray arraylist
+     * @param low low bound
+     * @param high high bound
+     * @return partitioned array
+     */
     private int partitionArray( ArrayList<Integer> myArray, int low, int high )
     {
         int pivot = myArray.get( high );
@@ -186,7 +243,11 @@ public class Board
 
 
     /**
+     * 
      * places word if possible. If not possible returns -1, else number of points the play is worth
+     * @param input from player - arraylist of squares with letters
+     * @param start
+     * @return
      */
     public int placeWord( ArrayList<Square> input, Square start )
     {
@@ -413,6 +474,14 @@ public class Board
         return points;
     }
 
+    /**
+     * 
+     * adds letter to board at specific location
+     * @param letter letter to add
+     * @param x row
+     * @param y col
+     * @return whether possible to add
+     */
     public boolean addLetter( Letter letter, int x, int y )
     {
         if (!isValid(x,y) || board[x][y].getLetter() != null )
@@ -421,6 +490,10 @@ public class Board
         return true;
     }
     
+    /**
+     * 
+     * prints letters of board
+     */
     public void printBoard()
     {
         for(int i = 0; i<board.length; i++)
@@ -428,6 +501,22 @@ public class Board
             for(int j = 0; j<board[0].length; j++)
             {
                 System.out.print(board[i][j] + " ");
+            }
+            System.out.println( );
+        }
+    }
+    
+    /**
+     * for testing prints special numbers for each square
+     * 
+     */
+    public void printBoardSp()
+    {
+        for(int i = 0; i<board.length; i++)
+        {
+            for(int j = 0; j<board[0].length; j++)
+            {
+                System.out.print(board[i][j].getSpecial() + " ");
             }
             System.out.println( );
         }
@@ -443,12 +532,18 @@ public class Board
         return board;
     }
     
+    /**
+     * 
+     * for testing purposes
+     * @param args not used
+     */
     public static void main( String[] args )
     {
          Board board = new Board();
          board.getBoard()[2][6].setLetter(new Letter('D'));
          board.getBoard()[3][6].setLetter(new Letter('A'));
          board.getBoard()[4][6].setLetter(new Letter('D'));
+         board.printBoardSp();
          ArrayList<Square> input = new ArrayList<Square>();
          input.add( new Square( new Letter('B'), 2, 2 ) );
          input.add( new Square( new Letter('O'), 2, 3 ) );

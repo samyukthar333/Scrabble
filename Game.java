@@ -29,6 +29,11 @@ public class Game
         chooseFirstPlayer();
     }
     
+    public Board getBoard()
+    {
+        return board;
+    }
+
     public void putLetters(ArrayList<Letter> myLetters)
     {
         myBag.add( myLetters );
@@ -62,7 +67,7 @@ public class Game
             currentPlayer= player1;
     }
     
-    public void play()
+    public void play(int playerChoose)
     {
         //need to fix
         switchPlayers();

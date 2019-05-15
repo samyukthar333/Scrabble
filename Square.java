@@ -72,9 +72,12 @@ public class Square
         return myY;
     }
     
-    public void setLetter(Letter letter)
+    public int setLetter(Letter letter)
     {
         this.letter = letter;
+        int sp = special;
+        removeSpecial();
+        return sp;
     }
     
     public void setSpecial(int num)
