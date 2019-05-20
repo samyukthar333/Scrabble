@@ -72,4 +72,9 @@ public class Game
         //need to fix
         switchPlayers();
     }
+
+
+    public Player getCurrentPlayer(){
+        return currentPlayer;
+    }
 }

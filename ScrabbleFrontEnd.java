@@ -4,103 +4,191 @@ import java.util.*;
 import java.awt.event.*;
 import javax.swing.BorderFactory; 
 import javax.swing.border.Border;
-import javax.swing.border.TitledBorder;
-import javax.swing.border.EtchedBorder;
-import javax.swing.ImageIcon;
-import javax.swing.JTabbedPane;
 import javax.swing.JLabel;
 import javax.swing.JPanel; 
 import javax.swing.JFrame;
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.table.AbstractTableModel;
-import javax.swing.table.TableModel;
+
 
 public class ScrabbleFrontEnd extends JPanel
 {
+    private static final long serialVersionUID = 1L;
+    private int xSize = 800;
+    private int ySize = 800;
+    private String frameName = "Scrabble";
+    private JFrame frame;
+    Game game;
+    ArrayList<JLabel> scrabble = new ArrayList<JLabel>();
 
-    public ScrabbleFrontEnd()
-    {
-        //super(new BoxLayout());
-        super();
-        Border paneEdge = BorderFactory.createLineBorder(Color.BLACK);
+    public void drawMain(){
+        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
+        frame = new JFrame(this.frameName);
+        frame.setPreferredSize(new Dimension(xSize, ySize));
+        frame.setSize(xSize, ySize);
+        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
+        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
+        JPanel p = drawInner();
+        frame.setContentPane(p);
+        frame.pack();
+        frame.setVisible(true);
+    }
 
-        JPanel listPane = new JPanel();
-        listPane.setPreferredSize(new Dimension(700, 700));
-        listPane.setLayout(new BoxLayout(listPane, BoxLayout.Y_AXIS));
-        //
-        // TOP ROW
-        JPanel topRowHelperPanel = new JPanel();
-        topRowHelperPanel.setPreferredSize(new Dimension(30, 30));
-        JLabel topText = new JLabel("User1 to play !!");
-        //topText.setHorizontalAlignment(JLabel.CENTER);
-        //topText.setVerticalAlignment(JLabel.CENTER);
-        topRowHelperPanel.add(topText);
-        topRowHelperPanel.setPreferredSize(new Dimension(600, 30));
+    public JPanel getTopPanel(){
+        JPanel p = new JPanel();
+        JLabel j = new JLabel("SCRABBLE");
+        Dimension dim = frame.getSize();
+        p.setSize(dim.width, (int)(dim.height * 0.2));
+        p.add(j);
+        return p;
+    }
 
-        listPane.add(topRowHelperPanel);
-        listPane.setBorder(paneEdge);
+    public void setActionListener(JButton button){
+        String buttonText = button.getText();
+        int i = 0;
+        if (buttonText.equals("Play")){
+            i = 0;
+            //game.play();
+        }
+        if (buttonText.equals("Exchange"))
+            i = 1;
+        if (buttonText.equals("Pass"))
+            i = 2;
 
-        // MIDDLE ROW
-        JPanel middleRow = new JPanel();
-        java.util.List<JTextField> myScrabble = new ArrayList<JTextField>();
-        int rows = 15;
-        int cols = 15;
-        middleRow.setLayout(new GridLayout(rows, cols));
-        for(int x=0; x<rows; x++){
-            for(int y=0; y<cols; y++){
-                JTextField txt = new JTextField(1);
-                txt.addKeyListener(new java.awt.event.KeyAdapter() {
-                    public void keyTyped(java.awt.event.KeyEvent evt) {
-//                        if(txt.getText().length()>=1&&!(evt.getKeyChar()==KeyEvent.VK_DELETE||evt.getKeyChar()==KeyEvent.VK_BACK_SPACE)) {
-//                            getToolkit().beep();
-//                            evt.consume();
-//                        }
-                    }
-                });
-                txt.setText("" + y);
-                myScrabble.add(txt);
-                middleRow.add(txt);
+        ActionListener al = new ActionListener()
+        {
+            public void actionPerformed(ActionEvent e)
+            {
+                System.out.println(" ");
+            }
+        };
+        button.addActionListener(al);
+    }
+
+    public JPanel getBottomPanel(){
+        JPanel p = new JPanel();
+
+
+        Player current = game.getCurrentPlayer();
+
+        String info = "";
+        int points = current.getPoints();
+        info = info + " Points: " + points;
+        PlayerLetters pl = current.getLetters();
+        //if (pl.size() == 0){
+        //    pl = game.getRandomThree()
+        //}
+        for(Letter l : pl.getLetters()){
+            info = info + " " + l.toString();
+        }
+        JLabel infoLabel = new JLabel();
+        infoLabel.setText(info);
+
+        JButton play = new JButton("Play");
+        JButton exchange = new JButton("Exchange");
+        JButton pass = new JButton("Pass");
+        play.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Play pressed");
+            }
+        });
+
+        exchange.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Exchange pressed");
+            }
+        });
+
+        pass.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent e){
+                System.out.println("Pass pressed");
+            }
+        });
+
+        p.add(infoLabel);
+        p.add(play);
+        p.add(exchange);
+        p.add(pass);
+
+        return p;
+    }
+
+
+    public JPanel getLeftPanel(){
+        JPanel p = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                Graphics2D g2 = (Graphics2D) g;
+                g2.rotate(Math.PI / 2); //, frame.getSize().width, (int)(frame.getSize().height * 0.2));
+            }
+        };
+
+        Dimension dim = frame.getSize();
+        p.setSize((int)(dim.width * 0.2), dim.height);
+        JLabel j = new JLabel("SCRABBLE");
+        p.add(j);
+        return p;
+    }
+
+    public JPanel getCenterPanel(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(15, 15));
+        Dimension dim = frame.getSize();
+        panel.setSize((int)(dim.width * 0.5), (int)(dim.height * 0.5));
+        panel.setPreferredSize(new Dimension((int)(dim.width * 0.6), (int)(dim.height * 0.6)));
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+        Board board = game.getBoard();
+        Square[][] squares = board.getBoard();
+
+        for(int i=0; i<squares.length; i++){
+            for(int j=0; j<squares[0].length; j++){
+                JLabel jP = new JLabel("", SwingConstants.CENTER);
+                jP.setBorder(border);
+                Square s = squares[i][j];
+                jP.setText(s.toString());
+                
+                // System.out.println(" " + i + "\t" + j + "\t" + squares[i][j].getSpecial());
+                int special = squares[i][j].getSpecial();
+                if (special == 4){
+                    jP.setBackground(Color.RED);
+                    jP.setOpaque(true);
+                }
+                if (special == 3){
+                    jP.setBackground(Color.CYAN);
+                    jP.setOpaque(true);
+                }
+                if (special == 2){
+                    jP.setBackground(Color.BLUE);
+                    jP.setOpaque(true);
+                }
+                if (special == 1){
+                    jP.setBackground(Color.MAGENTA);
+                    jP.setOpaque(true);
+                }
+                panel.add(jP);
+                scrabble.add(jP);
             }
         }
+        return panel;
+    }
 
-        middleRow.setPreferredSize(new Dimension(600, 600));
-        listPane.add(middleRow);
+    public JPanel drawInner(){
+        JPanel panel = new JPanel();
+        panel.setLayout(new BorderLayout());
+        panel.add(getTopPanel(), BorderLayout.NORTH);
+        panel.add(getBottomPanel(), BorderLayout.SOUTH);
+        panel.add(getLeftPanel(), BorderLayout.WEST);
+        panel.add(getLeftPanel(), BorderLayout.EAST);
+        panel.add(getCenterPanel(), BorderLayout.CENTER);
+        return panel;
+    }
 
-        // LAST ROW
-        JPanel bottomRowHelperPanel = new JPanel();
-        bottomRowHelperPanel.setPreferredSize(new Dimension(30, 30));
-        JLabel topText2 = new JLabel("User1: 200, Computer: 150");
-        bottomRowHelperPanel.add(topText2);
-        listPane.add(bottomRowHelperPanel);
-        listPane.setAlignmentX(Component.CENTER_ALIGNMENT);
-        listPane.setAlignmentY(Component.CENTER_ALIGNMENT);
-        add(listPane);
+    public ScrabbleFrontEnd(){
+        game = new Game();
     }
 
     private static void createAndShowGUI(){
-        int xSize = 800;
-        int ySize = 800;
-        JFrame frame = new JFrame("Scrabble");
-        frame.setPreferredSize(new Dimension(xSize, ySize));
-        //frame.setMinimumSize(new Dimension(xSize, ySize));
-        frame.setSize(xSize, ySize);
-        Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-        frame.setLocation(dim.width/2-frame.getSize().width/2, dim.height/2-frame.getSize().height/2);
-        frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
-        frame.getContentPane().setLayout(new BorderLayout());
-
-        //Create and set up the content pane.
-        ScrabbleFrontEnd newContentPane = new ScrabbleFrontEnd();
-        newContentPane.setOpaque(true); //content panes must be opaque
-        frame.setContentPane(newContentPane);
-
-        //Display the window.
-        frame.pack();
-        frame.setVisible(true);
-
+        ScrabbleFrontEnd sfe = new ScrabbleFrontEnd();
+        sfe.drawMain();
     }
 
    
@@ -113,4 +201,3 @@ public class ScrabbleFrontEnd extends JPanel
         });
     }
 }
-
