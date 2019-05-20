@@ -116,13 +116,5 @@ public class Trie
         return getEndNode(pre)!=null;
     }
     
-    public ArrayList<String> getWordswithPrefix(String pre)
-    {
-        if(!isPrefix(pre))
-            return null;
-        ArrayList<String> myWords = new ArrayList<String>();
-        
-        
-    }
-
+   
 }

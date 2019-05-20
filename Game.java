@@ -72,14 +72,26 @@ public class Game
             currentPlayer= player1;
     }
     
-    public void play(int playerChoose)
+    public void play(ArrayList<Square> squares)
     {
-        //need to fix
+        currentPlayer.play(squares);
         switchPlayers();
     }
-
-
-    public Player getCurrentPlayer(){
-        return currentPlayer;
+    
+    public void exchange(ArrayList<Letter> letters)
+    {
+        for(Letter i:letters)
+        {
+            currentPlayer.getLetters().remove( i );
+            
+        }
+        myBag.add( letters );
+        switchPlayers();
     }
+    
+    public void pass()
+    {
+         switchPlayers();
+    }
+    
 }
