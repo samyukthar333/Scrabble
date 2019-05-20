@@ -29,6 +29,11 @@ public class Game
         chooseFirstPlayer();
     }
     
+    public Player getCurrentPlayer()
+    {
+        return currentPlayer;
+    }
+    
     public Board getBoard()
     {
         return board;
