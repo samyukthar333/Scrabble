@@ -6,6 +6,8 @@ public class Board
     private Square[][] board;
 
     private ArrayList<Square> placeableLocs;
+    
+    private boolean transposed;
 
 
     /**
@@ -19,6 +21,7 @@ public class Board
             for ( int j = 0; j < board[0].length; j++ )
                 board[i][j] = new Square( i, j );
         initBoard();
+        transposed = false;
 
     }
 
@@ -71,6 +74,34 @@ public class Board
         for ( int i = 0; i < board.length; i++ )
             for ( int j = 0; j < board[0].length; j++ )
                 board[board.length - 1 - i][j].setSpecial( board[i][j].getSpecial() );
+    }
+    
+    public void transpose()
+    {
+        Square[][] temp = new Square[15][15];
+        for(int i = 0; i<board.length; i++)
+        {
+            for(int j = 0; j<board[0].length; j++)
+            {
+                temp[i][j] = board[board.length-1-j][i];
+            }
+        }
+        board = temp;
+        transposed = true;
+    }
+    
+    public void transposeBack()
+    {
+        Square[][] temp = new Square[15][15];
+        for(int i = 0; i<board.length; i++)
+        {
+            for(int j = 0; j<board[0].length; j++)
+            {
+                temp[i][j] = board[j][board[0].length - 1 - i];
+            }
+        }
+        board = temp;
+        transposed = false;
     }
 
     /**

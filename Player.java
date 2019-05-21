@@ -39,32 +39,10 @@ public class Player
         return myLetters;
     }
     
-    public void executeTurn()
-    {
-        int input = 0;
-        //get input, and store as value from 0 to 2 
-        if(input==0)
-        {
-           play();
-        }
-        else if(input == 1)
-        {
-            exchange(exchangeInput(), new ArrayList<Letter>());
-            
-        }
-        
-    }
     
-    private void play()
+    public void play(ArrayList<Square> squares)
     {
         //get input 
-    }
-    
-    private ArrayList<Letter> exchangeInput()
-    {
-        //ask for input of 3 letters from player one at a time
-       return new ArrayList<Letter>();
-        
     }
     
     public void exchange(ArrayList<Letter> myUseless, ArrayList<Letter> threeNew)
