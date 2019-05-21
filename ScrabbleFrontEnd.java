@@ -50,7 +50,7 @@ public class ScrabbleFrontEnd extends JPanel
         }
         if (buttonText.equals("Exchange"))
             i = 1;
-        if (buttonText.equals("Pass"))
+        if (buttonText.equals("Pass"))  
             i = 2;
 
         ActionListener al = new ActionListener()
@@ -87,19 +87,21 @@ public class ScrabbleFrontEnd extends JPanel
         JButton pass = new JButton("Pass");
         play.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                System.out.println("Play pressed");
+                ArrayList<Square> playerLetter = new ArrayList<Square>();
+                //game.play(playerLetter);
             }
         });
 
         exchange.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                System.out.println("Exchange pressed");
+                ArrayList<Letter> exchangeLetters = new ArrayList<Letter>();
+                //game.exchange(exchangeLetters);
             }
         });
 
         pass.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                System.out.println("Pass pressed");
+               //game.pass();
             }
         });
 
