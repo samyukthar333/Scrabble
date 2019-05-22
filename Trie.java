@@ -32,7 +32,7 @@ public class Trie
      */
     public Trie()
     {
-        root = null;
+        root = new TrieNode();
     }
     
     /**
@@ -58,13 +58,16 @@ public class Trie
     {
         if(word==null)
             return;
+        
+        
         HashMap<Character, TrieNode> children = root.getChildren();
         
         for(int i = 0; i < word.length(); i++)
         {
             TrieNode node = null;
             char c = word.charAt(i);
-            if(children.containsKey( c ))
+            
+            if(children!=null && children.containsKey( c ))
             {
                 node = children.get( c );
             }

@@ -62,7 +62,7 @@ public class Words
     private static Trie initTrie( String fileName )
     {
         Trie temp = new Trie();
-        Scanner inFile;
+        Scanner inFile = null;
         try
         {
             if ( new File( fileName ).isFile() )
@@ -79,13 +79,14 @@ public class Words
             while ( inFile.hasNext() )
             {
                 String tempword = inFile.next();
-                wordTrie.insert( tempword );
+                    temp.insert( tempword );
             }
         }
         catch ( FileNotFoundException ex )
         {
             System.out.println( "your filename is incorrect" );
         }
+        inFile.close();
         return temp;
     }
 
@@ -99,7 +100,6 @@ public class Words
      */
     public static boolean isWord( String word )
     {
-
         return ( words.containsKey( word ) );
     }
 

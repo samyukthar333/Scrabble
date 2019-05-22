@@ -39,21 +39,4 @@ public class Player
         return myLetters;
     }
     
-    
-    public void play(ArrayList<Square> squares)
-    {
-        //get input 
-    }
-    
-    public void exchange(ArrayList<Letter> myUseless, ArrayList<Letter> threeNew)
-    {
-        for(Letter letter : myUseless)
-        {
-            myLetters.remove( letter );
-        }
-        for(Letter letter : threeNew)
-        {
-            myLetters.add( letter );
-        }
-    }
 }

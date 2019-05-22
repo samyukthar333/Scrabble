@@ -23,10 +23,15 @@ public class Game
     public Game()
     {
         board = new Board();
-        player1 = new Player();
+        player1 = new ComputerPlayer();
         player2 = new Player();
         myBag = new LetterBag();
         chooseFirstPlayer();
+    }
+    
+    public Player getHuman()
+    {
+        return player2;
     }
     
     public Player getCurrentPlayer()
@@ -72,10 +77,20 @@ public class Game
             currentPlayer= player1;
     }
     
-    public void play(ArrayList<Square> squares)
+    public boolean play(ArrayList<Square> squares)
     {
-        currentPlayer.play(squares);
+        for(Square s: squares)
+        {
+            if(!currentPlayer.getLetters().getLetters().contains( s.getLetter() ))
+                return false;
+            currentPlayer.getLetters().remove( s.getLetter() );
+        }
+        int points = board.placeWord( squares );
+        if(points==-1)
+            return false;
+        currentPlayer.addPoints( points );
         switchPlayers();
+        return true;
     }
     
     public void exchange(ArrayList<Letter> letters)
@@ -83,7 +98,6 @@ public class Game
         for(Letter i:letters)
         {
             currentPlayer.getLetters().remove( i );
-            
         }
         myBag.add( letters );
         switchPlayers();
