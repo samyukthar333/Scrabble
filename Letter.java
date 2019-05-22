@@ -1,4 +1,16 @@
-
+/**
+ * 
+ * TODO Write a one-sentence summary of your class here. TODO Follow it with
+ * additional details about its purpose, what abstraction it represents, and how
+ * to use it.
+ *
+ * @author samyuktha, saanvi, richa
+ * @version May 22, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
+ *
+ * @author Sources: none
+ */
 public class Letter
 {
     private char letter;
@@ -6,6 +18,11 @@ public class Letter
     private int pointValue;
 
 
+    /**
+     * assigns point values to each letter
+     * 
+     * @param c
+     */
     public Letter( char c )
     {
 
@@ -62,20 +79,31 @@ public class Letter
             pointValue = 4;
         else if ( letter == 'Z' )
             pointValue = 10;
-        else if (letter == ' ')
+        else if ( letter == ' ' )
             pointValue = 0;
     }
 
 
+    /**
+     * 
+     * gets the letter
+     * 
+     * @return letter
+     */
     public char getLetter()
     {
         return letter;
     }
 
 
+    /**
+     * 
+     * gets the point value
+     * 
+     * @return pointValue
+     */
     public int getPointValue()
     {
         return pointValue;
     }
 }
-

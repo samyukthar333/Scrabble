@@ -8,7 +8,19 @@ import javax.swing.JLabel;
 import javax.swing.JPanel; 
 import javax.swing.JFrame;
 
-
+/**
+ * 
+ *  TODO Write a one-sentence summary of your class here.
+ *  TODO Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ *
+ *  @author  samyuktha, saanvi, richa
+ *  @version May 22, 2019
+ *  @author  Period: 4
+ *  @author  Assignment: Scrabble
+ *
+ *  @author  Sources: none
+ */
 public class ScrabbleFrontEnd extends JPanel
 {
     private static final long serialVersionUID = 1L;
@@ -19,6 +31,10 @@ public class ScrabbleFrontEnd extends JPanel
     Game game;
     ArrayList<JLabel> scrabble = new ArrayList<JLabel>();
 
+    /**
+     * 
+     * draws the board
+     */
     public void drawMain(){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame(this.frameName);
@@ -32,6 +48,11 @@ public class ScrabbleFrontEnd extends JPanel
         frame.setVisible(true);
     }
 
+    /**
+     * 
+     * draws the top panel
+     * @return p
+     */
     public JPanel getTopPanel(){
         JPanel p = new JPanel();
         JLabel j = new JLabel("SCRABBLE");

@@ -1,11 +1,28 @@
 import java.util.ArrayList;
 
-
+/**
+ * 
+ *  TODO Write a one-sentence summary of your class here.
+ *  TODO Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ *
+ *  @author  samyuktha, saanvi, richa
+ *  @version May 22, 2019
+ *  @author  Period: 4
+ *  @author  Assignment: Scrabble
+ *
+ *  @author  Sources: none
+ */
 public class PlayerLetters
 {
     ArrayList<Letter> playerletters = new ArrayList<Letter>();
 
-
+    /**
+     * 
+     * adds or doesnt add letter(s) depending on your current number of letters
+     * @param letter
+     * @return false || true
+     */
     public boolean add( Letter letter )
     {
         if ( playerletters.size() >= 7 )
@@ -19,7 +36,12 @@ public class PlayerLetters
         }
     }
 
-
+    /**
+     * 
+     * removes a letter if your letters already has that letter
+     * @param letter
+     * @return false || true
+     */
     public boolean remove( Letter letter )
     {
         if ( playerletters.contains( letter ) )
@@ -33,6 +55,12 @@ public class PlayerLetters
         }
     }
 
+    /**
+     * 
+     * removes the letter at that index
+     * @param index the index of your letter
+     * @return letter
+     */
     public Letter removeIndex( int index )
     {
         Letter letter = null;
@@ -55,6 +83,11 @@ public class PlayerLetters
         return playerletters.size();
     }
     
+    /**
+     * 
+     * returns playerletters
+     * @return playerletters
+     */
     public ArrayList<Letter> getLetters( )
     {
         return playerletters;

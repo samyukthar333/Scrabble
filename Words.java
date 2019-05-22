@@ -5,6 +5,19 @@ import java.util.Map;
 import java.util.Scanner;
 
 
+/**
+ * 
+ * TODO Write a one-sentence summary of your class here. TODO Follow it with
+ * additional details about its purpose, what abstraction it represents, and how
+ * to use it.
+ *
+ * @author samyuktha, saanvi, richa
+ * @version May 22, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
+ *
+ * @author Sources: none
+ */
 public class Words
 {
     public static final Map<String, Integer> words = initWords( "Collins Scrabble Words (2015)" );
@@ -59,6 +72,14 @@ public class Words
     }
 
 
+    /**
+     * 
+     * initializes words with filename given
+     * 
+     * @param fileName
+     *            name of file
+     * @return temp
+     */
     private static Trie initTrie( String fileName )
     {
         Trie temp = new Trie();
@@ -79,7 +100,7 @@ public class Words
             while ( inFile.hasNext() )
             {
                 String tempword = inFile.next();
-                    temp.insert( tempword );
+                temp.insert( tempword );
             }
         }
         catch ( FileNotFoundException ex )
