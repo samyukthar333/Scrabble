@@ -14,15 +14,24 @@ import javax.swing.JFrame;
  *  TODO Follow it with additional details about its purpose, what abstraction
  *  it represents, and how to use it.
  *
+<<<<<<< HEAD
  *  @author  samyuktha, saanvi, richa
+=======
+ *  @author  Richa Bavadekar
+>>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
  *  @version May 22, 2019
  *  @author  Period: 4
  *  @author  Assignment: Scrabble
  *
+<<<<<<< HEAD
  *  @author  Sources: none
+=======
+ *  @author  Sources: TODO add sources
+>>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
  */
 public class ScrabbleFrontEnd extends JPanel
-{
+{//  testing log add a dicitonary at the bottom and players tiles at the bottom of the screen 
+    // this class runs the game
     private static final long serialVersionUID = 1L;
     private int xSize = 800;
     private int ySize = 800;
@@ -30,11 +39,19 @@ public class ScrabbleFrontEnd extends JPanel
     private JFrame frame;
     Game game;
     ArrayList<JLabel> scrabble = new ArrayList<JLabel>();
+<<<<<<< HEAD
 
     /**
      * 
      * draws the board
      */
+=======
+    
+/**
+ * 
+ * TODO Write your method description here.
+ */
+>>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
     public void drawMain(){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame(this.frameName);
@@ -50,8 +67,13 @@ public class ScrabbleFrontEnd extends JPanel
 
     /**
      * 
+<<<<<<< HEAD
      * draws the top panel
      * @return p
+=======
+     * TODO Write your method description here.
+     * @return
+>>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
      */
     public JPanel getTopPanel(){
         JPanel p = new JPanel();
@@ -62,6 +84,11 @@ public class ScrabbleFrontEnd extends JPanel
         return p;
     }
 
+    /**
+     * 
+     * TODO Write your method description here.
+     * @param button
+     */
     public void setActionListener(JButton button){
         String buttonText = button.getText();
         int i = 0;
@@ -84,9 +111,14 @@ public class ScrabbleFrontEnd extends JPanel
         button.addActionListener(al);
     }
 
+    /**
+     * 
+     * TODO Write your method description here.
+     * @return
+     */
     public JPanel getBottomPanel(){
         JPanel p = new JPanel();
-
+        //add a dictionary thing 
 
         Player current = game.getCurrentPlayer();
 
@@ -106,35 +138,61 @@ public class ScrabbleFrontEnd extends JPanel
         JButton play = new JButton("Play");
         JButton exchange = new JButton("Exchange");
         JButton pass = new JButton("Pass");
+        JTextField word = new JTextField("Enter a word here");
+        String s = word.getText();
+        System.out.println(s);
+//        if (Words.isWord(s))
+//        {
+//            System.out.print("is a word");
+//        }
         play.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                ArrayList<Square> playerLetter = new ArrayList<Square>();
+                ArrayList<Square> playerLetter = new ArrayList<Square>(); // the players letters after they drag, add finish button
                 //game.play(playerLetter);
             }
         });
 
         exchange.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-                ArrayList<Letter> exchangeLetters = new ArrayList<Letter>();
+                ArrayList<Letter> exchangeLetters = new ArrayList<Letter>(); // 3 letters that a player drags when they want to exchange 
                 //game.exchange(exchangeLetters);
             }
         });
 
         pass.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent e){
-               //game.pass();
+               game.pass(); //nothing happens
             }
+        
+        
         });
+        
+//        word.addActionListener(new ActionListener(){
+//            public void actionPerformed(ActionEvent e){
+//               if (w.isWord(s))
+//               {
+//                   
+//               }
+//            }
+//        }); 
+         
+        
 
         p.add(infoLabel);
         p.add(play);
         p.add(exchange);
         p.add(pass);
+        p.add( word );
 
         return p;
     }
 
 
+    /**
+     * 
+     * TODO Write your method description here.
+     * @return
+     */
     public JPanel getLeftPanel(){
         JPanel p = new JPanel(){
             @Override
@@ -152,6 +210,11 @@ public class ScrabbleFrontEnd extends JPanel
         return p;
     }
 
+    /**
+     * 
+     * TODO Write your method description here.
+     * @return
+     */
     public JPanel getCenterPanel(){
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(15, 15));
@@ -194,6 +257,11 @@ public class ScrabbleFrontEnd extends JPanel
         return panel;
     }
 
+    /**
+     * 
+     * TODO Write your method description here.
+     * @return
+     */
     public JPanel drawInner(){
         JPanel panel = new JPanel();
         panel.setLayout(new BorderLayout());
@@ -205,16 +273,25 @@ public class ScrabbleFrontEnd extends JPanel
         return panel;
     }
 
+    /**
+     * 
+     */
     public ScrabbleFrontEnd(){
         game = new Game();
     }
 
+    /**
+     * 
+     * TODO Write your method description here.
+     */
     private static void createAndShowGUI(){
         ScrabbleFrontEnd sfe = new ScrabbleFrontEnd();
         sfe.drawMain();
     }
 
-   
+   /**
+    * 
+    */
     public static void main (String[] args)
     {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
