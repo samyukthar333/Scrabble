@@ -32,11 +32,11 @@ public class ComputerPlayer extends Player
         {
             myLetters.add( myLetters.removeIndex( (int)(Math.random()*(myLetters.size() -1 )) ));
         }
-        super.exchange(letters, newLetters);
     }
     
-    public void executeTurn()
+    public void findWord(Board board)
     {
-        
+        //AHH THIS IS THE MOST COMPLICATED METHOD
     }
+    
 }

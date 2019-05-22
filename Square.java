@@ -1,3 +1,5 @@
+
+
 /**
  * 
  * 
@@ -88,6 +90,24 @@ public class Square
     public Letter getLetter()
     {
         return letter;
+    }
+    
+    public boolean setRow(int row)
+    {
+        if(row<0||row>14)
+            return false;
+        myX = row;
+        return true;
+        
+    }
+    
+    public boolean setCol(int col)
+    {
+        if(col<0||col>14)
+            return false;
+        myY = col;
+        return true;
+        
     }
     
     public int getSpecial()

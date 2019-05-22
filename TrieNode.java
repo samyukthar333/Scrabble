@@ -54,4 +54,9 @@ public class TrieNode
     {
         return isEnd;
     }
+    
+    public boolean hasChildren()
+    {
+        return !children.isEmpty() || (children!=null);
+    }
 }
