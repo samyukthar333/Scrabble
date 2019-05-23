@@ -14,20 +14,12 @@ import javax.swing.JFrame;
  *  TODO Follow it with additional details about its purpose, what abstraction
  *  it represents, and how to use it.
  *
-<<<<<<< HEAD
- *  @author  samyuktha, saanvi, richa
-=======
  *  @author  Richa Bavadekar
->>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
  *  @version May 22, 2019
  *  @author  Period: 4
  *  @author  Assignment: Scrabble
  *
-<<<<<<< HEAD
  *  @author  Sources: none
-=======
- *  @author  Sources: TODO add sources
->>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
  */
 public class ScrabbleFrontEnd extends JPanel
 {//  testing log add a dicitonary at the bottom and players tiles at the bottom of the screen 
@@ -39,19 +31,11 @@ public class ScrabbleFrontEnd extends JPanel
     private JFrame frame;
     Game game;
     ArrayList<JLabel> scrabble = new ArrayList<JLabel>();
-<<<<<<< HEAD
 
     /**
      * 
      * draws the board
      */
-=======
-    
-/**
- * 
- * TODO Write your method description here.
- */
->>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
     public void drawMain(){
         Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame(this.frameName);
@@ -67,13 +51,8 @@ public class ScrabbleFrontEnd extends JPanel
 
     /**
      * 
-<<<<<<< HEAD
      * draws the top panel
      * @return p
-=======
-     * TODO Write your method description here.
-     * @return
->>>>>>> 062b89ddc36e68a4da41ef3da57b9050980505ed
      */
     public JPanel getTopPanel(){
         JPanel p = new JPanel();
