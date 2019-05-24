@@ -1,42 +1,70 @@
 import java.util.ArrayList;
 
+
 /**
- *  TODO Write a one-sentence summary of your class here.
- *  TODO Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ * TODO Write a one-sentence summary of your class here. TODO Follow it with
+ * additional details about its purpose, what abstraction it represents, and how
+ * to use it.
  *
- *  @author  samyu
- *  @version Apr 30, 2019
- *  @author  Period: TODO
- *  @author  Assignment: Scrabble
+ * @author samyuktha, saanvi, richa
+ * @version Apr 30, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
  *
- *  @author  Sources: TODO
+ * @author Sources: none
  */
 public class Player
 {
 
     int points;
+
     PlayerLetters myLetters;
-    
+
+
+    /**
+     * sets letter to zero and my letters to the playerletters
+     */
     public Player()
     {
         points = 0;
         myLetters = new PlayerLetters();
     }
-    
-    public void addPoints(int num)
+
+
+    /**
+     * 
+     * adds your new points to your current number of points
+     * 
+     * @param num
+     *            the number of points
+     */
+    public void addPoints( int num )
     {
-        points+=num;
+        points += num;
     }
-    
+
+
+    /**
+     * 
+     * returns the point number
+     * 
+     * @return points
+     */
     public int getPoints()
     {
         return points;
     }
-    
+
+
+    /**
+     * 
+     * returns your letters
+     * 
+     * @return myLetters
+     */
     public PlayerLetters getLetters()
     {
         return myLetters;
     }
-    
+
 }

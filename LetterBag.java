@@ -1,9 +1,23 @@
 import java.util.ArrayList;
 
 
+/**
+ * 
+ * TODO Write a one-sentence summary of your class here. TODO Follow it with
+ * additional details about its purpose, what abstraction it represents, and how
+ * to use it.
+ *
+ * @author samyuktha, saanvi, richa
+ * @version May 22, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
+ *
+ * @author Sources: none
+ */
 public class LetterBag
 {
     private ArrayList<Letter> letters;
+
 
     /**
      * initalizes arraylist letters
@@ -13,10 +27,12 @@ public class LetterBag
         letters = new ArrayList<Letter>();
         initLetters();
     }
-    
+
+
     /**
      * 
-     * initializes all letters according to how often they appear in the scrabble bag
+     * initializes all letters according to how often they appear in the
+     * scrabble bag
      */
     public void initLetters()
     {
@@ -125,81 +141,119 @@ public class LetterBag
             letters.add( new Letter( 'Z' ) );
         }
     }
+
+
     /**
      * 
      * return a list of letters from the bag PRECONDITION: num>0
-     * @param num number of letters to return
+     * 
+     * @param num
+     *            number of letters to return
      * @return null if letters is empty, arraylist of letters
      */
-    public ArrayList<Letter> getRandomLetters(int num)
+    public ArrayList<Letter> getRandomLetters( int num )
     {
-        if(letters.size()==0)
+        if ( letters.size() == 0 )
         {
             return null;
         }
         ArrayList<Letter> letterlist = new ArrayList<Letter>();
-        
-        for(int i = 0; i<num; i++)
+
+        for ( int i = 0; i < num; i++ )
         {
-            int rand = (int)(Math.random()*letters.size());
-            letterlist.add( letters.remove(rand) );
-            
+            int rand = (int)( Math.random() * letters.size() );
+            letterlist.add( letters.remove( rand ) );
+
         }
         return letterlist;
     }
-    
+
+
     /**
      * 
      * Return a letter without removing it from the list
+     * 
      * @return random letter
      */
     public Letter getRandomLetterWithoutRemoving()
     {
-        if(letters.size()==0)
+        if ( letters.size() == 0 )
         {
             return null;
         }
-        int rand = (int)(Math.random()*letters.size());
-        return letters.get(rand);
-           
+        int rand = (int)( Math.random() * letters.size() );
+        return letters.get( rand );
+
     }
-    
+
+
+    /**
+     * 
+     * returns the length of the letters
+     * 
+     * @return letters.size()
+     */
     public int size()
     {
         return letters.size();
     }
-    
+
+
     /**
      * 
      * remove and return a random letter
+     * 
      * @return a random letter
      */
     public Letter getRandomLetter()
     {
-        if(letters.size()==0)
+        if ( letters.size() == 0 )
         {
             return null;
         }
-        int rand = (int)(Math.random()*letters.size());
-        return letters.remove(rand);
-           
+        int rand = (int)( Math.random() * letters.size() );
+        return letters.remove( rand );
+
     }
-    
-    public void add(Letter letter)
+
+
+    /**
+     * 
+     * adds this letter to the letters
+     * 
+     * @param letter
+     *            the letters in the words
+     */
+    public void add( Letter letter )
     {
         letters.add( letter );
     }
-    
-    public void add(ArrayList<Letter> letterlist)
+
+
+    /**
+     * 
+     * adds each letter to the letterlist
+     * 
+     * @param letterlist
+     *            the list of letters
+     */
+    public void add( ArrayList<Letter> letterlist )
     {
-        for(Letter letter: letterlist)
+        for ( Letter letter : letterlist )
         {
-            letters.add(letter);
+            letters.add( letter );
         }
     }
-    
+
+
+    /**
+     * 
+     * returns whether or not letters is empty
+     * 
+     * @return (letters.isEmpty())
+     */
     public boolean isEmpty()
     {
-        return (letters.isEmpty());
+        return ( letters.isEmpty() );
     }
 }
