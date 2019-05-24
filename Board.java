@@ -2,6 +2,17 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 
+/**
+ * 
+ *  establishes the game board
+ *
+ *  @author  samyuktha, saanvi, richa
+ *  @version May 22, 2019
+ *  @author  Period: 4
+ *  @author  Assignment: Scrabble
+ *
+ *  @author  Sources: none
+ */
 
 public class Board
 {
@@ -133,6 +144,10 @@ public class Board
     }
 
 
+    /**
+     * 
+     * TODO Write your method description here.
+     */
     public void transpose()
     {
         Square[][] temp = new Square[15][15];
@@ -147,7 +162,10 @@ public class Board
         transposed = true;
     }
 
-
+    /**
+     * 
+     * TODO Write your method description here.
+     */
     public void transposeBack()
     {
         Square[][] temp = new Square[15][15];
@@ -163,6 +181,11 @@ public class Board
         transposed = false;
     }
     
+    /**
+     * 
+     * TODO Write your method description here.
+     * @return
+     */
     public Square[][] copy()
     {
         Square[][] copy = new Square[15][15];
@@ -512,6 +535,12 @@ public class Board
     // return points;
     // }
 
+    /**
+     * 
+     * TODO Write your method description here.
+     * @param squares
+     * @return
+     */
     public int placeWord( ArrayList<Square> squares )
     {
         Square[][] temp = copy();
@@ -542,6 +571,12 @@ public class Board
     }
 
 
+    /**
+     * 
+     * TODO Write your method description here.
+     * @param squares
+     * @return
+     */
     private ArrayList<Square> sortSquares( ArrayList<Square> squares )
     {
         boolean x = true, y = true;
@@ -575,7 +610,12 @@ public class Board
 
     }
 
-
+    /**
+     * 
+     * TODO Write your method description here.
+     * @param squares
+     * @return
+     */
     private int checkRow( ArrayList<Square> squares)
     {
         int row = squares.get(0).getRow();
@@ -627,7 +667,12 @@ public class Board
         return -1;
     }
 
-
+    /**
+     * 
+     * TODO Write your method description here.
+     * @param squares
+     * @return
+     */
     private ArrayList<Square> transposeSquares( ArrayList<Square> squares )
     {
         for ( Square s : squares )
@@ -640,7 +685,12 @@ public class Board
         return squares;
     }
 
-
+    /**
+     * 
+     * TODO Write your method description here.
+     * @param squares
+     * @return
+     */
     private ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
     {
         for ( Square s : squares )

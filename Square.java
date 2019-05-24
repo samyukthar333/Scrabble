@@ -90,7 +90,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * returns the row value / x coordinate of letter
      * 
      * @return myX
      */
@@ -102,7 +102,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * returns the column value / y coordinate of letter
      * 
      * @return myY
      */
@@ -114,7 +114,8 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * sets the score multiplier to the local score multiplier
+     * sets the value of the local letter to letter
      * 
      * @param letter
      *            the letters in the word
@@ -131,7 +132,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * sets the score multiplier to a specified number
      * 
      * @param num
      */
@@ -143,7 +144,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * returns the letter
      * 
      * @return letter
      */
@@ -155,7 +156,8 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * if the row number is out of bounds, return false
+     * if it is in bounds, set the x coordinate to row number, return true
      * 
      * @param row
      * @return false || false && true
@@ -166,13 +168,13 @@ public class Square
             return false;
         myX = row;
         return true;
-
     }
 
 
     /**
      * 
-     * TODO Write your method description here.
+     * if the column number is out of bounds, return false
+     * if it is in bounds, set the x coordinate to column number, return true
      * 
      * @param col
      * @return false || false && true
@@ -189,7 +191,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * returns the score multiplier
      * 
      * @return special
      */
@@ -201,7 +203,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * checks if letter is null, true if it is, false if it isnt
      * 
      * @return (letter == null)
      */
@@ -213,7 +215,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * checks if there is a score multiplier, true if it is, false if it isnt
      * 
      * @return special != 0
      */
@@ -225,7 +227,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * removing the score multiplier (sets it to 0)
      */
     public void removeSpecial()
     {
@@ -235,7 +237,7 @@ public class Square
 
     /**
      * 
-     * TODO Write your method description here.
+     * calculates point value + score multiplier based on letter
      * 
      * @return letter.getPointValue() || letter.getPointValue() * 2 ||
      *         letter.getPointValue() * 3 || -10 || -20
