@@ -81,6 +81,16 @@ public class Game
 
     }
 
+    /**
+     *
+     * gets the LetterBag
+     * 
+     * @return LetterBag
+     */
+    public LetterBag getBag(){
+        return myBag;
+    }
+
 
     /**
      * 
