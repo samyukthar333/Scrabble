@@ -78,7 +78,6 @@ public class Square
     {
         this.letter = letter;
         int sp = special;
-        removeSpecial();
         return sp;
     }
     

@@ -43,7 +43,11 @@ public class Board
             for ( int j = 0; j < board[0].length; j++ )
             {
                 bitVectors[i][j] = new BitSet(26);
-                if ( board[i][j].getLetter() != null )
+                if((!isValid(i-1, j) || board[i-1][j].isEmpty()) && (!isValid(i+1, j) || board[i+1][j].isEmpty()))
+                {
+                    bitVectors[i][j].set( 0, 25 );
+                }
+                else if ( board[i][j].getLetter() != null )
                 {
                     int num = i;
                     while ( num >= 0 && board[num][j].getLetter() != null )
@@ -52,26 +56,18 @@ public class Board
                     }
                     num++;
                     String s = "";
-                    while ( num <= 14 && board[num][j].getLetter() != null )
+                    while ( num <= 14 && !board[num][j].isEmpty() )
                     {
                         s += board[num][j].getLetter().getLetter();
                         num++;
                     }
-                    if ( s.equals( "" ) )
+                    HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
+                    if(children!=null)
                     {
-                        bitVectors[i][j].set( 0, bitVectors[i][j].size() - 1, true );
-                    }
-                    else
-                    {
-                        if(Words.wordTrie.getEndNode( s ) != null && Words.wordTrie.getEndNode( s ).hasChildren())
+                        for ( char c : children.keySet() )
                         {
-                            HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
-                            for ( char c : children.keySet() )
-                            {
-                            
                             bitVectors[i][j].set(Character.getNumericValue( c ) - Character.getNumericValue( 'A' ), true );
-                            }                       
-                        }
+                        }                         
                     }
                 }
             }
@@ -168,7 +164,10 @@ public class Board
         Square[][] copy = new Square[15][15];
         for ( int i = 0; i < board.length; i++ )
             for ( int j = 0; j < board[0].length; j++ )
-                copy[i][j] = board[i][j];
+            {
+                copy[i][j] = new Square(i, j, board[i][j].getSpecial());
+                copy[i][j].setLetter(board[i][j].getLetter());
+            }
         return copy;
     }
 
@@ -275,243 +274,6 @@ public class Board
     }
 
 
-    // /**
-    // *
-    // * places word if possible. If not possible returns -1, else number of
-    // points the play is worth
-    // * @param input from player - arraylist of squares with letters
-    // * @return
-    // */
-    // public int placeWord( ArrayList<Square> input )
-    // {
-    // Square[][] temp = board;
-    // ArrayList<Integer> rowVals = new ArrayList<Integer>();
-    // ArrayList<Integer> columnVals = new ArrayList<Integer>();
-    // for (Square square : input) {
-    // rowVals.add( square.getRow() );
-    // columnVals.add( square.getCol() );
-    // if(!temp[square.getRow()][square.getCol()].isEmpty())
-    // {
-    // return -1;
-    // }
-    // board[square.getRow()][square.getCol()].setLetter( square.getLetter() );
-    // }
-    // int same = rowVals.get( 0 );
-    // boolean isRow = true, isCol = true; //if true, then is a column word else
-    // row word \\ temporary initialization
-    // for (int x = 1; x < rowVals.size(); x++) // checks if all the row values
-    // are the same
-    // {
-    // if(rowVals.get( x )!=same)
-    // {
-    // isRow = false;
-    // break;
-    // }
-    // }
-    // same = columnVals.get( 0 );
-    // for (int y = 1; y < columnVals.size(); y++) // checks if all the column
-    // values are the same
-    // {
-    // if(columnVals.get( y )!=same)
-    // {
-    // isCol = false;
-    // break;
-    // }
-    // }
-    // int points = 0;
-    // if(isRow) //if row word, sent to private helper method
-    // {
-    // same = rowVals.get( 0 );
-    // columnVals = sort(columnVals);
-    // points = placeRow(columnVals, same);
-    //
-    // }
-    // else if(isCol) //if column word, sent to private helper method
-    // {
-    // same = columnVals.get( 0 );
-    // rowVals = sort(rowVals);
-    // points = placeColumn(rowVals, same);
-    //
-    // }
-    // if(points == -1)
-    // {
-    // board = temp;
-    // }
-    // return points;
-    // }
-    //
-    //
-    // /**
-    // *
-    // * returns the number of points
-    // * @param temp
-    // * @param vals the column values or row values of indices
-    // * @param val the row value or the column value
-    // * @param direction direction of the word (true for right and false for
-    // down)
-    // * @param word the word itself
-    // * @return points the number of points the word is worth
-    // */
-    // private int getPoints(ArrayList<Integer> vals, int val, boolean
-    // direction) //true for right, false for down
-    // {
-    //
-    // int points = 0;
-    // int num = 1; //double word or triple word to multiply at the end
-    // for(int i : vals)
-    // {
-    // Square s;
-    // int p = 0;
-    // if(direction) //if horizontal word
-    // {
-    // s = board[val][i];
-    // p = s.getPoints();
-    // }
-    // else
-    // {
-    // s = board[i][val];
-    // p = s.getPoints();
-    // }
-    // if(p == -10) //double word
-    // {
-    // num*=2;
-    // p = s.getLetter().getPointValue();
-    // }
-    // else if(p == -20) //triple word
-    // {
-    // num*=3;
-    // p = s.getLetter().getPointValue();
-    // }
-    // points += p;
-    // s.removeSpecial();
-    //
-    // }
-    // points*=num;
-    // return points;
-    // }
-    // private int placeRow(ArrayList<Integer> columnVals, int row)
-    // {
-    // ArrayList<Integer> tempColVals = columnVals;
-    // ArrayList<Integer> letters = new ArrayList<Integer>();
-    // int start = 0;
-    // for(int i = columnVals.get( 0 ); i>=0; i--)
-    // {
-    // if(board[row][i].isEmpty())
-    // {
-    // start = i+1;
-    // break;
-    // }
-    // }
-    // String word = "";
-    // for(Integer i = start; i<=14; i++)
-    // {
-    // if(board[row][i].isEmpty())
-    // {
-    // break;
-    // }
-    // word += board[row][i].getLetter().getLetter();
-    // letters.add( (int) i );
-    // columnVals.remove( i );
-    // }
-    //
-    // if(!columnVals.isEmpty() || !Words.isWord( word ))
-    // {
-    // return -1;
-    // }
-    //
-    // for(int i:tempColVals)
-    // {
-    // if(!checkColumn(row, i))
-    // return -1;
-    // }
-    // int points = getPoints(letters, row, true);
-    // return points;
-    // }
-    //
-    // private boolean checkColumn( int row, int col)
-    // {
-    // int start = 0;
-    // for(int i = row; i>=0; i--)
-    // {
-    // if(board[i][col].isEmpty())
-    // {
-    // start = i+1;
-    // break;
-    // }
-    // }
-    // String word = "";
-    // for(int i = start; i<=14; i++)
-    // {
-    // if(board[i][col].isEmpty())
-    // {
-    // break;
-    // }
-    // word += board[i][col].getLetter().getLetter();
-    // }
-    // return Words.isWord( word );
-    // }
-    // private boolean checkRow( int row, int col)
-    // {
-    // int start = 0;
-    // for(int i = col; i>0; i--)
-    // {
-    // if(board[row][i].getLetter()==null)
-    // {
-    // start = i+1;
-    // break;
-    // }
-    // }
-    // String word = "";
-    // for(int i = start; i<=14; i++)
-    // {
-    // if(board[row][i].getLetter()==null)
-    // {
-    // break;
-    // }
-    // word += board[row][i].getLetter().getLetter();
-    // }
-    // return Words.isWord( word );
-    // }
-    //
-    // private int placeColumn(ArrayList<Integer> rowVals, int col)
-    // {
-    // ArrayList<Integer> letters = new ArrayList<Integer>();
-    // ArrayList<Integer> tempRowVals = rowVals;
-    // int start = 0;
-    // for(int i = rowVals.get( 0 ); i>0; i--)
-    // {
-    // if(board[i][col].getLetter()==null)
-    // {
-    // start = i+1;
-    // break;
-    // }
-    // }
-    // String word = "";
-    // for(int i = start; i<=14; i++)
-    // {
-    // if(board[i][col].getLetter()==null)
-    // {
-    // break;
-    // }
-    // word += board[i][col].getLetter().getLetter();
-    // letters.add( i);
-    // rowVals.remove( i );
-    // }
-    // if(!rowVals.isEmpty() || !Words.isWord( word ))
-    // {
-    // return -1;
-    // }
-    //
-    // for(Integer i:tempRowVals)
-    // {
-    // if(!checkRow(i, col))
-    // return -1;
-    // }
-    //
-    // int points = getPoints(letters, col, false);
-    // return points;
-    // }
-
     public int placeWord( ArrayList<Square> squares )
     {
         Square[][] temp = copy();
@@ -523,10 +285,12 @@ public class Board
             int num = Character.getNumericValue(Character.toUpperCase(s.getLetter().getLetter())) - Character.getNumericValue( 'A' );
             if(!set.get( num ))
             {
+                System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
                 board = temp;
                 return -1;
             }     
         }
+        printBoard();
         squares = sortSquares( squares );
         int points = checkRow(squares);
         if(points == -1)
@@ -617,9 +381,11 @@ public class Board
                 pointNum = 3;
             }
             points += temp;
+            s.removeSpecial();
             
         }
-        points *= pointNum;
+        points = points*pointNum;
+        System.out.println( connected );
         if(connected && Words.isWord( word ))
         {
             return points;
@@ -628,7 +394,7 @@ public class Board
     }
 
 
-    private ArrayList<Square> transposeSquares( ArrayList<Square> squares )
+    public ArrayList<Square> transposeSquares( ArrayList<Square> squares )
     {
         for ( Square s : squares )
         {
@@ -641,14 +407,14 @@ public class Board
     }
 
 
-    private ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
+    public ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
     {
         for ( Square s : squares )
         {
             int tempX = s.getRow();
             s.setRow( s.getCol() );
             s.setCol( board[0].length - 1 - tempX );
-            // temp[i][j] = board[j][board[0].length - 1 - i];
+            
         }
 
         return squares;
@@ -883,12 +649,21 @@ public class Board
         board.getBoard()[3][6].setLetter( new Letter( 'A' ) );
         board.getBoard()[4][6].setLetter( new Letter( 'D' ) );
         board.printBoardSp();
+        
         ArrayList<Square> input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'B' ), 2, 2 ) );
         input.add( new Square( new Letter( 'O' ), 2, 3 ) );
         input.add( new Square( new Letter( 'A' ), 2, 4 ) );
         input.add( new Square( new Letter( 'R' ), 2, 5 ) );
         int points = board.placeWord( input );
+        board.printBoard();
+        System.out.println( points );
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'O' ), 3, 2 ) );
+        input.add( new Square( new Letter( 'A' ), 4, 2 ) );
+        input.add( new Square( new Letter( 'R' ), 5, 2 ) );
+        points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
         // testing purposes
