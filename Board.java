@@ -38,36 +38,67 @@ public class Board
      */
     private void initBitSet()
     {
-        for ( int i = 0; i < board.length; i++ )
+        for ( int i = 0; i < bitVectors.length; i++ )
         {
-            for ( int j = 0; j < board[0].length; j++ )
+            for ( int j = 0; j < bitVectors[0].length; j++ )
             {
                 bitVectors[i][j] = new BitSet(26);
-                if((!isValid(i-1, j) || board[i-1][j].isEmpty()) && (!isValid(i+1, j) || board[i+1][j].isEmpty()))
+                if(board[i][j].isEmpty())
                 {
-                    bitVectors[i][j].set( 0, 25 );
-                }
-                else if ( board[i][j].getLetter() != null )
-                {
-                    int num = i;
-                    while ( num >= 0 && board[num][j].getLetter() != null )
+                    if((!isValid(i-1, j) || board[i-1][j].isEmpty()) && (!isValid(i+1, j) || board[i+1][j].isEmpty()))
                     {
-                        num--;
+                       // System.out.println( board[i][j] + "pleaseeeeeee" );
+                        bitVectors[i][j].set( 0, 25, true );
                     }
-                    num++;
-                    String s = "";
-                    while ( num <= 14 && !board[num][j].isEmpty() )
+                    else
                     {
-                        s += board[num][j].getLetter().getLetter();
-                        num++;
-                    }
-                    HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
-                    if(children!=null)
-                    {
-                        for ( char c : children.keySet() )
+                        int num = i-1;
+                        String s = "";
+                        while ( num >= 0 && board[num][j].getLetter()!=null )
                         {
-                            bitVectors[i][j].set(Character.getNumericValue( c ) - Character.getNumericValue( 'A' ), true );
-                        }                         
+                           System.out.println( "if it doesn't..." + s);
+                            s = board[num][j].getLetter().getLetter() + s;
+                            num--;
+                        }
+                        System.out.println("s: " + s );
+                        if(s.isEmpty()) //if empty square is above 
+                        {
+                            num = i+1;
+                            while ( num <= 14 && board[num][j].getLetter() != null )
+                            {
+                                s = s + board[num][j].getLetter().getLetter();
+                                num++;
+                                
+                            }
+                            System.out.println( "s1: " + s );
+                            String tmp = new String(s);
+                            String alphabet = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
+                            for(char c: alphabet.toCharArray())
+                            {
+                                System.out.println("c: " + c);
+                                s = new String(c+tmp);
+                                if(Words.wordTrie.contains( s ))
+                                {
+                                     bitVectors[i][j].set(Character.getNumericValue( c ) - Character.getNumericValue( 'A' ), true);
+                                }
+                            }
+                        }
+                        else
+                        {
+                            System.out.println( "goodnessaslfjkas" );
+                            if(Words.wordTrie.getEndNode( s )!=null)
+                            {
+                                HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
+                                if(children!=null)
+                                {
+                                    for ( char c : children.keySet() )
+                                    {
+                                        //System.out.println("char: "+ c );
+                                        bitVectors[i][j].set(Character.getNumericValue( c ) - Character.getNumericValue( 'A' ), true );
+                                    }                         
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -129,7 +160,11 @@ public class Board
     }
 
 
-    public void transpose()
+    /**
+     * 
+     * transposes board clockwise
+     */
+    public void transposeBack()
     {
         Square[][] temp = new Square[15][15];
         for ( int i = 0; i < board.length; i++ )
@@ -140,11 +175,15 @@ public class Board
             }
         }
         board = temp;
-        transposed = true;
+        transposed = false;
     }
 
 
-    public void transposeBack()
+    /**
+     * 
+     * transposes board counterclockwise
+     */
+    public void transpose()
     {
         Square[][] temp = new Square[15][15];
         for ( int i = 0; i < board.length; i++ )
@@ -156,9 +195,14 @@ public class Board
             }
         }
         board = temp;
-        transposed = false;
+        transposed = true;
     }
     
+    /**
+     * 
+     * returns a copy of board
+     * @return a copy of board
+     */
     public Square[][] copy()
     {
         Square[][] copy = new Square[15][15];
@@ -277,12 +321,16 @@ public class Board
     public int placeWord( ArrayList<Square> squares )
     {
         Square[][] temp = copy();
+        printBoard();
+        squares = sortSquares( squares );
         initBitSet();
+        System.out.println( "t: " + transposed );
         for(Square s : squares)
         {
             addLetter(s.getLetter(), s.getRow(), s.getCol());
             BitSet set = bitVectors[s.getRow()][s.getCol()];
-            int num = Character.getNumericValue(Character.toUpperCase(s.getLetter().getLetter())) - Character.getNumericValue( 'A' );
+            int num = Character.getNumericValue(s.getLetter().getLetter()) - Character.getNumericValue( 'A' );
+            System.out.println("" + num + set.get( num ));
             if(!set.get( num ))
             {
                 System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
@@ -290,11 +338,11 @@ public class Board
                 return -1;
             }     
         }
-        printBoard();
-        squares = sortSquares( squares );
+        System.out.println("gdfgk");
         int points = checkRow(squares);
         if(points == -1)
         {
+            System.out.println("points wrong...");
             board = temp;
             return -1;
         }
@@ -308,6 +356,19 @@ public class Board
 
     private ArrayList<Square> sortSquares( ArrayList<Square> squares )
     {
+        System.out.println( squares.size() );
+        if(squares.size()==1)
+        {
+            System.out.println( "one letter" );
+            if(containsToporBottom(squares.get( 0 ).getRow(), squares.get( 0 ).getCol()))
+            {
+                System.out.println("ahhhhh");
+                transpose();
+                printBoard();
+                squares = transposeSquares( squares );
+            }
+            return squares;
+        }
         boolean x = true, y = true;
         int sameX = squares.get( 0 ).getRow(), sameY = squares.get( 0 ).getCol();
         for ( Square s : squares )
@@ -333,12 +394,17 @@ public class Board
         {
             squares = sortbyX( squares );
             transpose();
+            printBoard();
             squares = transposeSquares( squares );
         }
         return squares;
 
     }
 
+    private boolean containsToporBottom(int i, int j)
+    {
+        return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j) && !board[i+1][j].isEmpty());
+    }
 
     private int checkRow( ArrayList<Square> squares)
     {
@@ -365,7 +431,7 @@ public class Board
             }
             char c = s.getLetter().getLetter();
             word += c;
-            if(!squares.contains( s ))
+            if(!squares.contains( s ) || containsToporBottom(s.getRow(), s.getCol()))
                 connected = true;
             
             //calculating points stuff
@@ -385,8 +451,8 @@ public class Board
             
         }
         points = points*pointNum;
-        System.out.println( connected );
-        if(connected && Words.isWord( word ))
+        System.out.println("t: " + transposed );
+        if(connected && (squares.size()==1 || Words.isWord( word )))
         {
             return points;
         }
@@ -394,20 +460,24 @@ public class Board
     }
 
 
-    public ArrayList<Square> transposeSquares( ArrayList<Square> squares )
+    private ArrayList<Square> transposeSquares( ArrayList<Square> squares )
     {
+        ArrayList<Square> squares2 = new ArrayList<Square>();
         for ( Square s : squares )
         {
             int tempX = s.getRow();
             s.setRow( board[0].length - 1 - s.getCol() );
             s.setCol( tempX );
+            squares2.add( s );
+            
+            
         }
 
-        return squares;
+        return squares2;
     }
 
 
-    public ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
+    /*private ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
     {
         for ( Square s : squares )
         {
@@ -418,7 +488,7 @@ public class Board
         }
 
         return squares;
-    }
+    }*/
 
 
     /**
@@ -478,7 +548,7 @@ public class Board
         int small = low - 1;
         for ( int i = low; i < high; i++ )
         {
-            if ( myArray.get( i ).getRow() > pivot )
+            if ( myArray.get( i ).getRow() < pivot )
             {
                 small++;
                 Square temp = myArray.get( small );
@@ -552,7 +622,7 @@ public class Board
         int small = low - 1;
         for ( int i = low; i < high; i++ )
         {
-            if ( myArray.get( i ).getCol() > pivot )
+            if ( myArray.get( i ).getCol() < pivot )
             {
                 small++;
                 Square temp = myArray.get( small );
@@ -663,6 +733,43 @@ public class Board
         input.add( new Square( new Letter( 'O' ), 3, 2 ) );
         input.add( new Square( new Letter( 'A' ), 4, 2 ) );
         input.add( new Square( new Letter( 'R' ), 5, 2 ) );
+        points = board.placeWord( input );
+        board.printBoard();
+        System.out.println( points );
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'O' ), 4, 7 ) );
+        input.add( new Square( new Letter( 'L' ), 4, 8 ) );
+        input.add( new Square( new Letter( 'L' ), 4, 9 ) );
+        points = board.placeWord( input );
+        board.printBoard();
+        System.out.println( points );
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'U' ), 5, 9 ) );
+        input.add( new Square( new Letter( 'M' ), 6, 9 ) );
+        input.add( new Square( new Letter( 'B' ), 7, 9 ) );
+        input.add( new Square( new Letter( 'E' ), 8, 9 ) );
+        input.add( new Square( new Letter( 'R' ), 9, 9 ) );
+        points = board.placeWord( input );
+        board.printBoard();
+        System.out.println( points );
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'D' ), 6, 2 ) );
+        //input.add( new Square( new Letter( 'S' ), 7, 2 ) );
+        points = board.placeWord( input );
+        board.printBoard();
+        System.out.println( points );
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'S' ), 4, 10 ) );
+        points = board.placeWord( input );
+        board.printBoard();
+        System.out.println( points );
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'R' ), 3, 3 ) );
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );

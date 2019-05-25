@@ -30,8 +30,11 @@ public class ComputerPlayer extends Player
         ArrayList<Letter> letters = new ArrayList<Letter>();
         for(int i = 0; i<3; i++)
         {
-            myLetters.add( myLetters.removeIndex( (int)(Math.random()*(myLetters.size() -1 )) ));
+            letters.add( myLetters.removeIndex( (int)(Math.random()*(myLetters.size() -1 )) ));
+            
         }
+        for(Letter letter: newLetters)
+            myLetters.add( letter );
     }
     
     public void findWord(Board board)

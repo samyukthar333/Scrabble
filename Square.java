@@ -236,8 +236,7 @@ public class Square
      * 
      * TODO Write your method description here.
      * 
-     * @return letter.getPointValue() || letter.getPointValue() * 2 ||
-     *         letter.getPointValue() * 3 || -10 || -20
+     * @return bs
      */
     public int getPoints()
     {
