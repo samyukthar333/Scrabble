@@ -2,8 +2,20 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 
-
-public class Board
+/**
+ * 
+ *  TODO Write a one-sentence summary of your class here.
+ *  TODO Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ *
+ *  @author  samyu
+ *  @version May 25, 2019
+ *  @author  Period: TODO
+ *  @author  Assignment: Scrabble
+ *
+ *  @author  Sources: TODO
+ */
+public class Board //does not work only for when letter has both up and side neighbors
 {
     private Square[][] board;
 
@@ -75,7 +87,7 @@ public class Board
                             String alphabet = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
                             for(char c: alphabet.toCharArray())
                             {
-                                System.out.println("c: " + c);
+                                //System.out.println("c: " + c);
                                 s = new String(c+tmp);
                                 if(Words.wordTrie.contains( s ))
                                 {
@@ -350,6 +362,44 @@ public class Board
         if(transposed)
             transposeBack();
         
+        return points;
+    }
+    
+    
+
+    public int findPointsWithoutPlacing( ArrayList<Square> squares )
+    {
+        Square[][] temp = copy();
+        printBoard();
+        squares = sortSquares( squares );
+        initBitSet();
+        System.out.println( "t: " + transposed );
+        for(Square s : squares)
+        {
+            addLetter(s.getLetter(), s.getRow(), s.getCol());
+            BitSet set = bitVectors[s.getRow()][s.getCol()];
+            int num = Character.getNumericValue(s.getLetter().getLetter()) - Character.getNumericValue( 'A' );
+            System.out.println("" + num + set.get( num ));
+            if(!set.get( num ))
+            {
+                System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
+                board = temp;
+                return -1;
+            }     
+        }
+        System.out.println("gdfgk");
+        int points = checkRow(squares);
+        if(points == -1)
+        {
+            System.out.println("points wrong...");
+            board = temp;
+            return -1;
+        }
+        
+        if(transposed)
+            transposeBack();
+        
+        board = temp;
         return points;
     }
 
@@ -768,11 +818,19 @@ public class Board
         board.printBoard();
         System.out.println( points );
         
-        input = new ArrayList<Square>();
+        /*input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'R' ), 3, 3 ) );
         points = board.placeWord( input );
         board.printBoard();
+        System.out.println( points );*/
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'N' ), 5, 7 ) );
+        points = board.placeWord( input );
+        board.printBoard();
         System.out.println( points );
+        
+        board.printBoardSp();
         // testing purposes
     }
 

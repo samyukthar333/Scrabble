@@ -15,9 +15,9 @@ import java.util.ArrayList;
  */
 public class Game
 {
-    private Player player1;
+    private Player player1; //computer player
 
-    private Player player2;
+    private Player player2; //human player
 
     private Player currentPlayer;
 
@@ -42,11 +42,20 @@ public class Game
      * 
      * @return player2
      */
+    public Player getComputer()
+    {
+        return player1;
+    }
+    
     public Player getHuman()
     {
         return player2;
     }
-
+    
+    public boolean isComputer(Player player)
+    {
+        return (player1.equals( player ));
+    }
 
     /**
      * 
