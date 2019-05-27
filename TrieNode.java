@@ -32,7 +32,7 @@ public class TrieNode
 
 
     /**
-     * 
+     * constructs TrieNode with given character
      * @param c
      */
     public TrieNode( char c )
@@ -45,9 +45,9 @@ public class TrieNode
 
     /**
      * 
-     * TODO Write your method description here.
+     * returns children of current node
      * 
-     * @return children
+     * @return children of current node (HashMap)
      */
     public HashMap<Character, TrieNode> getChildren()
     {
@@ -57,9 +57,9 @@ public class TrieNode
 
     /**
      * 
-     * TODO Write your method description here.
+     * returns character of the node
      * 
-     * @return myChar
+     * @return myChar character of the node
      */
     public char getChar()
     {
@@ -69,9 +69,9 @@ public class TrieNode
 
     /**
      * 
-     * TODO Write your method description here.
+     * sets the character of the node to given value
      * 
-     * @param c
+     * @param c the character to set the node
      */
     public void setChar( char c )
     {
@@ -81,7 +81,7 @@ public class TrieNode
 
     /**
      * 
-     * TODO Write your method description here.
+     * makes the node an ending node
      */
     public void makeEnd()
     {
@@ -91,9 +91,9 @@ public class TrieNode
 
     /**
      * 
-     * TODO Write your method description here.
+     * returns whether the node is an end node or not
      * 
-     * @return isEnd
+     * @return true if the node is an end node, false otherwise
      */
     public boolean isEnd()
     {

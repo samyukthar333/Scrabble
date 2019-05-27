@@ -1,12 +1,10 @@
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 
 /**
  * 
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * constructs a trie for the given word
  *
  * @author samyuktha, saanvi, richa
  * @version May 19, 2019
@@ -105,9 +103,8 @@ public class Trie
      * 
      * checks if the trie contains the word being checked
      * 
-     * @param word
-     *            the word that is being checked
-     * @return (node != null && node.isEnd());
+     * @param word the word that is being checked
+     * @return whether string is a word
      */
     public boolean contains( String word )
     {

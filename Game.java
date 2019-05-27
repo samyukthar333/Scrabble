@@ -2,9 +2,7 @@ import java.util.ArrayList;
 
 
 /**
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * sets up the game
  *
  * @author samyuktha, saanvi, richa
  * @version Apr 30, 2019
@@ -24,7 +22,6 @@ public class Game
     private LetterBag myBag;
 
     private Board board;
-
 
     public Game()
     {

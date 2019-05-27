@@ -1,3 +1,4 @@
+
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
@@ -274,6 +275,18 @@ public class Board //does not work only for when letter has both up and side nei
     {
         return ( x >= 0 && x < 15 && y >= 0 && y < 15 );
     }
+    
+    /**
+     * 
+     * TODO Write your method description here.
+     * @param row
+     * @param col
+     * @return
+     */
+    public BitSet getBitVector(int row, int col)
+    {
+        return bitVectors[row][col];
+    }
 
 
     /**
@@ -309,10 +322,9 @@ public class Board //does not work only for when letter has both up and side nei
 
     /**
      * 
-     * fixes placeable locations to not include any with 3 or more neighbors or
-     * 2 neighbors that are not diagonals to each other
+     * cross checks 
      */
-    public void fixAnchors()
+    private void fixAnchors()
     {
         for ( int i = 0; i < 15; i++ )
         {
