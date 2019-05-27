@@ -30,6 +30,7 @@ public class ScrabbleFrontEnd extends JPanel
     private JPanel mainPanel;
     private Game game;
     Rectangle dim = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
+    //Dimension dim = new Dimension(1400, 800);
 
     private Dimension getPercent(int w_percent, int h_percent){
         int width = (dim.width * w_percent) / 100;
@@ -64,8 +65,9 @@ public class ScrabbleFrontEnd extends JPanel
         //jp.setPreferredSize(new Dimension(dim.width / 10, dim.height / 20));
         jp.setPreferredSize(getPercent(10, 20));
         jp.setBorder(border);
-        ScrabbleLeftPanel.drawLeftPanel(game, jp, game.getHuman());
-        return jp;
+        ScrabbleLeftPanel sblp = new ScrabbleLeftPanel(game, jp, game.getHuman());
+        //ScrabbleLeftPanel.drawLeftPanel(game, jp, game.getHuman());
+        return sblp;
     }
 
     private JPanel getBottomPanel(){
@@ -74,8 +76,10 @@ public class ScrabbleFrontEnd extends JPanel
         //jp.setSize(dim.width, dim.height / 10);
         //jp.setPreferredSize(new Dimension(dim.width, dim.height / 10));
         jp.setPreferredSize(getPercent(10, 10));
+        jp.setSize(getPercent(10,10).width, getPercent(10,10).height);
         jp.setBorder(border);
-        ScrabbleBottomPanel.drawBottomPanel(game, jp);
+        ScrabbleBottomPanel sbp = new ScrabbleBottomPanel(game, jp);
+        //ScrabbleBottomPanel.drawBottomPanel(game, jp);
         return jp;
     }
 
@@ -97,11 +101,12 @@ public class ScrabbleFrontEnd extends JPanel
         jp.setSize(getPercent(80, 80).width, getPercent(80, 80).height);
         jp.setPreferredSize(getPercent(80, 80));
         jp.setBorder(border);
-        ScrabbleBoard.drawBoard(game, jp);
+        ScrabbleBoard sb = new ScrabbleBoard(game, jp);
+        //ScrabbleBoard.drawBoard(game, jp);
         return jp;
     }
 
-    private void drawBoard(){
+    private void drawBoard(JPanel mainPanel){
         mainPanel.add(getTopPanel(), BorderLayout.NORTH);
         mainPanel.add(getBottomPanel(), BorderLayout.SOUTH);
         mainPanel.add(getLeftPanel(), BorderLayout.WEST);
@@ -109,19 +114,19 @@ public class ScrabbleFrontEnd extends JPanel
         mainPanel.add(getCenterPanel(), BorderLayout.CENTER);
     }
 
-    private void initMainPanel(){
-        mainPanel = new JPanel();
-        mainPanel.setBackground(Color.BLUE);
-        mainPanel.setLayout(new BorderLayout());
-        frame.setContentPane(mainPanel);
+    private void initMainPanel(JPanel jp){
+        //mainPanel = new JPanel();
+        jp.setBackground(Color.BLUE);
+        jp.setLayout(new BorderLayout());
+        frame.setContentPane(jp);
         frame.pack();
         frame.setVisible(true);
     }
 
     private void drawGame(){
         initFrame();
-        initMainPanel();
-        drawBoard();
+        initMainPanel(this);
+        drawBoard(this);
         
         /*
         BorderLayout bl = (BorderLayout)mainPanel.getLayout();
@@ -133,6 +138,7 @@ public class ScrabbleFrontEnd extends JPanel
 
     public ScrabbleFrontEnd(){
         game = new Game();
+        //System.out.println("Width " + dim.width + " Height " + dim.height);
     }
 
     private static void createAndShowGUI(){
