@@ -119,7 +119,8 @@ public class Words
      */
     public static boolean isWord( String word )
     {
-        return ( words.containsKey( word ) );
+        //return ( words.containsKey( word ) );
+        return wordTrie.contains( word ); //faster to use trie rather than hashMap
     }
 
 

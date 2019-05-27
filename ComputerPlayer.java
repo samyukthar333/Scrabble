@@ -1,6 +1,5 @@
 import java.util.ArrayList;
 
-//DO THIS CLASS AFTER IMPLEMENTING A GAME WITH TWO HUMAN PLAYERS
 /**
  *  TODO Write a one-sentence summary of your class here.
  *  TODO Follow it with additional details about its purpose, what abstraction
@@ -25,14 +24,18 @@ public class ComputerPlayer extends Player
      * exchanges 3 random letters with 3 letters from the bag
      * 
      */
-    public void exchange(ArrayList<Letter> newLetters)
+    public ArrayList<Letter> getExchange()
     {
         ArrayList<Letter> letters = new ArrayList<Letter>();
         for(int i = 0; i<3; i++)
         {
-            myLetters.add( myLetters.removeIndex( (int)(Math.random()*(myLetters.size() -1 )) ));
+            letters.add( myLetters.removeIndex( (int)(Math.random()*(myLetters.size() -1 )) ));
+            
         }
+        return letters;
     }
+    
+    
     
     public void findWord(Board board)
     {

@@ -125,7 +125,6 @@ public class Square
     {
         this.letter = letter;
         int sp = special;
-        removeSpecial();
         return sp;
     }
 
@@ -239,8 +238,7 @@ public class Square
      * 
      * calculates point value + score multiplier based on letter
      * 
-     * @return letter.getPointValue() || letter.getPointValue() * 2 ||
-     *         letter.getPointValue() * 3 || -10 || -20
+     * @return bs
      */
     public int getPoints()
     {
