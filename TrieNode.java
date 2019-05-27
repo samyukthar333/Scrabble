@@ -32,7 +32,7 @@ public class TrieNode
 
 
     /**
-     * 
+     * constructs TrieNode with given character
      * @param c
      */
     public TrieNode( char c )
