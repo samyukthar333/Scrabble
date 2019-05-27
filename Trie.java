@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+
 import java.util.HashMap;
 
 
@@ -105,9 +105,8 @@ public class Trie
      * 
      * checks if the trie contains the word being checked
      * 
-     * @param word
-     *            the word that is being checked
-     * @return (node != null && node.isEnd());
+     * @param word the word that is being checked
+     * @return whether string is a word
      */
     public boolean contains( String word )
     {

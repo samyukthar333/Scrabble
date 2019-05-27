@@ -227,6 +227,15 @@ public class Board //does not work only for when letter has both up and side nei
         return copy;
     }
 
+    public BitSet[][] getBitVectors()
+    {
+        return bitVectors;
+    }
+    
+    public BitSet getBitVector(int row, int col)
+    {
+        return bitVectors[row][col];
+    }
 
     /**
      * 
