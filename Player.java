@@ -1,10 +1,12 @@
+<<<<<<< HEAD
+// import java.util.ArrayList;
+=======
 
+>>>>>>> 11c0e5befe119591ba6bc71b77f42e26adcc07e0
 
 
 /**
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * includes methods around gameplay for the player
  *
  * @author samyuktha, saanvi, richa
  * @version Apr 30, 2019
