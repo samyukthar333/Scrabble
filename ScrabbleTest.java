@@ -12,13 +12,14 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test // Letter Saanvi
     public void testConstructor1Param()
     {
-
+       Letter a = 'a';
+       assertEquals(a, 1);
     }
 
 
     public void testGetChar()
     {
-
+        
     }
 
 
@@ -29,11 +30,15 @@ public class ScrabbleTest extends junit.framework.TestCase
 
     @Test //PlayerLetters Saanvi
     public void testAdd() {
-        
+        Letter e = new Letter('C', 'D', 'E');
+        Letter b = e.add('B'); 
+        assertEquals(a, true);
     }
     
     public void testRemove() {
-        
+        Letter e = new Letter('C', 'D', 'E');
+        Letter c = 'c';
+        assertEquals(c, true);
     }
     
     public void testRemoveIndex() {
@@ -198,7 +203,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     }
     
     @Test
-    public void testSize2() {
+    public void testSize2 () {
         
     }
     
