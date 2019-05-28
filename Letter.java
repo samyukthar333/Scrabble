@@ -1,5 +1,5 @@
 /**
- * 
+ *
  * sets a letter to a letter value
  *
  * @author samyuktha, saanvi, richa
@@ -18,7 +18,7 @@ public class Letter
 
     /**
      * assigns point values to each letter
-     * 
+     *
      * @param c
      */
     public Letter( char c )
@@ -83,9 +83,9 @@ public class Letter
 
 
     /**
-     * 
+     *
      * gets the letter
-     * 
+     *
      * @return letter
      */
     public char getLetter()
@@ -95,18 +95,50 @@ public class Letter
 
 
     /**
-     * 
+     *
      * gets the point value
-     * 
+     *
      * @return pointValue
      */
     public int getPointValue()
     {
         return pointValue;
     }
+<<<<<<< HEAD
     
     public String toString()
     {
         return "" + letter;
+=======
+
+    /**
+     * Object Identity
+     *
+     * @param obj
+     */
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Letter other = (Letter) obj;
+        return (this.letter == other.getLetter());
+    }
+
+    /**
+     * Object Identity
+     *
+     */
+    @Override
+    public int hashCode() {
+            Character c = Character.valueOf(letter);
+            return c.hashCode();
+>>>>>>> refs/remotes/origin/master
     }
 }
