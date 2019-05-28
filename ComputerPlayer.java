@@ -1,6 +1,7 @@
 import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
+import java.util.Iterator;
 /**
  *  TODO Write a one-sentence summary of your class here.
  *  TODO Follow it with additional details about its purpose, what abstraction
@@ -15,7 +16,13 @@ import java.util.HashMap;
  */
 public class ComputerPlayer extends Player
 {
-    
+    /**
+     * best play out of all of them
+     * 0 is point value (int)
+     * 1 is transposed (boolean)
+     * 2 is starting square (Square)
+     * 3 is word (String)
+     */
     private ArrayList<Object> bestPlay = new ArrayList<Object>();
     
     public ComputerPlayer()
@@ -40,34 +47,46 @@ public class ComputerPlayer extends Player
     
     
     
-    public void findWord(Board board)
+    public ArrayList<Square> findWord(Board board)
     {
-        double initTime = System.currentTimeMillis();
-        for(Square s: board.getAnchors())
+        //double initTime = System.currentTimeMillis();
+        board.fixAnchors();
+        System.out.println( "just after fix anchors: " + board.getAnchors() );
+
+        ArrayList<Square> anchors = board.getAnchors();
+        System.out.println( "length of anchors: " + anchors.size() );
+        
+        Iterator<Square> iter = anchors.iterator();
+        while(iter.hasNext())
         {
-            findLeftPart(board, s);
+            System.out.println( "anchors: " + anchors );
+            System.out.println( "sjletasej" );
+            Square square = iter.next();
+            findLeftPart(board, square);
             
-            if(System.currentTimeMillis()-initTime/1000>=10)
-            {
-                break;
-            }
+//            if((System.currentTimeMillis()-initTime)/1000>=10)
+//            {
+//                break;
+//            }
         }
-        board.transpose();
-        for(Square s: board.getAnchors())
-        {
-            findLeftPart(board, s);
-            
-            if(System.currentTimeMillis()-initTime/1000>=25)
-            {
-                break;
-            }
-        }
-        board.transposeBack();
-        executePlay(board);
+//        board.transpose();
+//        iter = anchors.iterator();
+//        while(iter.hasNext())
+//        {
+//            findLeftPart(board, iter.next());
+//            
+//           if((System.currentTimeMillis()-initTime)/1000>=10)
+//            {
+//                break;
+//            }
+//        }
+//        board.transposeBack();
+        return executePlay(board);
     }
     
     private void findLeftPart(Board board, Square square)
     {
+        
         String s = "";
         if(!board.isValid( square.getRow(),  square.getCol()-1 ))
         {
@@ -86,52 +105,92 @@ public class ComputerPlayer extends Player
         //find all possible beginning words if left part is not already on the board
         //find number of available spots before square
         int count = 0;
-        for(int i = square.getCol()-1; i>=0 && !board.getAnchors().contains(board.getBoard()[square.getRow()][i]); i--)
+        for(int i = square.getCol()-1; i>=0 && board.getRightandLeft( board.getBoard()[square.getRow()][i]).isEmpty(); i--)
         {
             count++;
         }
-        findLeftPartHelper(board, "", Words.wordTrie.getRoot(), count);
+        System.out.println( "count" + count );
+        findLeftPartHelper(board, "", Words.wordTrie.getRoot(), count, square);
     }
     
-    private void findLeftPartHelper(Board board, String partialWord, TrieNode node, int limit)
+    private void findLeftPartHelper(Board board, String partialWord, TrieNode node, int limit, Square anchor)
     {
-        HashMap<Character, TrieNode> children = node.getChildren();
-        for(TrieNode n : children.values())
+        
+        extendRight(board, partialWord, node, anchor);
+        if(limit>0)
         {
-            char c = n.getChar();
-            if(myLetters.getLetters().contains(new Letter(c)))
+            //System.out.println("partial word " + partialWord );
+            
+            HashMap<Character, TrieNode> children = node.getChildren();
+            for(TrieNode n : children.values())
             {
-                myLetters.remove( new Letter(c) );
-                findLeftPartHelper(board, partialWord + c, n, limit-1);
-                
-                myLetters.add( new Letter(c) );
-            }
-        } 
+                char c = n.getChar();
+                //System.out.println("find left part helper " + c);
+                //System.out.println( myLetters.getLetters() );
+                if(myLetters.contains(c))
+                {
+                    //System.out.println("find left part helper--Match found!!" + c);
+
+                    myLetters.remove( c );
+                    
+                    findLeftPartHelper(board, partialWord + c, n, limit-1, anchor);
+                    myLetters.add( new Letter(c) );
+                }
+            } 
+        }
     }
     
+    
+    //fix square
     public void extendRight(Board board, String wordPart, TrieNode node, Square square)
     {
+        //System.out.println("extend right- word part" + wordPart);
         if(board.isValid( square.getRow(),  square.getCol() )) 
         {
             if(square.isEmpty())
             {
                 if(node.isEnd())
                 {
-                    bestPlay.add( square );
-                    bestPlay.add( wordPart );
-                    return;
+                    if(bestPlay.isEmpty())
+                    {
+                        bestPlay.add( Words.getPoints( wordPart ) );
+                        bestPlay.add( board.isTransposed() );
+                        bestPlay.add( square );
+                        bestPlay.add( wordPart );
+                    }
+                    else if((int)bestPlay.get( 0 ) < Words.getPoints( wordPart ))
+                    {
+                        bestPlay.set( 0,  Words.getPoints( wordPart ) );
+                        bestPlay.set( 1, board.isTransposed() );
+                        bestPlay.set( 2, square );
+                        bestPlay.set( 3, wordPart );
+                        
+                        board.printBoard();
+                        //System.out.println( "square's row: " + square.getRow() + " / square's col :" + square.getCol() );
+                        
+                        //System.out.println(bestPlay.get( 2 ));
+
+                    }
+                    
+                    System.out.println("best word so far: " + bestPlay.get( 3 ));
+                    
                 }
+                //System.out.println("alsefkj===extend right1");
+
                 HashMap<Character, TrieNode> children = node.getChildren();
                 for(TrieNode n : children.values())
                 {
+                    //System.out.println("alsefkj===extend right1-inside loop");
                     char c = n.getChar();
-                    if(myLetters.getLetters().contains(new Letter(c)))
+                    if(!myLetters.getLetters().isEmpty() && myLetters.contains(c))
                     {
+                        //System.out.println("alsefkj===extend right11");
                         BitSet bitSet = board.getBitVector( square.getRow(), square.getCol() );
                         if(bitSet.get( Character.getNumericValue( c ) - Character.getNumericValue( 'A' ) ))
                         {
-                            myLetters.remove(new Letter(c));
-                            Square next = board.getSquare( square.getRow(), square.getCol() );
+                            //System.out.println("bitset works");
+                            myLetters.remove(c);
+                            Square next = board.getSquare( square.getRow(), square.getCol() + 1 );
                             extendRight(board, wordPart+c, n, next);
                             myLetters.add(new Letter(c));  
                         }
@@ -140,32 +199,171 @@ public class ComputerPlayer extends Player
             }
             else
             {
-                Letter letter = square.getLetter();
+                
+                //System.out.println("square is not empty");
+                char c = square.getLetter().getLetter();
+                //System.out.println("letter on board is: " + c);
                 HashMap<Character, TrieNode> children = node.getChildren();
-                if(!children.isEmpty())
+                if(!children.isEmpty()&& children.containsKey(c))
                 {
-                    for(TrieNode n : children.values())
-                    {
-                        Square next = board.getSquare( square.getRow(), square.getCol() );
-                        extendRight(board, wordPart+letter.getLetter(), n, next   );
-                    }
+                        Square next = board.getSquare( square.getRow(), square.getCol() + 1);
+                        extendRight(board, wordPart+c, children.get( c ) , next   );
                 }
             }
         }
     }
     
-    public void executePlay(Board board)
+    public ArrayList<Square> executePlay(Board board)
     {
         ArrayList<Square> squares = new ArrayList<Square>();
-        Square s = (Square)bestPlay.get( 0 );
-        String str = (String)bestPlay.get( 1 );
-        for(int i = s.getCol(); i<s.getCol()+str.length(); i++)
+        
+        Square sBoard = (Square)bestPlay.get( 2 );
+        System.out.println( "square's row: " + sBoard.getRow() + " / square's col: " + sBoard.getCol() );
+        String str = (String)bestPlay.get( 3 );
+        System.out.println("executePlay - placing word" + str);
+        int strloc = 0;
+        for(int i = sBoard.getCol() - str.length(); i < sBoard.getCol(); i++)
         {
+            System.out.println(i);
+            Square s = board.getSquare( sBoard.getRow(), i);
             if(board.getBoard()[s.getRow()][i].isEmpty())
-                squares.add(s);
-            s = board.getSquare( s.getRow(), i);
+            {
+                Square input = new Square(s.getRow(), s.getCol());
+                input.setLetter( new Letter(str.charAt( strloc )) );
+                squares.add(input);
+                
+            }
+            strloc++; 
+            
         }
-        board.placeWord( squares );
+//        if((Boolean)bestPlay.get( 1 ))
+//        {
+//            squares = board.transposeSquaresBack(squares); //if down words, then transpose Squares
+//        }
+        System.out.println("Squares : " + squares);
+        for(Square s: squares)
+        {
+            System.out.println( "square's row: " + s.getRow() + " / square's col: " + s.getCol() );
+        }
+        bestPlay = new ArrayList<Object>();
+        return squares;
+    }
+    
+    public static void main(String[] args)
+    {
+        Board board = new Board();
+        ComputerPlayer player = new ComputerPlayer();
+        
+      board.getBoard()[2][6].setLetter( new Letter( 'D' ) );
+      board.getBoard()[3][6].setLetter( new Letter( 'A' ) );
+      board.getBoard()[4][6].setLetter( new Letter( 'D' ) );
+      board.printBoardSp();
+      
+      ArrayList<Square> input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'B' ), 2, 2 ) );
+      input.add( new Square( new Letter( 'O' ), 2, 3 ) );
+      input.add( new Square( new Letter( 'A' ), 2, 4 ) );
+      input.add( new Square( new Letter( 'R' ), 2, 5 ) );
+      int points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );
+      
+      input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'O' ), 3, 2 ) );
+      input.add( new Square( new Letter( 'A' ), 4, 2 ) );
+      input.add( new Square( new Letter( 'R' ), 5, 2 ) );
+      points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );
+      
+      input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'O' ), 4, 7 ) );
+      input.add( new Square( new Letter( 'L' ), 4, 8 ) );
+      input.add( new Square( new Letter( 'L' ), 4, 9 ) );
+      points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );
+      
+      input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'U' ), 5, 9 ) );
+      input.add( new Square( new Letter( 'M' ), 6, 9 ) );
+      input.add( new Square( new Letter( 'B' ), 7, 9 ) );
+      input.add( new Square( new Letter( 'E' ), 8, 9 ) );
+      input.add( new Square( new Letter( 'R' ), 9, 9 ) );
+      points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );
+      
+      input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'D' ), 6, 2 ) );
+      //input.add( new Square( new Letter( 'S' ), 7, 2 ) );
+      points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );
+      
+      input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'S' ), 4, 10 ) );
+      points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );
+      
+      /*input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'R' ), 3, 3 ) );
+      points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );*/
+      
+      input = new ArrayList<Square>();
+      input.add( new Square( new Letter( 'N' ), 5, 7 ) );
+      points = board.placeWord( input );
+      board.printBoard();
+      System.out.println( points );
+      
+      board.printBoardSp();
+        
+        player.getLetters().add( new Letter('B') );
+        player.getLetters().add( new Letter('A') );
+        player.getLetters().add( new Letter('R') );
+        player.getLetters().add( new Letter('C') );
+        player.getLetters().add( new Letter('T') );
+        player.getLetters().add( new Letter('Y') );
+        player.getLetters().add( new Letter('B') );
+        
+        ArrayList<Square> letters =  player.findWord(board);
+        points = board.placeWord( letters );
+        board.printBoard();
+        System.out.println( points );
+        
+        for ( Square s : letters )
+        {
+            player.getLetters().remove( s.getLetter().getLetter() );
+        }
+        while(player.myLetters.size()<7)
+        {
+            String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            player.myLetters.add(new Letter(alphabet.charAt( (int)(Math.random()*25))));
+        }
+        System.out.println(player.getLetters().getLetters());
+        letters =  player.findWord(board);
+        points = board.placeWord(letters );
+        board.printBoard();
+        System.out.println( points );
+        
+        for ( Square s : letters )
+        {
+            player.getLetters().remove( s.getLetter().getLetter() );
+        }
+        while(player.myLetters.size()<7)
+        {
+            String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+            player.myLetters.add(new Letter(alphabet.charAt( (int)(Math.random()*25))));
+        }
+        System.out.println(player.getLetters().getLetters());
+        letters =  player.findWord(board);
+        points = board.placeWord(letters );
+        board.printBoard();
+        System.out.println( points );
+        
     }
     
 }

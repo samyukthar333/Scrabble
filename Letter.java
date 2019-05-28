@@ -104,4 +104,9 @@ public class Letter
     {
         return pointValue;
     }
+    
+    public String toString()
+    {
+        return "" + letter;
+    }
 }

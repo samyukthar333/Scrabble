@@ -41,8 +41,8 @@ public class ScrabbleBoard extends JPanel
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                if (i != null)
-                    g.drawImage(img, 0, 0, null);
+                if (i != null);
+                   // Sam edit g.drawImage(img, 0, 0, null);
             }
         };
         return jP;

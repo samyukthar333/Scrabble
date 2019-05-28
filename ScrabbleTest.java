@@ -1,4 +1,7 @@
 import static org.junit.Assert.*;
+
+import java.util.ArrayList;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Suite;
@@ -10,47 +13,102 @@ import org.junit.runners.Suite.SuiteClasses;
 public class ScrabbleTest extends junit.framework.TestCase
 {
     @Test // Letter Saanvi
-    public void testConstructor1Param()
+    public void testLetterConstructorParam()
     {
-       Letter a = 'a';
-       assertEquals(a, 1);
+       Letter a = new Letter('A');
+       assertEquals(a.getPointValue(), 1 );
+       assertEquals(a.getLetter(), 'A');
+       
     }
 
-
-    public void testGetChar()
+    @Test
+    public void testGetLetter()
     {
-        
+        Letter a = new Letter('A');
+        assertEquals(a.getLetter(), 'A');
     }
 
-
+    @Test
     public void testGetPointValue()
     {
-
+        Letter a = new Letter('A');
+        assertEquals(a.getPointValue(), 1 );
     }
 
     @Test //PlayerLetters Saanvi
+    public void testPlayerLettersConstructorParam()
+    {
+       PlayerLetters myLetters = new PlayerLetters();
+       assertNotNull(myLetters.getLetters());
+       assertEquals(myLetters.getLetters().size(), 0);
+       
+    }
+    
+    @Test
     public void testAdd() {
-        Letter e = new Letter('C', 'D', 'E');
-        Letter b = e.add('B'); 
-        assertEquals(a, true);
+        PlayerLetters myLetters = new PlayerLetters();
+        myLetters.add(new Letter('A'));
+        myLetters.add( new Letter('B') );
+        assertTrue(myLetters.contains( 'A' ));
+        assertEquals(myLetters.size(), 2);
     }
     
-    public void testRemove() {
-        Letter e = new Letter('C', 'D', 'E');
-        Letter c = 'c';
-        assertEquals(c, true);
+    @Test
+    public void testRemoveWithLetter() {
+        PlayerLetters myLetters = new PlayerLetters();
+        Letter letter = new Letter('A');
+        myLetters.add(letter);
+        assertEquals(myLetters.remove(letter), letter);
+        assertEquals(myLetters.size(), 0);
+        assertNull(myLetters.remove( letter ));
     }
     
+    @Test
+    public void testRemoveWithChar() {
+        PlayerLetters myLetters = new PlayerLetters();
+        Letter letter = new Letter('A');
+        myLetters.add(letter);
+        assertEquals(myLetters.remove('A'), letter);
+        assertEquals(myLetters.size(), 0);
+        assertNull(myLetters.remove( 'A' ));
+    }
+    
+    @Test
     public void testRemoveIndex() {
-        
+        PlayerLetters myLetters = new PlayerLetters();
+        Letter letter = new Letter('A');
+        myLetters.add(letter);
+        assertEquals(myLetters.removeIndex(0), letter);
+        assertEquals(myLetters.size(), 0);
+        assertNull(myLetters.removeIndex( 1 ));
     }
     
+    @Test
     public void testSize() {
-        
+        PlayerLetters myLetters = new PlayerLetters();
+        Letter letter = new Letter('A');
+        myLetters.add(letter);
+        assertEquals(myLetters.size(), 1);
     }
     
+    @Test
     public void testGetLetters() {
-        
+        PlayerLetters myLetters = new PlayerLetters();
+        Letter letter = new Letter('A');
+        myLetters.add(letter);
+        ArrayList<Letter> temp = new ArrayList<Letter>();
+        temp.add(letter);
+        assertEquals(myLetters.getLetters(), temp);
+    }
+    
+    @Test
+    public void testContains()
+    {
+        PlayerLetters myLetters = new PlayerLetters();
+        Letter letter = new Letter('A');
+        myLetters.add(letter);
+        assertTrue(myLetters.contains('A'));
+        assertFalse(myLetters.contains('B'));
     }
 
     // Test Player

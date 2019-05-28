@@ -5,9 +5,8 @@ import java.util.HashMap;
 
 /**
  * 
- *  TODO Write a one-sentence summary of your class here.
- *  TODO Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  Represents a board filled with Square objects
+ *  
  *
  *  @author  samyu
  *  @version May 25, 2019
@@ -40,6 +39,7 @@ public class Board //does not work only for when letter has both up and side nei
         initBoard();
         transposed = false;
         bitVectors = new BitSet[15][15];
+        anchors = new ArrayList<Square>();
         initBitSet();
 
     }
@@ -257,7 +257,6 @@ public class Board //does not work only for when letter has both up and side nei
      */
     public ArrayList<Square> getAnchors()
     {
-        fixAnchors();
         return anchors;
     }
 
@@ -321,21 +320,41 @@ public class Board //does not work only for when letter has both up and side nei
 
 
     /**
+     * returns neighbors to the left and right of given square
+     * 
+     * @param square input square
+     * @return right and left neighbors in an arraylist
+     */
+    public ArrayList<Square> getRightandLeft( Square square )
+    {
+        ArrayList<Square> myOccNeighbors = new ArrayList<Square>();
+        int i = square.getRow() - 1;
+        int j = square.getCol();
+        if ( isValid( i, j ) && board[i][j].getLetter() != null )
+            myOccNeighbors.add( board[i][j] );
+        i = square.getRow();
+        j = square.getCol() - 1;
+        if ( isValid( i, j ) && board[i][j].getLetter() != null )
+            myOccNeighbors.add( board[i][j] );
+        return myOccNeighbors;
+    }
+    /**
      * 
      * cross checks 
      */
-    private void fixAnchors()
+    public void fixAnchors()
     {
         for ( int i = 0; i < 15; i++ )
         {
             for ( int j = 0; j < 15; j++ )
             {
                 Square square = board[i][j];
-                int number = getOccupiedNeighbors( square ).size();
-                // for ease (very unlikely with 4 neighbors and can form word)
-                if ( number < 4 && number > 0 )
+                if(!square.isEmpty())
                 {
-                    anchors.add( square );
+                    if(isValid(i, j-1) && board[i][j-1].isEmpty())
+                    {
+                        anchors.add( board[i][j-1] );
+                    }
                 }
             }
         }
@@ -344,6 +363,11 @@ public class Board //does not work only for when letter has both up and side nei
 
     public int placeWord( ArrayList<Square> squares )
     {
+        if(squares.isEmpty())
+        {
+            System.out.println("squares is empty");
+            return -1;
+        }
         Square[][] temp = copy();
         printBoard();
         squares = sortSquares( squares );
@@ -424,10 +448,12 @@ public class Board //does not work only for when letter has both up and side nei
             System.out.println( "one letter" );
             if(containsToporBottom(squares.get( 0 ).getRow(), squares.get( 0 ).getCol()))
             {
-                System.out.println("ahhhhh");
-                transpose();
+                if(getRightandLeft( squares.get( 0 )).size()==0)
+                {
+                    transpose();
+                    squares = transposeSquares( squares );
+                }
                 printBoard();
-                squares = transposeSquares( squares );
             }
             return squares;
         }
@@ -461,6 +487,11 @@ public class Board //does not work only for when letter has both up and side nei
         }
         return squares;
 
+    }
+    
+    public boolean isTransposed()
+    {
+        return transposed;
     }
 
     private boolean containsToporBottom(int i, int j)
@@ -522,7 +553,7 @@ public class Board //does not work only for when letter has both up and side nei
     }
 
 
-    private ArrayList<Square> transposeSquares( ArrayList<Square> squares )
+    public ArrayList<Square> transposeSquares( ArrayList<Square> squares )
     {
         ArrayList<Square> squares2 = new ArrayList<Square>();
         for ( Square s : squares )
@@ -539,7 +570,7 @@ public class Board //does not work only for when letter has both up and side nei
     }
 
 
-    /*private ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
+    public ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
     {
         for ( Square s : squares )
         {
@@ -550,7 +581,7 @@ public class Board //does not work only for when letter has both up and side nei
         }
 
         return squares;
-    }*/
+    }
 
 
     /**
@@ -830,11 +861,11 @@ public class Board //does not work only for when letter has both up and side nei
         board.printBoard();
         System.out.println( points );
         
-        /*input = new ArrayList<Square>();
+        input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'R' ), 3, 3 ) );
         points = board.placeWord( input );
         board.printBoard();
-        System.out.println( points );*/
+        System.out.println( points );
         
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'N' ), 5, 7 ) );
@@ -843,6 +874,20 @@ public class Board //does not work only for when letter has both up and side nei
         System.out.println( points );
         
         board.printBoardSp();
+//        
+//        Board board = new Board();
+//        board.addLetter( new Letter('A'), 3, 5 );
+//        board.addLetter( new Letter('T'), 3, 6 );
+//        board.printBoard();
+//        ArrayList<Square> input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'B' ), 3, 3 ) );
+//        input.add( new Square( new Letter( 'R' ), 3, 4 ) );
+//        input.add( new Square( new Letter( 'T' ), 3, 7 ) );
+//        input.add( new Square( new Letter( 'Y' ), 3, 8 ) );
+//        int points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+        
         // testing purposes
     }
 

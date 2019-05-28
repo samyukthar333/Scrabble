@@ -131,6 +131,7 @@ public class Game
             currentPlayer = player1;
         else
             currentPlayer = player2;
+        replenishLetters();
     }
 
 
@@ -167,14 +168,30 @@ public class Game
         if ( points == -1 )
             return false;
         currentPlayer.addPoints( points );
+        
+        replenishLetters();
+        
         switchPlayers();
         return true;
+    }
+    
+    /**
+     * 
+     * refills letters until size of playerLetters is 7
+     * 
+     */
+    public void replenishLetters()
+    {
+        while(currentPlayer.getLetters().size()<7)
+        {
+            currentPlayer.getLetters().add( myBag.getRandomLetter());
+        }
     }
 
 
     /**
      * 
-     * TODO Write your method description here.
+     * exchanges given letters for random letters
      * 
      * @param letters
      *            the letter tiles that are on the board and racks
@@ -186,6 +203,7 @@ public class Game
             currentPlayer.getLetters().remove( i );
         }
         myBag.add( letters );
+        replenishLetters();
         switchPlayers();
     }
 

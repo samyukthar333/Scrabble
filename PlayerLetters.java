@@ -15,7 +15,12 @@ import java.util.ArrayList;
  */
 public class PlayerLetters
 {
-    ArrayList<Letter> playerletters = new ArrayList<Letter>();
+    ArrayList<Letter> playerletters;
+    
+    public PlayerLetters()
+    {
+        playerletters = new ArrayList<Letter>();
+    }
 
     /**
      * 
@@ -57,6 +62,25 @@ public class PlayerLetters
 
     /**
      * 
+     * removes a letter if your letters already has that letter
+     * @param letter
+     * @return false || true
+     */
+    public boolean remove( char c )
+    {
+        for(Letter letter: playerletters)
+        {
+            if(letter.getLetter()==c)
+            {   
+                playerletters.remove( letter );
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 
      * removes the letter at that index
      * @param index the index of your letter
      * @return letter
@@ -91,5 +115,15 @@ public class PlayerLetters
     public ArrayList<Letter> getLetters( )
     {
         return playerletters;
+    }
+    
+    public boolean contains(char c)
+    {
+        for(Letter letter: playerletters)
+        {
+            if(letter.getLetter()==c)
+                return true;
+        }
+        return false;
     }
 }

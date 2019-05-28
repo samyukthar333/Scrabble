@@ -96,7 +96,7 @@ public class ScrabbleBottomPanel extends JPanel
 
     ActionListener passListener = new ActionListener(){
         public void actionPerformed(ActionEvent e){
-            game.pass();
+            // Sam edit game.pass();
         };
     };
     pass.addActionListener(passListener);
