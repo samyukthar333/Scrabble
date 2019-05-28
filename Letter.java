@@ -104,41 +104,10 @@ public class Letter
     {
         return pointValue;
     }
-<<<<<<< HEAD
     
     public String toString()
     {
         return "" + letter;
-=======
 
-    /**
-     * Object Identity
-     *
-     * @param obj
-     */
-    @Override
-    public boolean equals(Object obj){
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Letter other = (Letter) obj;
-        return (this.letter == other.getLetter());
-    }
-
-    /**
-     * Object Identity
-     *
-     */
-    @Override
-    public int hashCode() {
-            Character c = Character.valueOf(letter);
-            return c.hashCode();
->>>>>>> refs/remotes/origin/master
     }
 }
