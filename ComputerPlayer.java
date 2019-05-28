@@ -3,16 +3,14 @@ import java.util.BitSet;
 import java.util.HashMap;
 import java.util.Iterator;
 /**
- *  TODO Write a one-sentence summary of your class here.
- *  TODO Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  Represents a Computer Player, which is a Player that finds words using a computer algorithm 
  *
- *  @author  samyu
+ *  @author  Samyuktha
  *  @version Apr 30, 2019
- *  @author  Period: TODO
+ *  @author  Period: 4
  *  @author  Assignment: Scrabble
  *
- *  @author  Sources: TODO
+ *  @author  Sources: https://www.cs.cmu.edu/afs/cs/academic/class/15451-s06/www/lectures/scrabble.pdf
  */
 public class ComputerPlayer extends Player
 {
@@ -49,7 +47,7 @@ public class ComputerPlayer extends Player
     
     public ArrayList<Square> findWord(Board board)
     {
-        //double initTime = System.currentTimeMillis();
+        double initTime = System.currentTimeMillis();
         board.fixAnchors();
         System.out.println( "just after fix anchors: " + board.getAnchors() );
 
@@ -64,23 +62,23 @@ public class ComputerPlayer extends Player
             Square square = iter.next();
             findLeftPart(board, square);
             
-//            if((System.currentTimeMillis()-initTime)/1000>=10)
-//            {
-//                break;
-//            }
+            if((System.currentTimeMillis()-initTime)/1000>=10)
+            {
+                break;
+            }
         }
-//        board.transpose();
-//        iter = anchors.iterator();
-//        while(iter.hasNext())
-//        {
-//            findLeftPart(board, iter.next());
-//            
-//           if((System.currentTimeMillis()-initTime)/1000>=10)
-//            {
-//                break;
-//            }
-//        }
-//        board.transposeBack();
+        board.transpose();
+        iter = anchors.iterator();
+        while(iter.hasNext())
+        {
+            findLeftPart(board, iter.next());
+            
+           if((System.currentTimeMillis()-initTime)/1000>=10)
+            {
+                break;
+            }
+        }
+        board.transposeBack();
         return executePlay(board);
     }
     
@@ -141,8 +139,8 @@ public class ComputerPlayer extends Player
     }
     
     
-    //fix square
-    public void extendRight(Board board, String wordPart, TrieNode node, Square square)
+    //fix square!!
+    private void extendRight(Board board, String wordPart, TrieNode node, Square square)
     {
         //System.out.println("extend right- word part" + wordPart);
         if(board.isValid( square.getRow(),  square.getCol() )) 
@@ -158,7 +156,7 @@ public class ComputerPlayer extends Player
                         bestPlay.add( square );
                         bestPlay.add( wordPart );
                     }
-                    else if((int)bestPlay.get( 0 ) < Words.getPoints( wordPart ))
+                    else if((Integer)bestPlay.get( 0 ) < Words.getPoints( wordPart ))
                     {
                         bestPlay.set( 0,  Words.getPoints( wordPart ) );
                         bestPlay.set( 1, board.isTransposed() );
@@ -236,10 +234,10 @@ public class ComputerPlayer extends Player
             strloc++; 
             
         }
-//        if((Boolean)bestPlay.get( 1 ))
-//        {
-//            squares = board.transposeSquaresBack(squares); //if down words, then transpose Squares
-//        }
+        if((Boolean)bestPlay.get( 1 ))
+        {
+            squares = board.transposeSquaresBack(squares); //if down words, then transpose Squares
+        }
         System.out.println("Squares : " + squares);
         for(Square s: squares)
         {
@@ -307,11 +305,11 @@ public class ComputerPlayer extends Player
       board.printBoard();
       System.out.println( points );
       
-      /*input = new ArrayList<Square>();
+      input = new ArrayList<Square>();
       input.add( new Square( new Letter( 'R' ), 3, 3 ) );
       points = board.placeWord( input );
       board.printBoard();
-      System.out.println( points );*/
+      System.out.println( points );
       
       input = new ArrayList<Square>();
       input.add( new Square( new Letter( 'N' ), 5, 7 ) );

@@ -8,12 +8,12 @@ import java.util.HashMap;
  *  Represents a board filled with Square objects
  *  
  *
- *  @author  samyu
+ *  @author  Samyuktha
  *  @version May 25, 2019
- *  @author  Period: TODO
+ *  @author  Period: 4
  *  @author  Assignment: Scrabble
  *
- *  @author  Sources: TODO
+ *  @author  Sources: none
  */
 public class Board //does not work only for when letter has both up and side neighbors
 {
@@ -69,11 +69,11 @@ public class Board //does not work only for when letter has both up and side nei
                         String s = "";
                         while ( num >= 0 && board[num][j].getLetter()!=null )
                         {
-                           System.out.println( "if it doesn't..." + s);
+                           //System.out.println( "if it doesn't..." + s);
                             s = board[num][j].getLetter().getLetter() + s;
                             num--;
                         }
-                        System.out.println("s: " + s );
+                        //System.out.println("s: " + s );
                         if(s.isEmpty()) //if empty square is above 
                         {
                             num = i+1;
@@ -83,7 +83,7 @@ public class Board //does not work only for when letter has both up and side nei
                                 num++;
                                 
                             }
-                            System.out.println( "s1: " + s );
+                            //System.out.println( "s1: " + s );
                             String tmp = new String(s);
                             String alphabet = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
                             for(char c: alphabet.toCharArray())
@@ -98,7 +98,7 @@ public class Board //does not work only for when letter has both up and side nei
                         }
                         else
                         {
-                            System.out.println( "goodnessaslfjkas" );
+                            //System.out.println( "goodnessaslfjkas" );
                             if(Words.wordTrie.getEndNode( s )!=null)
                             {
                                 HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
@@ -360,7 +360,15 @@ public class Board //does not work only for when letter has both up and side nei
         }
     }
 
+    //there are cases when this method may not work - jib
 
+    /**
+     * 
+     * places a word on the board if possible and returns point value
+     * 
+     * @param squares input locations
+     * @return number of points the word is worth, or -1 if not placeable
+     */
     public int placeWord( ArrayList<Square> squares )
     {
         if(squares.isEmpty())
@@ -372,7 +380,7 @@ public class Board //does not work only for when letter has both up and side nei
         printBoard();
         squares = sortSquares( squares );
         initBitSet();
-        System.out.println( "t: " + transposed );
+        //System.out.println( "t: " + transposed );
         for(Square s : squares)
         {
             addLetter(s.getLetter(), s.getRow(), s.getCol());
@@ -381,12 +389,12 @@ public class Board //does not work only for when letter has both up and side nei
             System.out.println("" + num + set.get( num ));
             if(!set.get( num ))
             {
-                System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
+                //System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
                 board = temp;
                 return -1;
             }     
         }
-        System.out.println("gdfgk");
+        //System.out.println("gdfgk");
         int points = checkRow(squares);
         if(points == -1)
         {
@@ -409,21 +417,21 @@ public class Board //does not work only for when letter has both up and side nei
         printBoard();
         squares = sortSquares( squares );
         initBitSet();
-        System.out.println( "t: " + transposed );
+        //System.out.println( "t: " + transposed );
         for(Square s : squares)
         {
             addLetter(s.getLetter(), s.getRow(), s.getCol());
             BitSet set = bitVectors[s.getRow()][s.getCol()];
             int num = Character.getNumericValue(s.getLetter().getLetter()) - Character.getNumericValue( 'A' );
-            System.out.println("" + num + set.get( num ));
+            //System.out.println("" + num + set.get( num ));
             if(!set.get( num ))
             {
-                System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
+                //System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
                 board = temp;
                 return -1;
             }     
         }
-        System.out.println("gdfgk");
+        //System.out.println("gdfgk");
         int points = checkRow(squares);
         if(points == -1)
         {
@@ -442,10 +450,10 @@ public class Board //does not work only for when letter has both up and side nei
 
     private ArrayList<Square> sortSquares( ArrayList<Square> squares )
     {
-        System.out.println( squares.size() );
+        //System.out.println( squares.size() );
         if(squares.size()==1)
         {
-            System.out.println( "one letter" );
+            //System.out.println( "one letter" );
             if(containsToporBottom(squares.get( 0 ).getRow(), squares.get( 0 ).getCol()))
             {
                 if(getRightandLeft( squares.get( 0 )).size()==0)
@@ -544,7 +552,7 @@ public class Board //does not work only for when letter has both up and side nei
             
         }
         points = points*pointNum;
-        System.out.println("t: " + transposed );
+        //System.out.println("t: " + transposed );
         if(connected && (squares.size()==1 || Words.isWord( word )))
         {
             return points;
@@ -553,6 +561,12 @@ public class Board //does not work only for when letter has both up and side nei
     }
 
 
+    /**
+     * 
+     * transposes the squares' locations clockwise
+     * @param squares squares to transpose
+     * @return transposed squares
+     */
     public ArrayList<Square> transposeSquares( ArrayList<Square> squares )
     {
         ArrayList<Square> squares2 = new ArrayList<Square>();
@@ -570,6 +584,12 @@ public class Board //does not work only for when letter has both up and side nei
     }
 
 
+    /**
+     * 
+     * transposes the squares' locations clockwise
+     * @param squares squares to transpose
+     * @return transposed squares
+     */
     public ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
     {
         for ( Square s : squares )
