@@ -4,9 +4,7 @@ import javax.swing.JTextField;
 
 /**
  * 
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * parent class for the gui of the scrabble game
  *
  * @author samyuktha, saanvi, richa
  * @version May 22, 2019

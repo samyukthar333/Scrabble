@@ -18,8 +18,14 @@ import java.util.Scanner;
  */
 public class Words
 {
+    /**
+     * HashMap of Words that represent a dictionary
+     */
     public static final Map<String, Integer> words = initWords( "Collins Scrabble Words (2015)" );
 
+    /**
+     * Trie of words that represent a prefix dictionary
+     */
     public static final Trie wordTrie = initTrie( "Collins Scrabble Words (2015)" );
 
 
