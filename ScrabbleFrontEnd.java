@@ -138,6 +138,8 @@ public class ScrabbleFrontEnd extends JPanel
 
     public ScrabbleFrontEnd(){
         game = new Game();
+        if (game.getCurrentPlayer() != game.getHuman())
+            game.pass();
         //System.out.println("Width " + dim.width + " Height " + dim.height);
     }
 
