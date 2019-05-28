@@ -125,12 +125,16 @@ public class UIUtilities {
                         int j = 0;
 
                         for(Component c: comp.getParent().getComponents()){
+                                System.out.println("Component is " + c);
                                 if(c == comp){
                                     System.out.println("This is the square " + j);
-                                    int row = j / 14;
-                                    int col = j % 14;
+                                    int col = j / 15;
+                                    int row = j % 15;
                                     Square s = new Square(new Letter(data.charAt(0)), row, col);
+                                    System.out.println("SS is " + s);
+                                    System.out.println("SS is " + s.getCol() + " " + s.getRow());
                                     ((ScrabbleBoard)comp.getParent().getParent()).getSquares().add(s);
+                                    break;
                                 }
                                 j++;
                         }
