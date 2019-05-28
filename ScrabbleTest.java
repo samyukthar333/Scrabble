@@ -119,30 +119,37 @@ public class ScrabbleTest extends junit.framework.TestCase
 
     // Words Saanvi
     @Test
-    public void testInitWords() {
-        
+    public void testWords() {
+        assertTrue(Words.words.containsKey( "HELLO" ));
+        assertTrue((Words.words.get( "AA" ) == 2));
+        assertFalse(Words.words.containsKey( "aljdkf" ));
     }
     
     @Test
-    public void testInitTrie() {
-        
+    public void testTrie() {
+        assertTrue(Words.wordTrie.contains( "HELLO" ));
+        assertTrue(Words.wordTrie.getEndNode( "HELLO" ).isEnd());
+        assertFalse(Words.wordTrie.contains( "as;dflkalsd;flk" ));
+        assertNull(Words.wordTrie.getEndNode( "ALDKJ" ));
     }
     
     @Test
     public void testIsWord() {
-        
+        assertFalse(Words.isWord( "AKLJSLDFKSJF" ));
+        assertTrue(Words.isWord( "HELLO" ));
     }
     
     @Test
-    public void testGetPoints() {
-        
+    public void testGetPointsWords() {
+        assertEquals(Words.getPoints( "AA" ), 2);
+        assertEquals(Words.getPoints( "ALSJDK" ), -1);
     }
 
     // Test ComputerPlayer
 
     // Square Saanvi
     @Test 
-    public void testSquare() {
+    public void testSquareConstructor() {
         
     }
     
@@ -192,7 +199,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     }
     
     @Test
-    public void testGetPoints2() {
+    public void testGetPointsSquare() {
         
     }
     
