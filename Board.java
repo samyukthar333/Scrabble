@@ -8,7 +8,7 @@ import java.util.HashMap;
  *  Represents a board filled with Square objects
  *  
  *
- *  @author  Samyuktha
+ *  @author  Samyuktha, saanvi, richa
  *  @version May 25, 2019
  *  @author  Period: 4
  *  @author  Assignment: Scrabble
@@ -214,7 +214,7 @@ public class Board //does not work only for when letter has both up and side nei
     /**
      * 
      * returns a copy of board
-     * @return a copy of board
+     * @return copy
      */
     public Square[][] copy()
     {
@@ -277,10 +277,10 @@ public class Board //does not work only for when letter has both up and side nei
     
     /**
      * 
-     * TODO Write your method description here.
+     * gets the bit vector
      * @param row
      * @param col
-     * @return
+     * @return bitVectors[row][col]
      */
     public BitSet getBitVector(int row, int col)
     {
@@ -410,7 +410,12 @@ public class Board //does not work only for when letter has both up and side nei
     }
     
     
-
+    /**
+     * 
+     * finds the points of the word without placing it on the board
+     * @param squares
+     * @return points
+     */
     public int findPointsWithoutPlacing( ArrayList<Square> squares )
     {
         Square[][] temp = copy();
@@ -447,7 +452,12 @@ public class Board //does not work only for when letter has both up and side nei
         return points;
     }
 
-
+    /**
+     * 
+     * sorts the squares
+     * @param squares
+     * @return squares
+     */
     private ArrayList<Square> sortSquares( ArrayList<Square> squares )
     {
         //System.out.println( squares.size() );
@@ -497,16 +507,34 @@ public class Board //does not work only for when letter has both up and side nei
 
     }
     
+    /**
+     * 
+     * checks if it is transposed
+     * @return transposed
+     */
     public boolean isTransposed()
     {
         return transposed;
     }
 
+    /**
+     * 
+     * checks if it has a top or bottom letter
+     * @param i
+     * @param j
+     * @return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j) && !board[i+1][j].isEmpty())
+     */
     private boolean containsToporBottom(int i, int j)
     {
         return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j) && !board[i+1][j].isEmpty());
     }
 
+    /**
+     * 
+     * checks the row
+     * @param squares
+     * @return -1
+     */
     private int checkRow( ArrayList<Square> squares)
     {
         int row = squares.get(0).getRow();
