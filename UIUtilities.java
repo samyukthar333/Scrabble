@@ -225,4 +225,45 @@ public class UIUtilities {
         };
         return tfh1;
     }
+    public static TransferHandler getTransferHandlerForExchange(){
+        TransferHandler tfh1 = new TransferHandler("scrabble"){
+            public boolean canImport(TransferHandler.TransferSupport info) {
+                return info.isDrop();
+            };
+
+            public int getSourceActions(JComponent c) {
+                return TransferHandler.COPY_OR_MOVE;
+            };
+
+            public boolean importData(JComponent comp, Transferable t){
+                try{
+                    String data = (String)t.getTransferData(DataFlavor.stringFlavor);
+                    Letter l = new Letter(data.charAt(0));
+                    System.out.println("Letter is " + l.getLetter() + " point " + l.getPointValue());
+                    System.out.println("Comp " + comp + "\n" + comp.getClass());
+
+                    ScrabbleBottomPanel slp = (ScrabbleBottomPanel) comp.getParent();
+                    System.out.println("IH MYLetter size is " + slp.getExchangeLetters().size());
+                    slp.getExchangeLetters().add(l);
+                    String file = "./images/" + data + ".jpg";
+                    System.out.println("File: " + file);
+                    java.net.URL imageURL = UIUtilities.class.getResource(file);
+                    ImageIcon ii = new ImageIcon(imageURL);
+                    Image i = ii.getImage();
+                    Image newi = i.getScaledInstance(40, 40,  java.awt.Image.SCALE_SMOOTH);
+                    JLabel jb = new JLabel();
+                    jb.setBounds(0,0, 40, 40);
+                    jb.setToolTipText(data);
+                    jb.setIcon(new ImageIcon(newi));
+                    comp.add(jb);
+                    return true;
+                }catch(Exception ex){
+                    ex.printStackTrace();
+                }
+                return false;
+            };
+        };
+        return tfh1;
+    }
+
 }
