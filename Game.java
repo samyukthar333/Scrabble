@@ -18,18 +18,24 @@ public class Game
     private Player player2; //human player
 
     private Player currentPlayer;
+    
+    private boolean twoPlayer;
 
     private LetterBag myBag;
 
     private Board board;
 
-    public Game()
+    public Game(boolean twoPlayer)
     {
+        this.twoPlayer = twoPlayer;
         board = new Board();
-        player1 = new ComputerPlayer();
+        if(!twoPlayer)
+            player1 = new ComputerPlayer();
+        else
+            player1 = new Player();
         player2 = new Player();
         myBag = new LetterBag();
-        chooseFirstPlayer();
+//        chooseFirstPlayer();
     }
 
 
@@ -41,10 +47,24 @@ public class Game
      */
     public Player getComputer()
     {
-        return player1;
+        if(!twoPlayer)
+            return player1;
+        return null;
     }
     
     public Player getHuman()
+    {
+        if(!twoPlayer)
+            return player2;
+        return null;
+    }
+    
+    public Player getPlayer1()
+    {
+        return player1;
+    }
+    
+    public Player getPlayer2()
     {
         return player2;
     }
@@ -114,25 +134,25 @@ public class Game
     }
 
 
-    /**
-     * 
-     * chooses who goes first based on what letter they randomly pick from the
-     * bag
-     */
-    private void chooseFirstPlayer()
-    {
-        char pl1, pl2;
-        do
-        {
-            pl1 = myBag.getRandomLetterWithoutRemoving().getLetter();
-            pl2 = myBag.getRandomLetterWithoutRemoving().getLetter();
-        } while ( pl1 == pl2 );
-        if ( Character.getNumericValue( pl1 ) < Character.getNumericValue( pl2 ) )
-            currentPlayer = player1;
-        else
-            currentPlayer = player2;
-        replenishLetters();
-    }
+//    /**
+//     * 
+//     * chooses who goes first based on what letter they randomly pick from the
+//     * bag
+//     */
+//    private void chooseFirstPlayer()
+//    {
+//        char pl1, pl2;
+//        do
+//        {
+//            pl1 = myBag.getRandomLetterWithoutRemoving().getLetter();
+//            pl2 = myBag.getRandomLetterWithoutRemoving().getLetter();
+//        } while ( pl1 == pl2 );
+//        if ( Character.getNumericValue( pl1 ) < Character.getNumericValue( pl2 ) )
+//            currentPlayer = player1;
+//        else
+//            currentPlayer = player2;
+//        replenishLetters();
+//    }
 
 
     /**
