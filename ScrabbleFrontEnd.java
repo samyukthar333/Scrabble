@@ -83,12 +83,31 @@ public class ScrabbleFrontEnd extends JPanel
         return jp;
     }
 
-    private JPanel getTopPanel(){
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-        JPanel jp = new JPanel();
-        //jp.setSize(dim.width, dim.height / 10);
-        //jp.setPreferredSize(new Dimension(dim.width, dim.height / 10));
-        JLabel jL = new JLabel();
+    public void refreshGame(){
+        repaintTop();
+        repaintBottom();
+        repaintLeft();
+    }
+
+    public void repaintLeft(){
+        /*
+        JPanel jp = (JPanel)this.getComponent(2);
+        ScrabbleLeftPanel slp = (ScrabbleLeftPanel)jp.getComponent(0);
+        slp.repaintLeft();
+        */
+    }
+
+
+    public void repaintBottom(){
+        JPanel jp = (JPanel)this.getComponent(1);
+        ScrabbleBottomPanel sbp = (ScrabbleBottomPanel)jp.getComponent(0);
+        sbp.resetPlayer();
+    }
+
+
+    public void repaintTop(){
+        JPanel jp = (JPanel)this.getComponent(0);
+        JLabel jL = (JLabel)jp.getComponent(0);
         String message = "<html>Current Player: ";
         if(game.getCurrentPlayer() == game.getComputer()){
             message += " Computer<br/>Points : " + game.getComputer().getPoints() + "</html>";
@@ -96,6 +115,14 @@ public class ScrabbleFrontEnd extends JPanel
             message += " Human<br/>Total Points : " + game.getHuman().getPoints() + "</html>";
         }
         jL.setText(message);
+    }
+
+    private JPanel getTopPanel(){
+        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+        JPanel jp = new JPanel();
+        //jp.setSize(dim.width, dim.height / 10);
+        //jp.setPreferredSize(new Dimension(dim.width, dim.height / 10));
+        JLabel jL = new JLabel();
         jL.setFont(new Font("Serif", Font.BOLD, 20));
         jp.add(jL);
         jp.setPreferredSize(getPercent(10, 10));
@@ -122,6 +149,7 @@ public class ScrabbleFrontEnd extends JPanel
         mainPanel.add(getLeftPanel(), BorderLayout.WEST);
         mainPanel.add(getRightPanel(), BorderLayout.EAST);
         mainPanel.add(getCenterPanel(), BorderLayout.CENTER);
+        refreshGame();
     }
 
     private void initMainPanel(JPanel jp){
