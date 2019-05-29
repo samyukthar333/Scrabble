@@ -21,12 +21,21 @@ public class ScrabbleBoard extends JPanel
     private Game game;
     private JPanel centerPanel;
     private ArrayList<Square> squares;
+    private final Image threeword;
+    private final Image twoword;
+    private final Image threeletter;
+    private final Image twoletter;
+
 
     public ScrabbleBoard(Game game, JPanel centerPanel){
         super();
         this.game = game;
         this.centerPanel = centerPanel;
         this.squares = new ArrayList<Square>();
+        threeword = getImage("threeword");
+        threeletter = getImage("threeletter");
+        twoword = getImage("twoword");
+        twoletter = getImage("twoletter");
         drawBoard(game, this);
         centerPanel.add(this);
     }
@@ -36,13 +45,13 @@ public class ScrabbleBoard extends JPanel
     }
 
     private JPanel getPanel(Image img){
-        final Image i = img;
+        //final Image i = img;
         JPanel jP = new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                if (i != null);
-                   // Sam edit g.drawImage(img, 0, 0, null);
+                if (img != null);
+                   g.drawImage(img, 0, 0, null);
             }
         };
         return jP;
@@ -83,7 +92,7 @@ public class ScrabbleBoard extends JPanel
             scrDim = height;
 
         scrDim = (scrDim / 100) * 100;
-        System.out.println("VISH " + scrDim);
+        System.out.println("Dimensions " + scrDim);
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(15, 15));
         //panel.setBackground(Color.BLACK);
@@ -100,16 +109,20 @@ public class ScrabbleBoard extends JPanel
                 int special = squares[i][j].getSpecial();
                 Image img = null;
                 if (special == 4){
-                    img = getImage("threeword");
+                    //img = getImage("threeword");
+                    img = threeword;
                 }
                 if (special == 3){
-                    img = getImage("twoword");
+                    //img = getImage("twoword");
+                    img = twoword;
                 }
                 if (special == 2){
-                    img = getImage("threeletter");
+                    //img = getImage("threeletter");
+                    img = threeletter;
                 }
                 if (special == 1){
-                    img = getImage("twoletter");
+                    //img = getImage("twoletter");
+                    img = twoletter;
                 }
 
 
