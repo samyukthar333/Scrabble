@@ -43,7 +43,8 @@ public class Square
         else
             myY = -1;
         letter = null;
-        this.special = special;
+        if(special >= 0 && special <= 4)
+            this.special = special;
     }
 
 
@@ -137,7 +138,8 @@ public class Square
      */
     public void setSpecial( int num )
     {
-        special = num;
+        if(num>=0 && num<=4)
+            special = num;
     }
 
 
