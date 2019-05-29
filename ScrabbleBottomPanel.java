@@ -80,10 +80,15 @@ public class ScrabbleBottomPanel extends JPanel
                 JButton btn = (JButton)e.getSource();
                 ScrabbleBottomPanel slp = (ScrabbleBottomPanel) btn.getParent();
                 System.out.println("IH MYLetter size is " + slp.getExchangeLetters().size());
+                int esize = slp.getExchangeLetters().size();
+                if (esize != 3){
+                    JOptionPane.showMessageDialog(null,
+                            "You can exchange only 3 words");
+                    return;
+                }
                 Game game = slp.getGame();
                 game.exchange(slp.getExchangeLetters());
                 JPanel lp = slp.getBottomPanel();
-                int esize = slp.getExchangeLetters().size();
                 slp.setExchangeLetters(new ArrayList<Letter>());
                 JPanel jpl = (JPanel)slp.getComponent(0);
                 int j = 0;
