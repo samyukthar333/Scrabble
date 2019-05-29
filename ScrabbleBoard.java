@@ -44,7 +44,7 @@ public class ScrabbleBoard extends JPanel
         return squares;
     }
 
-    private JPanel getPanel(Image img){
+    private JPanel getPanel(final Image img){
         //final Image i = img;
         JPanel jP = new JPanel() {
             @Override
