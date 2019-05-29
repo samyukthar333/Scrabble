@@ -70,7 +70,7 @@ public class ScrabbleLeftPanel extends JPanel
         bottomPanel.addMouseListener(UIUtilities.getMouseListener());
         TransferHandler tfhP = UIUtilities.getTransferHandlerForLeftPanel();
         bottomPanel.setTransferHandler(tfhP);
-        JLabel user = new JLabel("Player1");
+        JLabel user = new JLabel("Human Player");
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel points = new JLabel("Total Points: " + player1.getPoints());
         points.setAlignmentX(Component.CENTER_ALIGNMENT);

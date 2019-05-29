@@ -25,7 +25,7 @@ public class ScrabbleFrontEnd extends JPanel
 {//  testing log add a dicitonary at the bottom and players tiles at the bottom of the screen 
     // this class runs the game
     private static final long serialVersionUID = 1L;
-    private String frameName = "Scrabble";
+    private String frameName = "Scrabble - LHS project 2019 - By Richa, Samyukta, Sanvi";
     private JFrame frame;
     private JPanel mainPanel;
     private Game game;
@@ -53,8 +53,8 @@ public class ScrabbleFrontEnd extends JPanel
         //jp.setSize(dim.width / 10, dim.height / 20);
         //jp.setPreferredSize(new Dimension(dim.width / 10, dim.height / 20));
         jp.setPreferredSize(getPercent(10, 20));
-        jp.setBorder(border);
-        ScrabbleRightPanel.drawLeftPanel(game, jp, game.getHuman());
+        //jp.setBorder(border);
+        ScrabbleRightPanel.drawRightPanel(game, jp, game.getComputer());
         return jp;
     }
 
@@ -64,7 +64,7 @@ public class ScrabbleFrontEnd extends JPanel
         //jp.setSize(dim.width / 10, dim.height / 20);
         //jp.setPreferredSize(new Dimension(dim.width / 10, dim.height / 20));
         jp.setPreferredSize(getPercent(10, 20));
-        jp.setBorder(border);
+        //jp.setBorder(border);
         ScrabbleLeftPanel sblp = new ScrabbleLeftPanel(game, jp, game.getHuman());
         //ScrabbleLeftPanel.drawLeftPanel(game, jp, game.getHuman());
         return sblp;
@@ -77,7 +77,7 @@ public class ScrabbleFrontEnd extends JPanel
         //jp.setPreferredSize(new Dimension(dim.width, dim.height / 10));
         jp.setPreferredSize(getPercent(10, 10));
         jp.setSize(getPercent(10,10).width, getPercent(10,10).height);
-        jp.setBorder(border);
+        //jp.setBorder(border);
         ScrabbleBottomPanel sbp = new ScrabbleBottomPanel(game, jp);
         //ScrabbleBottomPanel.drawBottomPanel(game, jp);
         return jp;
@@ -88,8 +88,18 @@ public class ScrabbleFrontEnd extends JPanel
         JPanel jp = new JPanel();
         //jp.setSize(dim.width, dim.height / 10);
         //jp.setPreferredSize(new Dimension(dim.width, dim.height / 10));
+        JLabel jL = new JLabel();
+        String message = "<html>Current Player: ";
+        if(game.getCurrentPlayer() == game.getComputer()){
+            message += " Computer<br/>Points : " + game.getComputer().getPoints() + "</html>";
+        }else{
+            message += " Human<br/>Total Points : " + game.getHuman().getPoints() + "</html>";
+        }
+        jL.setText(message);
+        jL.setFont(new Font("Serif", Font.BOLD, 20));
+        jp.add(jL);
         jp.setPreferredSize(getPercent(10, 10));
-        jp.setBorder(border);
+        //jp.setBorder(border);
         return jp;
     }
 
@@ -100,7 +110,7 @@ public class ScrabbleFrontEnd extends JPanel
         //jp.setPreferredSize(new Dimension(dim.width / 20, dim.height / 20));
         jp.setSize(getPercent(80, 80).width, getPercent(80, 80).height);
         jp.setPreferredSize(getPercent(80, 80));
-        jp.setBorder(border);
+        //jp.setBorder(border);
         ScrabbleBoard sb = new ScrabbleBoard(game, jp);
         //ScrabbleBoard.drawBoard(game, jp);
         return jp;
@@ -138,8 +148,6 @@ public class ScrabbleFrontEnd extends JPanel
 
     public ScrabbleFrontEnd(){
         game = new Game();
-        if (game.getCurrentPlayer() != game.getHuman())
-            game.pass();
         //System.out.println("Width " + dim.width + " Height " + dim.height);
     }
 
