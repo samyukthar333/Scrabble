@@ -16,9 +16,11 @@ public class ScrabbleRightPanel
         return jtb;
     }
 
-    public static void drawLeftPanel(Game game, JPanel bottomPanel, Player player1){
+    public static void drawRightPanel(Game game, JPanel bottomPanel, Player player1){
+        return;
+        /*
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
-        JLabel user = new JLabel("Player2");
+        JLabel user = new JLabel("Computer Player");
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel points = new JLabel("Total Points: " + player1.getPoints());
         points.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -32,5 +34,6 @@ public class ScrabbleRightPanel
             JToggleButton jb = getTButton(c, p);
             bottomPanel.add(jb);
         }
+        */
     }
 }

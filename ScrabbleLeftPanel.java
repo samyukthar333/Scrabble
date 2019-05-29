@@ -38,6 +38,9 @@ public class ScrabbleLeftPanel extends JPanel
         return null;
     }
 
+    public void repaintLeft(){
+    }
+
     public ScrabbleLeftPanel(Game game, JPanel bottomPanel, Player player1){
         super();
         this.game = game;
@@ -70,7 +73,7 @@ public class ScrabbleLeftPanel extends JPanel
         bottomPanel.addMouseListener(UIUtilities.getMouseListener());
         TransferHandler tfhP = UIUtilities.getTransferHandlerForLeftPanel();
         bottomPanel.setTransferHandler(tfhP);
-        JLabel user = new JLabel("Player1");
+        JLabel user = new JLabel("Human Player");
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
         JLabel points = new JLabel("Total Points: " + player1.getPoints());
         points.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -110,6 +113,7 @@ public class ScrabbleLeftPanel extends JPanel
             jb.addMouseListener(ml);
             TransferHandler tfh = UIUtilities.getTransferHandler();
             jb.setTransferHandler(tfh);
+            jb.getDropTarget().setActive(false);
             bottomPanel.add(jb);
         }
 

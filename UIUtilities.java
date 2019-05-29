@@ -35,6 +35,10 @@ public class UIUtilities {
     public static MouseListener getMouseListener(){
         MouseListener listener = new MouseAdapter(){
             public void mousePressed(MouseEvent me){
+                if (me.getClickCount() == 2) {
+                    System.out.println("double clicked");
+                    return;
+                }
                 JComponent comp = (JComponent) me.getSource();
                 //System.out.println(comp);
                 TransferHandler handler = comp.getTransferHandler();
@@ -47,6 +51,8 @@ public class UIUtilities {
     public static TransferHandler getTransferHandler(){
         TransferHandler tfh1 = new TransferHandler("scrabble"){
             public boolean importData(JComponent comp, Transferable t){
+                if (comp == null || t == null)
+                    return false;
                 try{
                     String data = (String)t.getTransferData(DataFlavor.stringFlavor);
                     JToggleButton jb = new JToggleButton(data);
@@ -59,7 +65,7 @@ public class UIUtilities {
                 return false;
             };
             public boolean canImport(TransferHandler.TransferSupport info) {
-                return true;
+                return info.isDrop();
             };
 
             protected Transferable createTransferable(JComponent c) {
@@ -73,6 +79,7 @@ public class UIUtilities {
             };
 
             protected void exportDone(JComponent c, Transferable data, int action) {
+                System.out.println("" + action + "\t" +c + "\t" + data);
                 if (action == 0)
                     return;
 

@@ -44,6 +44,23 @@ public class ScrabbleBottomPanel extends JPanel
         drawBottomPanel(game, this);
     }
 
+    public void resetPlayer(){
+        boolean enable = true;
+        if (game.isComputer(game.getCurrentPlayer()))
+            enable = false;
+
+        JPanel jp = (JPanel)this.getComponent(0);
+        jp.getDropTarget().setActive(enable);
+        int[] intArray = new int[]{ 2,4,5};
+        for (int i = 0; i < intArray.length; i++) {
+            JButton jb = (JButton) this.getComponent(intArray[i]);
+            jb.setEnabled(enable);
+        }
+        ScrabbleFrontEnd sfe = (ScrabbleFrontEnd) this.getParent().getParent();
+        ScrabbleBoard sb = (ScrabbleBoard)((JComponent)sfe.getComponent(4)).getComponent(0);
+        sfe.repaintTop();
+    }
+
     public void drawBottomPanel(Game game, JPanel bottomPanel){
         JPanel j = new JPanel();
         j.addMouseListener(UIUtilities.getMouseListener());
@@ -80,10 +97,15 @@ public class ScrabbleBottomPanel extends JPanel
                 JButton btn = (JButton)e.getSource();
                 ScrabbleBottomPanel slp = (ScrabbleBottomPanel) btn.getParent();
                 System.out.println("IH MYLetter size is " + slp.getExchangeLetters().size());
+                int esize = slp.getExchangeLetters().size();
+                if (esize != 3){
+                    JOptionPane.showMessageDialog(null,
+                            "You can exchange only 3 words");
+                    return;
+                }
                 Game game = slp.getGame();
                 game.exchange(slp.getExchangeLetters());
                 JPanel lp = slp.getBottomPanel();
-                int esize = slp.getExchangeLetters().size();
                 slp.setExchangeLetters(new ArrayList<Letter>());
                 JPanel jpl = (JPanel)slp.getComponent(0);
                 int j = 0;
@@ -155,6 +177,17 @@ public class ScrabbleBottomPanel extends JPanel
             {
                 JButton btn = (JButton)e.getSource();
                 ScrabbleBottomPanel panel = (ScrabbleBottomPanel)btn.getParent();
+                ScrabbleFrontEnd sfe = (ScrabbleFrontEnd) panel.getParent().getParent();
+                ScrabbleBoard jp = (ScrabbleBoard)((JComponent)sfe.getComponent(4)).getComponent(0);
+                if(game.isComputer(game.getCurrentPlayer())){
+                    ArrayList<Square> squares = ((ComputerPlayer)game.getComputer()).findWord(game.getBoard());
+                    boolean isValid = game.play(squares);
+                    System.out.println("Computer play is done? " + isValid);
+                    if (isValid)
+                        resetPlayer();
+                    return;
+                }
+
                 int j = 0;
                 Container jc = (Container) btn;
                 while(jc.getParent() != null){
@@ -162,8 +195,6 @@ public class ScrabbleBottomPanel extends JPanel
                     jc = jc.getParent();
                     j++;
                 }
-                ScrabbleFrontEnd sfe = (ScrabbleFrontEnd) panel.getParent().getParent();
-                ScrabbleBoard jp = (ScrabbleBoard)((JComponent)sfe.getComponent(4)).getComponent(0);
                 ArrayList<Square> squares = jp.getSquares();
                 if (squares.size() == 0){
                     return;
@@ -181,7 +212,8 @@ public class ScrabbleBottomPanel extends JPanel
 
     ActionListener passListener = new ActionListener(){
         public void actionPerformed(ActionEvent e){
-            // Sam edit game.pass();
+            game.pass();
+            resetPlayer();
         };
     };
     pass.addActionListener(passListener);
