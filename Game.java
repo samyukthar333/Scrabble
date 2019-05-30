@@ -26,8 +26,9 @@ public class Game
     private Board board;
 
     /**
-     * constructor
-     * @param twoPlayer
+     * constructor with param twoPlayer
+     *  makes game with board, bag, currentplayer - player2, and player1
+     * @param twoPlayer whether game is two player or not
      */
     public Game(boolean twoPlayer)
     {
@@ -42,13 +43,31 @@ public class Game
         currentPlayer = player2;
 //        chooseFirstPlayer();
     }
+    
+    /**
+     * constructor 
+     * makes game with board, bag, currentplayer - player2, and player1
+     */
+    public Game()
+    {
+        this.twoPlayer = false;
+        board = new Board();
+        if(!twoPlayer)
+            player1 = new ComputerPlayer();
+        else
+            player1 = new Player();
+        player2 = new Player();
+        myBag = new LetterBag();
+        currentPlayer = player2;
+//        chooseFirstPlayer();
+    }
 
 
     /**
      * 
-     * returns the player who is playing
+     * gets computer player if one person game
      * 
-     * @return player2
+     * @return null if two person, else human player
      */
     public Player getComputer()
     {
@@ -59,8 +78,8 @@ public class Game
     
     /**
      * 
-     * gets how many people are playing (<= 2 players)
-     * @return null
+     * gets Human player if one person game
+     * @return null if two person, else human player
      */
     public Player getHuman()
     {
@@ -72,7 +91,7 @@ public class Game
     /**
      * 
      * returns player1
-     * @return player1
+     * @return player1 the first player
      */
     public Player getPlayer1()
     {
@@ -82,7 +101,7 @@ public class Game
     /**
      * 
      * returns player2
-     * @return player2
+     * @return player2 second player
      */
     public Player getPlayer2()
     {
@@ -91,9 +110,9 @@ public class Game
     
     /**
      * 
-     * returns a boolean whether player1 is or isnt player
+     * returns a boolean whether player is or isnt computer
      * @param player keeps track of the player
-     * @return (player1.equals(player))
+     * @return  whether player is or isnt computer
      */
     public boolean isComputer(Player player)
     {
@@ -157,6 +176,11 @@ public class Game
     {
         return myBag.getRandomLetters( 3 );
 
+    }
+    
+    public boolean isTwoPlayer()
+    {
+        return twoPlayer;
     }
 
 

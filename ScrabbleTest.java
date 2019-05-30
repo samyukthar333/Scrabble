@@ -414,49 +414,84 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test
     public void testGameConstuctor()
     {
-
+        Game game = new Game(false);
+        assertFalse(game.isTwoPlayer());
+        assertNotNull(game.getComputer());
+        assertNotNull(game.getHuman());
+        assertNotNull(game.getPlayer1());
+        assertNotNull(game.getPlayer2());
+        assertEquals(game.getBag().size(),100);
+        assertEquals(game.getCurrentPlayer(), game.getPlayer2());
+        assertNotNull(game.getBoard());
+        game = new Game(true);
+        assertTrue(game.isTwoPlayer());
+        assertNull(game.getComputer());
+        assertNull(game.getHuman());
+        
     }
 
 
     @Test
     public void testGetComputer()
     {
-
+        Game game = new Game(false);
+        assertNotNull(game.getComputer());
+        game = new Game(true);
+        assertNull(game.getComputer());
     }
 
 
     @Test
     public void testGetHuman()
     {
-
+        Game game = new Game(false);
+        assertNotNull(game.getHuman());
+        game = new Game(true);
+        assertNull(game.getHuman());
     }
 
 
     @Test
     public void testIsComputer()
     {
-
+        Game game = new Game(false);
+        assertTrue(game.isComputer( game.getComputer() ));
+        assertFalse(game.isComputer( game.getHuman() ));
     }
 
 
     @Test
     public void testGetCurrentPlayer()
     {
-
+        
+        Game game = new Game(false);
+        assertEquals(game.getCurrentPlayer(), game.getHuman());
+        assertFalse(game.getCurrentPlayer().equals(game.getComputer()));
+    }
+    
+    @Test
+    public void testIsTwoPlayer()
+    {
+        Game game = new Game(false);
+        assertFalse(game.isTwoPlayer());
+        game = new Game(false);
+        assertFalse(game.isTwoPlayer());
     }
 
 
     @Test
-    public void testGetBoard2()
+    public void testGetBoardGame()
     {
-
+        Game game = new Game(false);
+        assertNotNull(game.getBoard());
     }
 
 
     @Test
     public void testGetBag()
     {
-
+        Game game = new Game(false);
+        assertNotNull(game.getBoard());
     }
 
 
@@ -549,14 +584,34 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test
     public void testComputerPlayerConstuctor()
     {
-
+        Player p = new ComputerPlayer();
+        assertEquals(p.getPoints(), 0);
+        assertEquals(p.getLetters().size(), 0);
+        ComputerPlayer cp = new ComputerPlayer();
+        assertEquals(cp.getPoints(), 0);
+        assertEquals(cp.getLetters().size(), 0);
     }
 
 
     @Test
     public void testGetExchange()
     {
-
+        ComputerPlayer cp = new ComputerPlayer();
+        ArrayList<Letter> letters = new ArrayList<Letter>();
+        letters.add( new Letter('A') );
+        letters.add( new Letter('B') );
+        letters.add( new Letter('C') );
+        letters.add( new Letter('D') );
+        letters.add( new Letter('E') );
+        for(Letter l : letters)
+        {
+            cp.getLetters().add( l );
+        }
+        ArrayList<Letter> threeLet = cp.getExchange();
+        for(Letter l : threeLet)
+        {
+            assertTrue(letters.contains( l ));
+        }
     }
 
 
@@ -565,35 +620,6 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
 
     }
-
-
-    @Test
-    public void testFindLeftPart()
-    {
-
-    }
-
-
-    @Test
-    public void testFindLeftPartHelper()
-    {
-
-    }
-
-
-    @Test
-    public void testExtendRight()
-    {
-
-    }
-
-
-    @Test
-    public void testExecutePlay()
-    {
-
-    }
-
 
     // Square
     @Test
@@ -762,42 +788,61 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test
     public void testGetRoot()
     {
-        
+        TrieNode root = new TrieNode();
+        Trie trie = new Trie(root);
+        assertEquals(trie.getRoot(), root);
     }
 
 
     @Test
     public void testSetRoot()
     {
-
+        TrieNode root1 = new TrieNode();
+        Trie trie = new Trie(root1);
+        TrieNode root2 = new TrieNode('A');
+        trie.setRoot( root2 );
+        assertEquals(trie.getRoot(), root2);
     }
 
 
     @Test
     public void testInsert()
     {
-
+        Trie trie = new Trie();
+        assertFalse(trie.contains("APPLE") );
+        trie.insert( "APPLE" );
+        assertTrue(trie.contains("APPLE") );
     }
 
 
     @Test
-    public void testContains2()
+    public void testContainsTrie()
     {
-
+        Trie trie = new Trie();
+        assertFalse(trie.contains("APPLE") );
+        trie.insert( "APPLE" );
+        assertTrue(trie.contains("APPLE") );
     }
 
 
     @Test
     public void testGetEndNode()
     {
-
+        Trie trie = new Trie();
+        assertNull(trie.getEndNode("APPLE") );
+        trie.insert( "APPLE" );
+        assertNotNull(trie.getEndNode("APPLE") );
     }
 
 
     @Test
     public void testIsPrefix()
     {
-
+        Trie trie = new Trie();
+        assertFalse(trie.isPrefix("APP") );
+        trie.insert( "APPLE" );
+        assertTrue(trie.isPrefix("APPLE") );
+        
     }
 
 

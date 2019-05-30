@@ -293,7 +293,7 @@ public class ComputerPlayer extends Player
      * @param board
      * @return squares
      */
-    public ArrayList<Square> executePlay( Board board )
+    private ArrayList<Square> executePlay( Board board )
     {
         ArrayList<Square> squares = new ArrayList<Square>();
 
