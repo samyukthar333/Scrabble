@@ -116,7 +116,7 @@ public class ScrabbleFrontEnd extends JPanel
         repaintTop();
         repaintBottom();
         repaintLeft();
-        //this.drawBoard(mainPanel);
+        //drawGame();
     }
 
     /**

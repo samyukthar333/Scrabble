@@ -166,7 +166,7 @@ public class ScrabbleLeftPanel extends JPanel
 
         PlayerLetters pl = player1.getLetters();
         ArrayList<Letter> letters = pl.getLetters();
-        System.out.println(letters);
+//        System.out.println(letters);
         if ( player1.getPoints() == 0 && myLetters.size() == 0 )
         {
             LetterBag myBag = game.getBag();

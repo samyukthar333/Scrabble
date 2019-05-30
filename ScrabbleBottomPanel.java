@@ -325,7 +325,10 @@ public class ScrabbleBottomPanel extends JPanel
                         JOptionPane.showMessageDialog( null, "Computer placed word for " + points + " points" );
                         
                     }
+//                    sfe.refreshGame();
                     resetPlayer();
+                    
+                    
                     return;
                 }
 
@@ -357,7 +360,7 @@ public class ScrabbleBottomPanel extends JPanel
                     JOptionPane.showMessageDialog(null, "Invalid Words. Try again");
                 }else{
                     JOptionPane.showMessageDialog(null, "You get " + points + " points");
-                    sfe.repaintLeft();
+//                    sfe.repaintLeft();
                     sfe.refreshGame();
                 }
             }
