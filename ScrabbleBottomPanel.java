@@ -305,6 +305,7 @@ public class ScrabbleBottomPanel extends JPanel
                 ScrabbleFrontEnd sfe = (ScrabbleFrontEnd)panel.getParent().getParent();
                 ScrabbleBoard jp = (ScrabbleBoard)( (JComponent)sfe.getComponent( 4 ) )
                     .getComponent( 0 );
+                Game game = jp.getGame();
                 if ( game.isComputer( game.getCurrentPlayer() ) )
                 {
                     ArrayList<Square> squares = ( (ComputerPlayer)game.getComputer() )
@@ -352,11 +353,13 @@ public class ScrabbleBottomPanel extends JPanel
         {
             public void actionPerformed( ActionEvent e )
             {
-                game.pass();
+                
                 resetPlayer();
                 JButton btn = (JButton)e.getSource();
                 ScrabbleBottomPanel panel = (ScrabbleBottomPanel)btn.getParent();
                 ScrabbleFrontEnd sfe = (ScrabbleFrontEnd)panel.getParent().getParent();
+                Game game = panel.getGame();
+                game.pass();
                 sfe.refreshGame();
             };
         };
