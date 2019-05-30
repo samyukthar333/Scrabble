@@ -14,7 +14,7 @@ import javax.swing.JFrame;
  *  TODO Follow it with additional details about its purpose, what abstraction
  *  it represents, and how to use it.
  *
- *  @author  Richa Bavadekar
+ *  @author  Richa, saanvi, samyuktha
  *  @version May 22, 2019
  *  @author  Period: 4
  *  @author  Assignment: Scrabble
@@ -32,12 +32,23 @@ public class ScrabbleFrontEnd extends JPanel
     Rectangle dim = GraphicsEnvironment.getLocalGraphicsEnvironment().getMaximumWindowBounds();
     //Dimension dim = new Dimension(1400, 800);
 
+    /**
+     * 
+     * calculates the percentages for the dimensions
+     * @param w_percent width percentage
+     * @param h_percent height percentage
+     * @return new Dimension(width, height)
+     */
     private Dimension getPercent(int w_percent, int h_percent){
         int width = (dim.width * w_percent) / 100;
         int height = (dim.height * h_percent) / 100; 
         return new Dimension(width, height);
     }
 
+    /**
+     * 
+     * sets parameters for the frame
+     */
     private void initFrame(){
         //Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
         frame = new JFrame(this.frameName);
@@ -47,6 +58,11 @@ public class ScrabbleFrontEnd extends JPanel
         frame.setDefaultCloseOperation( JFrame.EXIT_ON_CLOSE );
     }
 
+    /**
+     * 
+     * creates the right panel
+     * @return jp
+     */
     private JPanel getRightPanel(){
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         JPanel jp = new JPanel();
@@ -57,7 +73,11 @@ public class ScrabbleFrontEnd extends JPanel
         ScrabbleRightPanel.drawRightPanel(game, jp, game.getComputer());
         return jp;
     }
-
+    /**
+     * 
+     * creates the left panel
+     * @return sblp
+     */
     private JPanel getLeftPanel(){
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         JPanel jp = new JPanel();
@@ -70,6 +90,11 @@ public class ScrabbleFrontEnd extends JPanel
         return sblp;
     }
 
+    /**
+     * 
+     * creates the bottom panel
+     * @return jp
+     */
     private JPanel getBottomPanel(){
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         JPanel jp = new JPanel();
@@ -83,12 +108,20 @@ public class ScrabbleFrontEnd extends JPanel
         return jp;
     }
 
+    /**
+     * 
+     * recreates the game 
+     */
     public void refreshGame(){
         repaintTop();
         repaintBottom();
         repaintLeft();
     }
 
+    /**
+     * 
+     * recreates the left panel
+     */
     public void repaintLeft(){
         /*
         JPanel jp = (JPanel)this.getComponent(2);
@@ -97,14 +130,20 @@ public class ScrabbleFrontEnd extends JPanel
         */
     }
 
-
+    /**
+     * 
+     * recreates the bottom panel
+     */
     public void repaintBottom(){
         JPanel jp = (JPanel)this.getComponent(1);
         ScrabbleBottomPanel sbp = (ScrabbleBottomPanel)jp.getComponent(0);
         sbp.resetPlayer();
     }
 
-
+    /**
+     * 
+     * recreates the top panel
+     */
     public void repaintTop(){
         JPanel jp = (JPanel)this.getComponent(0);
         JLabel jL = (JLabel)jp.getComponent(0);
@@ -117,6 +156,11 @@ public class ScrabbleFrontEnd extends JPanel
         jL.setText(message);
     }
 
+    /**
+     * 
+     * creates the top pane
+     * @return jp
+     */
     private JPanel getTopPanel(){
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         JPanel jp = new JPanel();
@@ -130,6 +174,11 @@ public class ScrabbleFrontEnd extends JPanel
         return jp;
     }
 
+    /**
+     * 
+     * creates the center panel
+     * @return jp
+     */
     private JPanel getCenterPanel(){
         Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
         JPanel jp = new JPanel();
@@ -143,6 +192,11 @@ public class ScrabbleFrontEnd extends JPanel
         return jp;
     }
 
+    /**
+     * 
+     * draws the overall board
+     * @param mainPanel
+     */
     private void drawBoard(JPanel mainPanel){
         mainPanel.add(getTopPanel(), BorderLayout.NORTH);
         mainPanel.add(getBottomPanel(), BorderLayout.SOUTH);
@@ -152,6 +206,11 @@ public class ScrabbleFrontEnd extends JPanel
         refreshGame();
     }
 
+    /**
+     * 
+     * creates the main panel
+     * @param jp
+     */
     private void initMainPanel(JPanel jp){
         //mainPanel = new JPanel();
         jp.setBackground(Color.BLUE);
@@ -161,6 +220,10 @@ public class ScrabbleFrontEnd extends JPanel
         frame.setVisible(true);
     }
 
+    /**
+     * 
+     * draws the overal game
+     */
     private void drawGame(){
         initFrame();
         initMainPanel(this);
@@ -174,16 +237,28 @@ public class ScrabbleFrontEnd extends JPanel
         */
     }
 
+    /**
+     * calls for game
+     */
     public ScrabbleFrontEnd(){
         game = new Game();
         //System.out.println("Width " + dim.width + " Height " + dim.height);
     }
 
+    /**
+     * 
+     * creates / draws gui
+     */
     private static void createAndShowGUI(){
         ScrabbleFrontEnd sfe = new ScrabbleFrontEnd();
         sfe.drawGame();
     }
 
+    /**
+     * 
+     * main method
+     * @param args
+     */
     public static void main (String[] args)
     {
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
