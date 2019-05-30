@@ -744,16 +744,25 @@ public class ScrabbleTest extends junit.framework.TestCase
 
     // Trie
     @Test
-    public void testTrie2()
+    public void testTrieConstructor1()
     {
-
+        TrieNode root = new TrieNode();
+        Trie trie = new Trie(root);
+        assertEquals(trie.getRoot(), root);
     }
 
+    @Test
+    public void testTrieConstructor2()
+    {
+        TrieNode root = new TrieNode();
+        Trie trie = new Trie(root);
+        assertEquals(trie.getRoot(), root);
+    }
 
     @Test
     public void testGetRoot()
     {
-
+        
     }
 
 
@@ -863,6 +872,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testHasChildren()
     {
         TrieNode node = new TrieNode();
+        assertFalse(node.hasChildren());
+        node.getChildren().put( 'C', new TrieNode() );
+        assertTrue(node.hasChildren());
         
     }
 

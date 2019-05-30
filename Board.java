@@ -122,7 +122,7 @@ public class Board // does not work only for when letter has both up and side
                             {
                                 // System.out.println("c: " + c);
                                 s = new String( c + tmp );
-                                if ( Words.wordTrie.contains( s ) )
+                                if ( Words.isWord( s ) )
                                 {
                                     bitVectors[i][j].set( Character.getNumericValue( c )
                                         - Character.getNumericValue( 'A' ), true );
@@ -131,21 +131,47 @@ public class Board // does not work only for when letter has both up and side
                         }
                         else
                         {
-                            // System.out.println( "goodnessaslfjkas" );
-                            if ( Words.wordTrie.getEndNode( s ) != null )
+                            
+                            //does not have letters below square
+                            if(!isValid(i+1,j) || board[i+1][j].isEmpty() || board[i+1][j] == null)
                             {
-                                HashMap<Character, TrieNode> children = Words.wordTrie
-                                    .getEndNode( s )
-                                    .getChildren();
-                                if ( children != null )
+                                if ( Words.wordTrie.getEndNode( s ) != null )
                                 {
-                                    for ( char c : children.keySet() )
+                                    HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
+                                    if ( children != null )
                                     {
-                                        // System.out.println("char: "+ c );
-                                        bitVectors[i][j].set( Character.getNumericValue( c )
-                                            - Character.getNumericValue( 'A' ), true );
+                                        for ( char c : children.keySet() )
+                                        {
+                                            if(children.get( c ).isEnd())
+                                                bitVectors[i][j].set( Character.getNumericValue( c )- Character.getNumericValue( 'A' ), true );
+                                        }
                                     }
                                 }
+                            }
+                            //has letters above and below
+                            else
+                            {
+                               //calc letters below
+                               num = i+1;
+                               String s2 = "";
+                               while ( num <= 14 && board[num][j].getLetter() != null )
+                               {
+                                   s2 = s2 + board[num][j].getLetter().getLetter();
+                                   num++;
+
+                               }
+                               if ( Words.wordTrie.getEndNode( s ) != null )
+                               {
+                                   HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
+                                   if ( children != null )
+                                   {
+                                       for ( char c : children.keySet() )
+                                       {
+                                           if(Words.isWord(s+c+s2))
+                                               bitVectors[i][j].set( Character.getNumericValue( c )- Character.getNumericValue( 'A' ), true );
+                                       }
+                                   }
+                               }
                             }
                         }
                     }
@@ -220,11 +246,16 @@ public class Board // does not work only for when letter has both up and side
         {
             for ( int j = 0; j < board[0].length; j++ )
             {
-                temp[i][j] = board[board.length - 1 - j][i];
+//                temp[i][j] = board[board.length - 1 - j][i];
+                temp[i][j] = board[j][i];
+                temp[i][j].setRow( i );
+                temp[i][j].setCol( j );
+                
             }
         }
         board = temp;
         transposed = false;
+        initBitSet();
     }
 
 
@@ -235,16 +266,24 @@ public class Board // does not work only for when letter has both up and side
     public void transpose()
     {
         Square[][] temp = new Square[15][15];
-        for ( int i = 0; i < board.length; i++ )
+        for ( int i = 0; i < 15; i++ )
         {
-            for ( int j = 0; j < board[0].length; j++ )
+            for ( int j = 0; j < 15; j++ )
             {
-                temp[i][j] = board[j][board[0].length - 1 - i];
+//                temp[i][j] = board[j][board[0].length - 1 - i];
+                //temp[i][j] = board[j][i];
+                
+                temp[j][i] = board[i][j];
+                temp[j][i].setRow( j );
+                temp[j][i].setCol( i );
 
             }
         }
+        System.out.println( "In transpose" );
+        this.printBoard();
         board = temp;
         transposed = true;
+        initBitSet();
     }
 
 
@@ -307,6 +346,10 @@ public class Board // does not work only for when letter has both up and side
      */
     public ArrayList<Square> getAnchors()
     {
+        for (Square s: anchors)
+        {
+            System.out.println( "get anchors, row=" + s.getRow() + "Col=" + s.getCol() + "next letter=" + board[s.getRow()][s.getCol()+1].getLetter() );
+        }
         return anchors;
     }
 
@@ -399,10 +442,14 @@ public class Board // does not work only for when letter has both up and side
 
     /**
      * 
-     * cross checks
+     * cross checks - fixes the public instance variable called anchors
      */
     public void fixAnchors()
     {
+        System.out.println( "In fix anchors" );
+        this.printBoard();
+        //anchors = new ArrayList<Square>();
+        anchors.clear();
         for ( int i = 0; i < 15; i++ )
         {
             for ( int j = 0; j < 15; j++ )
@@ -412,13 +459,32 @@ public class Board // does not work only for when letter has both up and side
                 {
                     if ( isValid( i, j - 1 ) && board[i][j - 1].isEmpty() )
                     {
+                        
                         anchors.add( board[i][j - 1] );
+                       
                     }
                 }
             }
         }
+        
+        System.out.println( );
+        for(Square square: anchors)
+            System.out.println( "found anchor2 " + board[square.getRow()][square.getCol()+1].getLetter()+ " Row " + square.getRow() + " Col= " + square.getCol() );
+        System.out.println( );
     }
 
+    /**
+     * 
+     * returns true if given square is an anchor, false otherwise
+     * @param s Square to check
+     * @return true if square is an anchor, false otherwise
+     */
+    public boolean isAnchor(Square s)
+    {
+        if(anchors.contains( s ))
+            return true;
+        return false;
+    }
 
     /**
      * 
@@ -430,9 +496,9 @@ public class Board // does not work only for when letter has both up and side
      */
     public int placeWord( ArrayList<Square> squares )
     {
-        if ( squares.isEmpty() ) // if squares is empty
+        if ( squares==null || squares.isEmpty() ) // if squares is empty
         {
-            System.out.println( "squares is empty" );
+            System.out.println( "squares is empty or null" );
             return -1;
         }
 
@@ -452,12 +518,14 @@ public class Board // does not work only for when letter has both up and side
                 System.out.println( "Cannot print on occ square" );
                 return -1;
             }
+            System.out.println( "Checking connectedness " + "row " + s.getRow() + "col " + s.getCol() + "letter " + s.getLetter().getLetter());
             if ( getOccupiedNeighbors( s ).size() > 0 )
             {
                 connected = true;
             }
 
         }
+        System.out.println( "conn" + connected );
         if ( !connected )
             return -1;
 
@@ -493,6 +561,8 @@ public class Board // does not work only for when letter has both up and side
         if ( transposed )
             transposeBack();
 
+        initBitSet();
+        
         return points;
     }
 
@@ -691,7 +761,7 @@ public class Board // does not work only for when letter has both up and side
     {
         int row = squares.get( 0 ).getRow();
         int start = 0;
-        for ( int i = squares.get( 0 ).getCol(); i > 0; i-- ) // go back
+        for ( int i = squares.get( 0 ).getCol(); i >= 0; i-- ) // go back
                                                               // constantly
         {
             if ( board[row][i].getLetter() == null )
@@ -755,7 +825,8 @@ public class Board // does not work only for when letter has both up and side
         for ( Square s : squares )
         {
             int tempX = s.getRow();
-            s.setRow( board[0].length - 1 - s.getCol() );
+            //s.setRow( board[0].length - 1 - s.getCol() );
+            s.setRow( s.getCol() );
             s.setCol( tempX );
             squares2.add( s );
 
@@ -779,7 +850,8 @@ public class Board // does not work only for when letter has both up and side
         {
             int tempX = s.getRow();
             s.setRow( s.getCol() );
-            s.setCol( board[0].length - 1 - tempX );
+//            s.setCol( board[0].length - 1 - tempX );
+            s.setCol( tempX );
 
         }
 
@@ -1010,91 +1082,134 @@ public class Board // does not work only for when letter has both up and side
      */
     public static void main( String[] args )
     {
+        
         Board board = new Board();
+        ComputerPlayer player = new ComputerPlayer();
+
+        board.getBoard()[2][6].setLetter( new Letter( 'B' ) );
+        board.getBoard()[3][6].setLetter( new Letter( 'U' ) );
+        board.getBoard()[4][6].setLetter( new Letter( 'S' ) );
         board.printBoardSp();
 
-        // board.addLetter( new Letter('D'), 4, 6 );
-        // board.addLetter( new Letter('E'), 4, 7 );
-        // board.addLetter( new Letter('E'), 4, 8 );
-        // board.addLetter( new Letter('R'), 4, 9 );
-
-        // ArrayList<Square> input = new ArrayList<Square>();
-        // input.add( new Square( new Letter( 'D' ), 4, 6 ) );
-        // input.add( new Square( new Letter( 'E' ), 4, 7 ) );
-        // input.add( new Square( new Letter( 'E' ), 4, 8 ) );
-        // input.add( new Square( new Letter( 'R' ), 4, 9 ) );
-        // int points = board.placeWord( input );
-        // board.printBoard();
-        // System.out.println( points );
-        //
-        // input = new ArrayList<Square>();
-        // input.add( new Square( new Letter( 'A' ), 3, 6 ) );
-        // input.add( new Square( new Letter( 'D' ), 2, 6 ) );
-        // points = board.placeWord( input );
-        // board.printBoard();
-        // System.out.println( points );
-
         ArrayList<Square> input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'B' ), 2, 2 ) );
-        input.add( new Square( new Letter( 'O' ), 2, 3 ) );
-        input.add( new Square( new Letter( 'A' ), 2, 4 ) );
-        input.add( new Square( new Letter( 'R' ), 2, 5 ) );
+        input.add( new Square( new Letter( 'C' ), 2, 3 ) );
+        input.add( new Square( new Letter( 'R' ), 2, 4 ) );
+        input.add( new Square( new Letter( 'A' ), 2, 5 ) );
+        input.add( new Square( new Letter( 'B' ), 2, 7 ) );
+        input.add( new Square( new Letter( 'Y' ), 2, 8 ) );
+        
         int points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-
+        
+        
         input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'O' ), 3, 2 ) );
+        input.add( new Square( new Letter( 'B' ), 4, 1 ) );
         input.add( new Square( new Letter( 'A' ), 4, 2 ) );
-        input.add( new Square( new Letter( 'R' ), 5, 2 ) );
+        input.add( new Square( new Letter( 'C' ), 4, 3 ) );
+        input.add( new Square( new Letter( 'O' ), 4, 4 ) );
+        input.add( new Square( new Letter( 'N' ), 4, 5 ) );
+        
+        
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-
+        
+        
         input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'O' ), 4, 7 ) );
-        input.add( new Square( new Letter( 'L' ), 4, 8 ) );
-        input.add( new Square( new Letter( 'L' ), 4, 9 ) );
+        input.add( new Square( new Letter( 'E' ), 3, 8 ) );
+        input.add( new Square( new Letter( 'S' ), 4, 8 ) );
+        
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-
-        input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'U' ), 5, 9 ) );
-        input.add( new Square( new Letter( 'M' ), 6, 9 ) );
-        input.add( new Square( new Letter( 'B' ), 7, 9 ) );
-        input.add( new Square( new Letter( 'E' ), 8, 9 ) );
-        input.add( new Square( new Letter( 'R' ), 9, 9 ) );
-        points = board.placeWord( input );
-        board.printBoard();
-        System.out.println( points );
-
-        input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'D' ), 6, 2 ) );
-        // input.add( new Square( new Letter( 'S' ), 7, 2 ) );
-        points = board.placeWord( input );
-        board.printBoard();
-        System.out.println( points );
-
-        input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'S' ), 4, 10 ) );
-        points = board.placeWord( input );
-        board.printBoard();
-        System.out.println( points );
-
-        input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'R' ), 3, 3 ) );
-        points = board.placeWord( input );
-        board.printBoard();
-        System.out.println( points );
-
-        input = new ArrayList<Square>();
-        input.add( new Square( new Letter( 'N' ), 5, 7 ) );
-        points = board.placeWord( input );
-        board.printBoard();
-        System.out.println( points );
-
-        board.printBoardSp();
+        
+        
+//        Board board = new Board();
+//        board.printBoardSp();
+//
+//        // board.addLetter( new Letter('D'), 4, 6 );
+//        // board.addLetter( new Letter('E'), 4, 7 );
+//        // board.addLetter( new Letter('E'), 4, 8 );
+//        // board.addLetter( new Letter('R'), 4, 9 );
+//
+//        // ArrayList<Square> input = new ArrayList<Square>();
+//        // input.add( new Square( new Letter( 'D' ), 4, 6 ) );
+//        // input.add( new Square( new Letter( 'E' ), 4, 7 ) );
+//        // input.add( new Square( new Letter( 'E' ), 4, 8 ) );
+//        // input.add( new Square( new Letter( 'R' ), 4, 9 ) );
+//        // int points = board.placeWord( input );
+//        // board.printBoard();
+//        // System.out.println( points );
+//        //
+//        // input = new ArrayList<Square>();
+//        // input.add( new Square( new Letter( 'A' ), 3, 6 ) );
+//        // input.add( new Square( new Letter( 'D' ), 2, 6 ) );
+//        // points = board.placeWord( input );
+//        // board.printBoard();
+//        // System.out.println( points );
+//
+//        ArrayList<Square> input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'B' ), 2, 2 ) );
+//        input.add( new Square( new Letter( 'O' ), 2, 3 ) );
+//        input.add( new Square( new Letter( 'A' ), 2, 4 ) );
+//        input.add( new Square( new Letter( 'R' ), 2, 5 ) );
+//        int points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'O' ), 3, 2 ) );
+//        input.add( new Square( new Letter( 'A' ), 4, 2 ) );
+//        input.add( new Square( new Letter( 'R' ), 5, 2 ) );
+//        points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'O' ), 4, 7 ) );
+//        input.add( new Square( new Letter( 'L' ), 4, 8 ) );
+//        input.add( new Square( new Letter( 'L' ), 4, 9 ) );
+//        points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'U' ), 5, 9 ) );
+//        input.add( new Square( new Letter( 'M' ), 6, 9 ) );
+//        input.add( new Square( new Letter( 'B' ), 7, 9 ) );
+//        input.add( new Square( new Letter( 'E' ), 8, 9 ) );
+//        input.add( new Square( new Letter( 'R' ), 9, 9 ) );
+//        points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'D' ), 6, 2 ) );
+//        // input.add( new Square( new Letter( 'S' ), 7, 2 ) );
+//        points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'S' ), 4, 10 ) );
+//        points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'R' ), 3, 3 ) );
+//        points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        input = new ArrayList<Square>();
+//        input.add( new Square( new Letter( 'N' ), 5, 7 ) );
+//        points = board.placeWord( input );
+//        board.printBoard();
+//        System.out.println( points );
+//
+//        board.printBoardSp();
         //
         // Board board = new Board();
         // board.addLetter( new Letter('A'), 3, 5 );
