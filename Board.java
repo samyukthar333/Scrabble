@@ -284,9 +284,9 @@ public class Board // does not work only for when letter has both up and side
      * returns square if coordinates are valid
      * 
      * @param r
-     *            row the rows of the board
+     *            row 
      * @param c
-     *            col the columns of the board
+     *            col 
      * @return square
      */
     public Square getSquare( int r, int c )
@@ -303,7 +303,7 @@ public class Board // does not work only for when letter has both up and side
      * 
      * get the anchors on board (for computer player use)
      * 
-     * @return anchors on board
+     * @return anchors
      */
     public ArrayList<Square> getAnchors()
     {
