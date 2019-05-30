@@ -2,9 +2,7 @@ import java.util.ArrayList;
 
 /**
  * 
- *  TODO Write a one-sentence summary of your class here.
- *  TODO Follow it with additional details about its purpose, what abstraction
- *  it represents, and how to use it.
+ *  keeps track of the player's letters
  *
  *  @author  samyuktha, saanvi, richa
  *  @version May 22, 2019
@@ -117,6 +115,12 @@ public class PlayerLetters
         return playerletters;
     }
     
+    /**
+     * 
+     * checks if the letter is in the player's letters
+     * @param c stands for character
+     * @return true && false || false
+     */
     public boolean contains(char c)
     {
         for(Letter letter: playerletters)

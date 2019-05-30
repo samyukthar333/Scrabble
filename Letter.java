@@ -19,7 +19,7 @@ public class Letter
     /**
      * assigns point values to each letter
      *
-     * @param c
+     * @param c stands for character
      */
     public Letter( char c )
     {
@@ -105,6 +105,9 @@ public class Letter
         return pointValue;
     }
     
+    /**
+     * tostring method
+     */
     public String toString()
     {
         return "" + letter;
