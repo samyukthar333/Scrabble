@@ -25,6 +25,10 @@ public class Game
 
     private Board board;
 
+    /**
+     * constructor
+     * @param twoPlayer
+     */
     public Game(boolean twoPlayer)
     {
         this.twoPlayer = twoPlayer;
@@ -52,6 +56,11 @@ public class Game
         return null;
     }
     
+    /**
+     * 
+     * gets how many people are playing (<= 2 players)
+     * @return null
+     */
     public Player getHuman()
     {
         if(!twoPlayer)
@@ -59,16 +68,32 @@ public class Game
         return null;
     }
     
+    /**
+     * 
+     * returns player1
+     * @return player1
+     */
     public Player getPlayer1()
     {
         return player1;
     }
     
+    /**
+     * 
+     * returns player2
+     * @return player2
+     */
     public Player getPlayer2()
     {
         return player2;
     }
     
+    /**
+     * 
+     * returns a boolean whether player1 is or isnt player
+     * @param player keeps track of the player
+     * @return (player1.equals(player))
+     */
     public boolean isComputer(Player player)
     {
         return (player1.equals( player ));
