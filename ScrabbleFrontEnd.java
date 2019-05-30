@@ -123,11 +123,8 @@ public class ScrabbleFrontEnd extends JPanel
      * recreates the left panel
      */
     public void repaintLeft(){
-        /*
-        JPanel jp = (JPanel)this.getComponent(2);
-        ScrabbleLeftPanel slp = (ScrabbleLeftPanel)jp.getComponent(0);
+        ScrabbleLeftPanel slp = (ScrabbleLeftPanel)this.getComponent(2);
         slp.repaintLeft();
-        */
     }
 
     /**
@@ -241,7 +238,7 @@ public class ScrabbleFrontEnd extends JPanel
      * calls for game
      */
     public ScrabbleFrontEnd(){
-        game = new Game();
+        game = new Game(false);
         //System.out.println("Width " + dim.width + " Height " + dim.height);
     }
 

@@ -289,10 +289,23 @@ public class ScrabbleBottomPanel extends JPanel
                 {
                     System.out.println( "S is " + s );
                 }
+<<<<<<< HEAD
                 boolean isValid = jp.getGame().play( squares );
                 if ( !isValid )
                 {
                     JOptionPane.showMessageDialog( null, "Invalid Words. Try again" );
+=======
+                Player myPlayer = jp.getGame().getCurrentPlayer();
+                boolean isValid = jp.getGame().play(squares);
+                System.out.println("Play done? " + isValid);
+                System.out.println("Player points are " + myPlayer.getPoints());
+                if (!isValid){
+                    JOptionPane.showMessageDialog(null, "Invalid Words. Try again");
+                }else{
+                    JOptionPane.showMessageDialog(null, "You get " + myPlayer.getPoints() + " points");
+                    sfe.refreshGame();
+
+>>>>>>> 4de33a1065a66aaf77a37c8ac1676f953eb25f2e
                 }
             }
         };

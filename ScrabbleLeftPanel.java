@@ -39,6 +39,7 @@ public class ScrabbleLeftPanel extends JPanel
     }
 
     public void repaintLeft(){
+        drawLeftPanel();
     }
 
     public ScrabbleLeftPanel(Game game, JPanel bottomPanel, Player player1){
@@ -109,9 +110,10 @@ public class ScrabbleLeftPanel extends JPanel
             char c = l.getLetter();
             int p = l.getPointValue();
             JLabel jb = getTButton(c, p);
-            MouseListener ml = UIUtilities.getMouseListener();
+            MouseListener ml = UIUtilities.getMouseListenerForLabelInLeftPanel();
             jb.addMouseListener(ml);
-            TransferHandler tfh = UIUtilities.getTransferHandler();
+            //TransferHandler tfh = UIUtilities.getTransferHandler();
+            TransferHandler tfh = UIUtilities.getTransferHandlerForLabel();
             jb.setTransferHandler(tfh);
             jb.getDropTarget().setActive(false);
             bottomPanel.add(jb);
