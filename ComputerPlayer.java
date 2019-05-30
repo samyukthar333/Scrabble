@@ -108,7 +108,7 @@ public class ComputerPlayer extends Player
     /**
      * finds the left part
      * 
-     * @param board
+     * @param board 
      * @param square
      */
     private void findLeftPart( Board board, Square square )

@@ -15,165 +15,223 @@ import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 import java.io.FileInputStream;
 
+
+/**
+ * 
+ * creates and draws the board
+ *
+ * @author saanvi, samyuktha, richa
+ * @version May 29, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
+ *
+ * @author Sources: none
+ */
 public class ScrabbleBoard extends JPanel
 {
     private static final long serialVersionUID = 1L;
+
     private Game game;
+
     private JPanel centerPanel;
+
     private ArrayList<Square> squares;
+
     private final Image threeword;
+
     private final Image twoword;
+
     private final Image threeletter;
+
     private final Image twoletter;
 
-
-    public ScrabbleBoard(Game game, JPanel centerPanel){
+    /**
+     * constructor
+     * @param game sets local game variable to game
+     * @param centerPanel sets local central panel to central panel
+     */
+    public ScrabbleBoard( Game game, JPanel centerPanel )
+    {
         super();
         this.game = game;
         this.centerPanel = centerPanel;
         this.squares = new ArrayList<Square>();
-        threeword = getImage("threeword");
-        threeletter = getImage("threeletter");
-        twoword = getImage("twoword");
-        twoletter = getImage("twoletter");
-        drawBoard(game, this);
-        centerPanel.add(this);
+        threeword = getImage( "threeword" );
+        threeletter = getImage( "threeletter" );
+        twoword = getImage( "twoword" );
+        twoletter = getImage( "twoletter" );
+        drawBoard( game, this );
+        centerPanel.add( this );
     }
 
-    public ArrayList<Square> getSquares(){
+    /**
+     * 
+     * gets squares
+     * @return squares
+     */
+    public ArrayList<Square> getSquares()
+    {
         return squares;
     }
 
-    private JPanel getPanel(final Image img){
-        //final Image i = img;
-        JPanel jP = new JPanel() {
+    /**
+     * 
+     * creates the panel
+     * @param img image being used
+     * @return jP
+     */
+    private JPanel getPanel( final Image img )
+    {
+        // final Image i = img;
+        JPanel jP = new JPanel()
+        {
             @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                if (img != null);
-                   g.drawImage(img, 0, 0, null);
+            protected void paintComponent( Graphics g )
+            {
+                super.paintComponent( g );
+                if ( img != null )
+                    ;
+                g.drawImage( img, 0, 0, null );
             }
         };
         return jP;
     }
 
-    private Image getImage(String bg){
-        try{
+    /**
+     * 
+     * gets the image used for the game board
+     * @param bg the background
+     * @return null
+     */
+    private Image getImage( String bg )
+    {
+        try
+        {
             String file = "./images/" + bg + ".jpg";
-            System.out.println("File: " + file);
-            FileInputStream fis = new FileInputStream(file);
-            //BufferedImage myPicture = ImageIO.read(new File("./images/" + bg + ".jpeg"));
-            BufferedImage myPicture = ImageIO.read(fis);
-            Image dimg = myPicture.getScaledInstance(40, 40, Image.SCALE_SMOOTH);
+            System.out.println( "File: " + file );
+            FileInputStream fis = new FileInputStream( file );
+            // BufferedImage myPicture = ImageIO.read(new File("./images/" + bg
+            // + ".jpeg"));
+            BufferedImage myPicture = ImageIO.read( fis );
+            Image dimg = myPicture.getScaledInstance( 40, 40, Image.SCALE_SMOOTH );
             return dimg;
-        } catch(Exception ex){
-            System.out.println(bg + "Error: " + ex);
+        }
+        catch ( Exception ex )
+        {
+            System.out.println( bg + "Error: " + ex );
             ex.printStackTrace();
         }
         return null;
     }
 
-    public void drawBoard(){
-        drawBoard(game, this);
+    /**
+     * 
+     * draws the board
+     */
+    public void drawBoard()
+    {
+        drawBoard( game, this );
     }
 
-    public Game getGame(){
+    /**
+     * 
+     * creates the game
+     * @return this.game
+     */
+    public Game getGame()
+    {
         return this.game;
     }
 
-    public void drawBoard(Game game, JPanel centerPanel){
-        centerPanel.setLayout(new GridBagLayout());
+    /**
+     * 
+     * draws the board
+     * @param game
+     * @param centerPanel
+     */
+    public void drawBoard( Game game, JPanel centerPanel )
+    {
+        centerPanel.setLayout( new GridBagLayout() );
         int height = this.centerPanel.getHeight();
         int weight = this.centerPanel.getWidth();
         int scrDim = 0;
-        if (height > weight)
+        if ( height > weight )
             scrDim = weight;
         else
             scrDim = height;
 
-        scrDim = (scrDim / 100) * 100;
-        System.out.println("Dimensions " + scrDim);
+        scrDim = ( scrDim / 100 ) * 100;
+        System.out.println( "Dimensions " + scrDim );
         JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(15, 15));
-        //panel.setBackground(Color.BLACK);
-        panel.setPreferredSize(new Dimension(scrDim, scrDim));
-        centerPanel.add(panel);
-        Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
+        panel.setLayout( new GridLayout( 15, 15 ) );
+        // panel.setBackground(Color.BLACK);
+        panel.setPreferredSize( new Dimension( scrDim, scrDim ) );
+        centerPanel.add( panel );
+        Border border = BorderFactory.createLineBorder( Color.BLACK, 1 );
         Board board = game.getBoard();
         Square[][] squares = board.getBoard();
 
-        for(int i=0; i<squares.length; i++){
-            for(int j=0; j<squares[0].length; j++){
+        for ( int i = 0; i < squares.length; i++ )
+        {
+            for ( int j = 0; j < squares[0].length; j++ )
+            {
 
                 Square s = squares[i][j];
                 int special = squares[i][j].getSpecial();
                 Image img = null;
-                if (special == 4){
-                    //img = getImage("threeword");
+                if ( special == 4 )
+                {
+                    // img = getImage("threeword");
                     img = threeword;
                 }
-                if (special == 3){
-                    //img = getImage("twoword");
+                if ( special == 3 )
+                {
+                    // img = getImage("twoword");
                     img = twoword;
                 }
-                if (special == 2){
-                    //img = getImage("threeletter");
+                if ( special == 2 )
+                {
+                    // img = getImage("threeletter");
                     img = threeletter;
                 }
-                if (special == 1){
-                    //img = getImage("twoletter");
+                if ( special == 1 )
+                {
+                    // img = getImage("twoletter");
                     img = twoletter;
                 }
 
-
-                //JLabel jP = new JLabel("", SwingConstants.CENTER);
-                //JPanel jP = new JPanel();
-                JPanel jP = getPanel(img);
-                jP.addMouseListener(UIUtilities.getMouseListener());
-                //jP.setTransferHandler(UIUtilities.getTransferHandler());
-                jP.setTransferHandler(UIUtilities.getTransferHandlerForBoard());
-                jP.setBorder(border);
-                //jP.setText(s.toString());
+                // JLabel jP = new JLabel("", SwingConstants.CENTER);
+                // JPanel jP = new JPanel();
+                JPanel jP = getPanel( img );
+                jP.addMouseListener( UIUtilities.getMouseListener() );
+                // jP.setTransferHandler(UIUtilities.getTransferHandler());
+                jP.setTransferHandler( UIUtilities.getTransferHandlerForBoard() );
+                jP.setBorder( border );
+                // jP.setText(s.toString());
                 /*
-                // System.out.println(" " + i + "\t" + j + "\t" + squares[i][j].getSpecial());
-                //int special = squares[i][j].getSpecial();
-                if (special == 4){
-                    Image img = getImage("tripleword");
-                    //jP.setBackground(Color.RED);
-                    jP.drawImage(img, 0, 0, null);
-                    jP.setOpaque(true);
-                }
-                if (special == 3){
-                    jP.setBackground(Color.CYAN);
-                    jP.setOpaque(true);
-                }
-                if (special == 2){
-                    jP.setBackground(Color.BLUE);
-                    jP.setOpaque(true);
-                }
-                if (special == 1){
-                    jP.setBackground(Color.MAGENTA);
-                    jP.setOpaque(true);
-                }
-                */
-                panel.add(jP);
+                 * // System.out.println(" " + i + "\t" + j + "\t" +
+                 * squares[i][j].getSpecial()); //int special =
+                 * squares[i][j].getSpecial(); if (special == 4){ Image img =
+                 * getImage("tripleword"); //jP.setBackground(Color.RED);
+                 * jP.drawImage(img, 0, 0, null); jP.setOpaque(true); } if
+                 * (special == 3){ jP.setBackground(Color.CYAN);
+                 * jP.setOpaque(true); } if (special == 2){
+                 * jP.setBackground(Color.BLUE); jP.setOpaque(true); } if
+                 * (special == 1){ jP.setBackground(Color.MAGENTA);
+                 * jP.setOpaque(true); }
+                 */
+                panel.add( jP );
             }
         }
 
-/*
-JPanel panel = new JPanel();
-panel.setLayout(new GridLayout(15, 15));
-Dimension dim = frame.getSize();
-panel.setSize((int)(dim.width * 0.5), (int)(dim.height * 0.5));
-panel.setPreferredSize(new Dimension((int)(dim.width * 0.6), (int)(dim.height * 0.6)));
-Border border = BorderFactory.createLineBorder(Color.BLACK, 1);
-Board board = game.getBoard();
-Square[][] squares = board.getBoard();
-*/
-
-
+        /*
+         * JPanel panel = new JPanel(); panel.setLayout(new GridLayout(15, 15));
+         * Dimension dim = frame.getSize(); panel.setSize((int)(dim.width *
+         * 0.5), (int)(dim.height * 0.5)); panel.setPreferredSize(new
+         * Dimension((int)(dim.width * 0.6), (int)(dim.height * 0.6))); Border
+         * border = BorderFactory.createLineBorder(Color.BLACK, 1); Board board
+         * = game.getBoard(); Square[][] squares = board.getBoard();
+         */
 
     }
 }
-
-

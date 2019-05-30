@@ -19,7 +19,7 @@ public class Letter
     /**
      * assigns point values to each letter
      *
-     * @param c
+     * @param c stands for character
      */
     public Letter( char c )
     {
@@ -105,9 +105,42 @@ public class Letter
         return pointValue;
     }
     
+    /**
+     * tostring method
+     */
     public String toString()
     {
         return "" + letter;
 
+    }
+
+    /**
+    * Object Identity
+    *
+    * @param obj
+    */
+    @Override
+    public boolean equals(Object obj){
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        Letter other = (Letter) obj;
+        return (this.letter == other.getLetter());
+    }
+
+    /**
+    * Object Identity
+    *
+    */
+    @Override
+    public int hashCode() {
+        Character c = Character.valueOf(letter);
+        return c.hashCode();
     }
 }
