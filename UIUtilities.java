@@ -6,6 +6,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 import javax.swing.JComponent;
+import javax.swing.JPanel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JTextField;
@@ -35,10 +36,6 @@ public class UIUtilities {
     public static MouseListener getMouseListener(){
         MouseListener listener = new MouseAdapter(){
             public void mousePressed(MouseEvent me){
-                if (me.getClickCount() == 2) {
-                    System.out.println("double clicked");
-                    return;
-                }
                 JComponent comp = (JComponent) me.getSource();
                 //System.out.println(comp);
                 TransferHandler handler = comp.getTransferHandler();
@@ -47,6 +44,21 @@ public class UIUtilities {
         };
         return listener;
     }
+
+    public static MouseListener getMouseListenerForLabelInLeftPanel(){
+        MouseListener listener = new MouseAdapter(){
+            public void mousePressed(MouseEvent me){
+                JComponent comp = (JComponent) me.getSource();
+                JPanel jp = (JPanel)comp.getParent();
+                jp.getDropTarget().setActive(false);
+                //System.out.println(comp);
+                TransferHandler handler = comp.getTransferHandler();
+                handler.exportAsDrag(comp, me, TransferHandler.COPY);
+            }
+        };
+        return listener;
+    }
+
 
     public static TransferHandler getTransferHandler(){
         TransferHandler tfh1 = new TransferHandler("scrabble"){
@@ -189,6 +201,8 @@ public class UIUtilities {
                 if (action == 0)
                     return;
                 JPanel parent = (JPanel)c.getParent();
+                if(parent == null)
+                    return;
                 parent.remove(c);
                 parent.getDropTarget().setActive(true);
                 parent.updateUI();
