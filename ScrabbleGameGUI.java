@@ -19,7 +19,7 @@ public class ScrabbleGameGUI extends JPanel
 
 
     /**
-     * Create the panel.
+     * Creates the panel.
      */
     public ScrabbleGameGUI()
     {

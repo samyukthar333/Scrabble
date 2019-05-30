@@ -18,9 +18,7 @@ import java.io.FileInputStream;
 
 /**
  * 
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * creates and draws the board
  *
  * @author saanvi, samyuktha, richa
  * @version May 29, 2019
@@ -101,9 +99,9 @@ public class ScrabbleBoard extends JPanel
 
     /**
      * 
-     * TODO Write your method description here.
-     * @param bg background
-     * @return
+     * gets the image used for the game board
+     * @param bg the background
+     * @return null
      */
     private Image getImage( String bg )
     {
@@ -126,19 +124,31 @@ public class ScrabbleBoard extends JPanel
         return null;
     }
 
-
+    /**
+     * 
+     * draws the board
+     */
     public void drawBoard()
     {
         drawBoard( game, this );
     }
 
-
+    /**
+     * 
+     * creates the game
+     * @return this.game
+     */
     public Game getGame()
     {
         return this.game;
     }
 
-
+    /**
+     * 
+     * draws the board
+     * @param game
+     * @param centerPanel
+     */
     public void drawBoard( Game game, JPanel centerPanel )
     {
         centerPanel.setLayout( new GridBagLayout() );

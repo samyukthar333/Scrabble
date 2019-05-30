@@ -2,10 +2,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
-import javax.swing.BorderFactory; 
+import javax.swing.BorderFactory;
 import javax.swing.border.Border;
 import javax.swing.JLabel;
-import javax.swing.JPanel; 
+import javax.swing.JPanel;
 import javax.swing.JFrame;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -14,59 +14,128 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.imageio.ImageIO;
 
+
+/**
+ * 
+ * constructs the left panel
+ *
+ * @author saanvi, samyuktha, richa
+ * @version May 29, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
+ *
+ * @author Sources: none
+ */
 public class ScrabbleLeftPanel extends JPanel
 {
     private static final long serialVersionUID = 1L;
+
     private ArrayList<Letter> myLetters;
+
     private ArrayList<Letter> onBoardLetters;
+
     private Game game;
+
     private Player player1;
+
     private JPanel bottomPanel;
-    private static JLabel getTButton(char c, int p){
-        try{
-            String s = new String("" + c);
+
+
+    /**
+     * 
+     * creates button
+     * 
+     * @param c
+     * @param p
+     * @return null
+     */
+    private static JLabel getTButton( char c, int p )
+    {
+        try
+        {
+            String s = new String( "" + c );
             String fileName = "./images/" + s + ".jpg";
-            BufferedImage myPicture = ImageIO.read(new File(fileName));
-            Image dimg = myPicture.getScaledInstance(32, 32, Image.SCALE_SMOOTH);
-            JLabel picLabel = new JLabel(new ImageIcon(dimg));
-            picLabel.setSize(32,32);
-            picLabel.setToolTipText(Character.toString(c));
+            BufferedImage myPicture = ImageIO.read( new File( fileName ) );
+            Image dimg = myPicture.getScaledInstance( 32, 32, Image.SCALE_SMOOTH );
+            JLabel picLabel = new JLabel( new ImageIcon( dimg ) );
+            picLabel.setSize( 32, 32 );
+            picLabel.setToolTipText( Character.toString( c ) );
             return picLabel;
-        } catch(Exception ex){
+        }
+        catch ( Exception ex )
+        {
         }
 
         return null;
     }
 
-    public void repaintLeft(){
+
+    /**
+     * 
+     * draws the left panel
+     */
+    public void repaintLeft()
+    {
         drawLeftPanel();
     }
 
-    public ScrabbleLeftPanel(Game game, JPanel bottomPanel, Player player1){
+
+    /**
+     * creates the left panel
+     * 
+     * @param game
+     * @param bottomPanel
+     * @param player1
+     */
+    public ScrabbleLeftPanel( Game game, JPanel bottomPanel, Player player1 )
+    {
         super();
         this.game = game;
         this.bottomPanel = bottomPanel;
         this.player1 = player1;
-        myLetters = new ArrayList<Letter>(player1.getLetters().getLetters());
-        System.out.println("MYLetterSize " + myLetters.size());
+        myLetters = new ArrayList<Letter>( player1.getLetters().getLetters() );
+        System.out.println( "MYLetterSize " + myLetters.size() );
         onBoardLetters = new ArrayList<Letter>();
-        System.out.println("Player 1 is at " + player1);
-        drawLeftPanel(game, this, player1);
-        bottomPanel.add(this);
+        System.out.println( "Player 1 is at " + player1 );
+        drawLeftPanel( game, this, player1 );
+        bottomPanel.add( this );
     }
 
-    public Player getPlayer(){
-        System.out.println("Player 1 is at " + player1);
+
+    /**
+     * 
+     * returns player1
+     * 
+     * @return player1
+     */
+    public Player getPlayer()
+    {
+        System.out.println( "Player 1 is at " + player1 );
         return player1;
     }
 
-    public ArrayList<Letter> getMyLetters(){
+
+    /**
+     * 
+     * returns the player letters
+     * 
+     * @return myLetters
+     */
+    public ArrayList<Letter> getMyLetters()
+    {
         return myLetters;
     }
 
-    public void drawLeftPanel(){
-        drawLeftPanel(game, this, player1);
+
+    /**
+     * 
+     * parameters for left panel
+     */
+    public void drawLeftPanel()
+    {
+        drawLeftPanel( game, this, player1 );
     }
+
     public void drawLeftPanel(Game game, JPanel bottomPanel, Player player1){
         System.out.println("RICHA " + bottomPanel.getLayout());
 
@@ -88,41 +157,41 @@ public class ScrabbleLeftPanel extends JPanel
         bottomPanel.add(points);
         bottomPanel.add(Box.createHorizontalGlue());
         /*
-        try{
-            BufferedImage myPicture = ImageIO.read(new File("./images/A.jpeg"));
-            Image dimg = myPicture.getScaledInstance(20, 20, Image.SCALE_SMOOTH);
-            JLabel picLabel = new JLabel(new ImageIcon(dimg));
-            picLabel.setSize(20,20);
-            bottomPanel.add(picLabel);
-        } catch(Exception ex){
-        }
-        */
+         * try{ BufferedImage myPicture = ImageIO.read(new
+         * File("./images/A.jpeg")); Image dimg =
+         * myPicture.getScaledInstance(20, 20, Image.SCALE_SMOOTH); JLabel
+         * picLabel = new JLabel(new ImageIcon(dimg)); picLabel.setSize(20,20);
+         * bottomPanel.add(picLabel); } catch(Exception ex){ }
+         */
 
         PlayerLetters pl = player1.getLetters();
         ArrayList<Letter> letters = pl.getLetters();
-        if (player1.getPoints() == 0 && myLetters.size() == 0){
+        if ( player1.getPoints() == 0 && myLetters.size() == 0 )
+        {
             LetterBag myBag = game.getBag();
-            for(int i=0; i<7; i++){
+            for ( int i = 0; i < 7; i++ )
+            {
                 Letter l = myBag.getRandomLetter();
-                pl.add(l);
+                pl.add( l );
             }
-            myLetters = new ArrayList<Letter>(player1.getLetters().getLetters());
+            myLetters = new ArrayList<Letter>( player1.getLetters().getLetters() );
         }
 
-        System.out.println("MYLetter size is " + myLetters.size());
-        
+        System.out.println( "MYLetter size is " + myLetters.size() );
+
         int i = 0;
-        for(Letter l: myLetters){
+        for ( Letter l : myLetters )
+        {
             char c = l.getLetter();
             int p = l.getPointValue();
-            JLabel jb = getTButton(c, p);
+            JLabel jb = getTButton( c, p );
             MouseListener ml = UIUtilities.getMouseListenerForLabelInLeftPanel();
-            jb.addMouseListener(ml);
-            //TransferHandler tfh = UIUtilities.getTransferHandler();
+            jb.addMouseListener( ml );
+            // TransferHandler tfh = UIUtilities.getTransferHandler();
             TransferHandler tfh = UIUtilities.getTransferHandlerForLabel();
-            jb.setTransferHandler(tfh);
-            jb.getDropTarget().setActive(false);
-            bottomPanel.add(jb);
+            jb.setTransferHandler( tfh );
+            jb.getDropTarget().setActive( false );
+            bottomPanel.add( jb );
         }
 
     }
