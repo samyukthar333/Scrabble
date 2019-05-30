@@ -115,7 +115,7 @@ public class ComputerPlayer extends Player
             {
                 s = board.getBoard()[square.getRow()][i] + s;
             }
-            extendRight( temp, board, s, Words.wordTrie.getRoot(), square );
+            extendRight( board, s, Words.wordTrie.getRoot(), square );
 
         }
         // find all possible beginning words if left part is not already on the
@@ -128,7 +128,7 @@ public class ComputerPlayer extends Player
             count++;
         }
         System.out.println( "count" + count );
-        findLeftPartHelper( temp, board, "", Words.wordTrie.getRoot(), count, square );
+        findLeftPartHelper( board, "", Words.wordTrie.getRoot(), count, square );
     }
 
 
@@ -142,10 +142,10 @@ public class ComputerPlayer extends Player
      * @param limit
      * @param anchor
      */
-    private void findLeftPartHelper( Board temp, Board board, String partialWord, TrieNode node, int limit, Square anchor )
+    private void findLeftPartHelper( Board board, String partialWord, TrieNode node, int limit, Square anchor )
     {
 
-        extendRight( temp, board, partialWord, node, anchor );
+        extendRight( board, partialWord, node, anchor );
         if ( limit > 0 )
         {
             // System.out.println("partial word " + partialWord );
@@ -163,7 +163,7 @@ public class ComputerPlayer extends Player
 
                     myLetters.remove( c );
 
-                    findLeftPartHelper( temp, board, partialWord + c, n, limit - 1, anchor );
+                    findLeftPartHelper(board, partialWord + c, n, limit - 1, anchor );
                     myLetters.add( new Letter( c ) );
                 }
             }
@@ -181,7 +181,7 @@ public class ComputerPlayer extends Player
      * @param square
      */
     // fix square!!
-    private void extendRight( Board temp, Board board, String wordPart, TrieNode node, Square square )
+    private void extendRight( Board board, String wordPart, TrieNode node, Square square )
     {
         // System.out.println("extend right- word part" + wordPart);
         if ( board.isValid( square.getRow(), square.getCol() ) )
@@ -204,7 +204,6 @@ public class ComputerPlayer extends Player
                         bestPlay.set( 2, square );
                         bestPlay.set( 3, wordPart );
 
-                        temp.printBoard();
                         // System.out.println( "square's row: " +
                         // square.getRow() + " / square's col :" +
                         // square.getCol() );
@@ -234,10 +233,10 @@ public class ComputerPlayer extends Player
                             myLetters.remove( c );
                             
                             //for testing
-                            temp.getBoard()[square.getRow()][square.getCol()].setLetter(new Letter(c));
+                            //temp.getBoard()[square.getRow()][square.getCol()].setLetter(new Letter(c));
                             
                             Square next = board.getSquare( square.getRow(), square.getCol() + 1 );
-                            extendRight( temp, board, wordPart + c, n, next );
+                            extendRight( board, wordPart + c, n, next );
                             myLetters.add( new Letter( c ) );
                         }
                     }
@@ -253,7 +252,7 @@ public class ComputerPlayer extends Player
                 if ( !children.isEmpty() && children.containsKey( c ) )
                 {
                     Square next = board.getSquare( square.getRow(), square.getCol() + 1 );
-                    extendRight( temp, board, wordPart + c, children.get( c ), next );
+                    extendRight( board, wordPart + c, children.get( c ), next );
                 }
             }
         }

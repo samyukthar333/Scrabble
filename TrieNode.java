@@ -28,6 +28,7 @@ public class TrieNode
     public TrieNode()
     {
         children = new HashMap<Character, TrieNode>();
+        isEnd = false;
     }
 
 
@@ -39,6 +40,7 @@ public class TrieNode
     {
         children = new HashMap<Character, TrieNode>();
         myChar = c;
+        isEnd = false;
 
     }
 

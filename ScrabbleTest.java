@@ -127,275 +127,292 @@ public class ScrabbleTest extends junit.framework.TestCase
 
     // Player
     @Test
-    public void testPlayer()
+    public void testPlayerConstructor()
     {
-
+        Player p = new Player();
+        assertEquals(p.getPoints(), 0);
+        assertNotNull(p.getLetters());
+        assertEquals(p.getLetters().size(),0);
     }
 
 
     @Test
     public void testAddPoints()
     {
-
+        Player p = new Player();
+        assertEquals(p.getPoints(), 0);
+        p.addPoints( 100 );
+        assertEquals(p.getPoints(),100);
     }
 
 
     @Test
     public void testGetPoints()
-    {
-
+    {       
+        Player p = new Player();
+        assertEquals(p.getPoints(), 0);
+        p.addPoints( 100 );
+        assertEquals(p.getPoints(),100);
     }
 
 
     @Test
-    public void testGetLetters2()
+    public void testGetLettersPlayer()
     {
-
+        Player p = new Player();
+        assertEquals(p.getLetters().size(), 0);
+        Letter l = new Letter('S');
+        p.getLetters().add( l );
+        assertEquals(p.getLetters().getLetters().get( 0 ), l);
+        assertEquals(p.getLetters().getLetters().size(), 1);
     }
 
 
     // Board
     @Test
-    public void testBoard()
+    public void testBoardConstructor()
     {
-
+        Board board = new Board();
+        assertNotNull(board.getBoard());
+        assertEquals(board.getBoard()[0][0].getSpecial(), 4);
+        assertFalse( board.isTransposed() );
+        assertEquals(board.getAnchors().size(), 0);
+        assertTrue(board.getBitVector( 0, 0 ).get( 0 ));
     }
-
 
     @Test
     public void testSetBoard()
     {
-
+        Board board = new Board();
+        Square[][] squares = new Square[15][15];
+        for ( int i = 0; i < squares.length; i++ )
+            for ( int j = 0; j < squares[0].length; j++ )
+                squares[i][j].setLetter( new Letter('A') );
+        board.setBoard( squares );
+        assertTrue(board.getBoard().equals( squares ));
+        
     }
-
 
     @Test
     public void testIsEmpty()
     {
-
+        Board board = new Board();
+        assertTrue(board.isEmpty());
+        board.getBoard()[0][0].setLetter(new Letter('A'));
+        assertFalse(board.isEmpty());
     }
-
-
-    @Test
-    public void testInitBitSet()
-    {
-
-    }
-
-
-    @Test
-    public void testInitBoard()
-    {
-
-    }
-
-
-    @Test
-    public void testFlipHorizontally()
-    {
-
-    }
-
-
-    @Test
-    public void testFlipVertically()
-    {
-
-    }
-
 
     @Test
     public void testTransposeBack()
     {
-
+        Board board = new Board();
+        Board temp = new Board();
+        temp.setBoard( board.copy() );
+        for ( int i = 0; i < board.getBoard().length; i++ )
+            for ( int j = 0; j < board.getBoard()[0].length/2; j++ )
+                board.getBoard()[i][j].setLetter( new Letter('A') );
+        for ( int i = 0; i < board.getBoard().length; i++ )
+            for ( int j = board.getBoard()[0].length; j < board.getBoard()[0].length; j++ )
+                board.getBoard()[i][j].setLetter( new Letter('B') );
+        board.transpose();
+        board.transposeBack();
+        assertEquals(board,temp);
+        assertFalse(board.isTransposed());
+        
     }
 
 
     @Test
     public void testTranspose()
     {
-
+        Board board = new Board();
+        for ( int i = 0; i < board.getBoard().length; i++ )
+            for ( int j = 0; j < board.getBoard()[0].length/2; j++ )
+                board.getBoard()[i][j].setLetter( new Letter('A') );
+        for ( int i = 0; i < board.getBoard().length; i++ )
+            for ( int j = board.getBoard()[0].length; j < board.getBoard()[0].length; j++ )
+                board.getBoard()[i][j].setLetter( new Letter('B') );
+        assertFalse(board.isTransposed());
+        board.transpose();
+        assertTrue(board.isTransposed());
+        assertTrue(board.getSquare( 0, 0 ).getLetter().getLetter()=='B');
+        
+        
     }
 
 
     @Test
     public void testCopy()
     {
-
+        Board board = new Board();
+        Board temp = new Board();
+        temp.setBoard( board.copy() );
+        assertFalse(board==temp);
+        assertTrue(board.equals( temp ));
     }
 
 
     @Test
     public void testGetSquare()
     {
-
+        Board board = new Board();
+        Letter l = new Letter('S');
+        board.getBoard()[0][0].setLetter( l );
+        assertEquals(board.getSquare( 0,0 ).getLetter(), l);
+        assertNull(board.getSquare( 17, 17 ));
     }
 
 
     @Test
     public void testGetAnchors()
     {
-
+        Board board = new Board();
+        assertTrue(board.getAnchors().isEmpty());
+        Letter l = new Letter('S');
+        board.getBoard()[1][0].setLetter( l );
+        assertFalse(board.getAnchors().isEmpty());
     }
 
 
     @Test
     public void testIsValid()
     {
-
+        Board board = new Board();
+        assertTrue( board.isValid( 1, 1 ) );
+        assertFalse(board.isValid(-1,-1) );
+        assertFalse(board.isValid(17, 16 ));
     }
 
 
     @Test
     public void testGetBitVector()
     {
-
+        Board board = new Board();
+        assertNotNull( board.getBitVector( 1, 1 ) );
+        assertNull(board.getBitVector( -1, 18 ));
+        
     }
 
 
     @Test
     public void testGetOccupiedNeighbors()
     {
-
+        Board board = new Board();
+        assertEquals(board.getOccupiedNeighbors( board.getSquare( 6, 6 )).size(), 0);
+        board.getBoard()[6][5].setLetter( new Letter('S') );
+        board.getBoard()[6][7].setLetter( new Letter('S') );
+        board.getBoard()[5][6].setLetter( new Letter('S') );
+        board.getBoard()[7][6].setLetter( new Letter('S') );
+        assertEquals(board.getOccupiedNeighbors( board.getSquare( 6, 6 )).size(), 4);
+        
     }
 
 
     @Test
     public void testGetRightAndLeft()
     {
-
+        Board board = new Board();
+        assertEquals(board.getRightandLeft( board.getSquare( 6, 6 )).size(), 0);
+        board.getBoard()[5][6].setLetter( new Letter('S') );
+        assertEquals(board.getRightandLeft( board.getSquare( 6, 6 )).size(), 1);
+        board.getBoard()[7][6].setLetter( new Letter('S') );
+        assertEquals(board.getRightandLeft( board.getSquare( 6, 6 )).size(), 2);
     }
 
 
     @Test
     public void testPlaceWord()
     {
-
+        Board board = new Board();
     }
-
-
-    @Test
-    public void testPlaceFirstWord()
-    {
-
-    }
-
-
-    @Test
-    public void testSortSquares()
-    {
-
-    }
-
 
     @Test
     public void testIsTransposed()
     {
-
+        Board board = new Board();
+        assertFalse(board.isTransposed());
+        board.transpose();
+        assertTrue(board.isTransposed());
+        board.transposeBack();
+        assertFalse(board.isTransposed());
     }
 
 
     @Test
     public void testContainsTopOrBottom()
     {
-
+        Board board = new Board();
+        assertFalse(board.containsToporBottom(6,6));
+        board.getBoard()[6][5].setLetter( new Letter('S') );
+        assertTrue(board.containsToporBottom(6,6));
     }
-
-
-    @Test
-    public void testCheckRow()
-    {
-
-    }
-
 
     @Test
     public void testTransposeSquares()
     {
-
+        Board board = new Board();
+        ArrayList<Square> squares = new ArrayList<Square>();
+        Square s1 = new Square(6,6);
+        squares.add( s1 );
+        board.transposeSquares(squares);
+        Square s2 = squares.get( 0 );
+        assertEquals(s2.getRow(), 14 - s1.getCol());
+        assertEquals(s2.getCol(), s1.getRow());
     }
 
 
     @Test
     public void testTransposeSquaresBack()
     {
-
+        Board board = new Board();
+        ArrayList<Square> squares = new ArrayList<Square>();
+        Square s1 = new Square(6,6);
+        squares.add( s1 );
+        board.transposeSquares(squares);
+        Square s2 = squares.get( 0 );
+        board.transposeSquaresBack( squares );
+        assertEquals(s2,s1);
     }
-
-
-    @Test
-    public void testSortByX()
-    {
-
-    }
-
-
-    @Test
-    public void testQuickSortX()
-    {
-
-    }
-
-
-    @Test
-    public void testPartitionArrayX()
-    {
-
-    }
-
-
-    @Test
-    public void testSortByY()
-    {
-
-    }
-
-
-    @Test
-    public void testQuickSortByY()
-    {
-
-    }
-
-
-    @Test
-    public void testPartitionArrayY()
-    {
-
-    }
-
 
     @Test
     public void testAddLetter()
     {
-
+        Board board = new Board();
+        Letter l = new Letter('P');
+        assertTrue(board.addLetter( l, 6, 6 ));
+        assertEquals(board.getSquare( 6, 6 ).getLetter(), l);
+        assertFalse(board.addLetter( l, 100, 136 ));
+        
     }
 
 
     @Test
     public void testPrintBoard()
     {
-
+        Board board = new Board();
+        board.printBoard();
     }
 
 
     @Test
     public void testPrintBoardSp()
     {
-
+        Board board = new Board();
+        board.printBoardSp();
     }
 
 
     @Test
     public void testGetBoard()
     {
-
+        Board board = new Board();
+        assertNotNull(board.getBoard());
     }
 
 
     // Game
     @Test
-    public void testGame()
+    public void testGameConstuctor()
     {
 
     }
@@ -530,7 +547,7 @@ public class ScrabbleTest extends junit.framework.TestCase
 
     // ComputerPlayer
     @Test
-    public void testComputerPlayer()
+    public void testComputerPlayerConstuctor()
     {
 
     }
@@ -777,107 +794,170 @@ public class ScrabbleTest extends junit.framework.TestCase
 
     // Test TrieNode
     @Test
-    public void testConstructor1Param2()
+    public void testConstructor1TrieNode()
     {
-
+        TrieNode node = new TrieNode();
+        assertNotNull( node.getChildren() );
+        assertFalse(node.getChar()=='A');
+        assertFalse(node.isEnd());
+    }
+    
+    @Test
+    public void testConstructor2TrieNode()
+    {
+        TrieNode node = new TrieNode('A');
+        assertNotNull( node.getChildren() );
+        assertFalse(node.getChar()=='A');
+        assertFalse(node.isEnd());
     }
 
 
     @Test
     public void testGetChildren()
     {
-
+        TrieNode node = new TrieNode();
+        node.getChildren().put( 'C', new TrieNode() );
+        assertNotNull( node.getChildren() );
+        assertEquals(node.getChildren().values().size(),1);
     }
 
 
     @Test
-    public void testGetChar2()
+    public void testGetCharTrieNode()
     {
-
+        TrieNode node = new TrieNode('A');
+        assertEquals(node.getChar(), 'A');
     }
 
 
     @Test
     public void testSetChar()
     {
-
+        TrieNode node = new TrieNode();
+        node.setChar( 'A' );
+        assertEquals(node.getChar(), 'A');
     }
 
 
     @Test
     public void testMakeEnd()
     {
-
+        TrieNode node = new TrieNode();
+        assertFalse(node.isEnd());
+        node.makeEnd();
+        assertTrue( node.isEnd() );
     }
 
 
     @Test
     public void testIsEnd()
     {
-
+        TrieNode node = new TrieNode();
+        assertFalse(node.isEnd());
+        node.makeEnd();
+        assertTrue( node.isEnd() );
     }
 
 
     @Test
     public void testHasChildren()
     {
-
+        TrieNode node = new TrieNode();
+        
     }
 
 
     // TestLetterBag
     @Test
-    public void testConstructor1Param3()
+    public void testLetterBagConstructor()
     {
-
-    }
-
-
-    @Test
-    public void testInitLetters()
-    {
-
+        LetterBag bag = new LetterBag();
+        assertNotNull(bag.getBag());
+        assertEquals(bag.getBag().size(), 100);
     }
 
 
     @Test
     public void testGetRandomLetters()
     {
-
+        LetterBag bag = new LetterBag();
+        assertEquals(bag.getRandomLetters( 5 ).size(), 5);
+        assertEquals(bag.getBag().size(), 95);
+        assertNull(bag.getRandomLetters( 100 ));
     }
 
 
     @Test
     public void testGetRandomLettersWithoutRemoving()
     {
-
+        LetterBag bag = new LetterBag();
+        assertNotNull(bag.getRandomLetterWithoutRemoving());
+        assertEquals(bag.getBag().size(), 100);
     }
 
 
     @Test
-    public void testSize2()
+    public void testSizeLetterBag()
     {
-
+        LetterBag bag = new LetterBag();
+        assertEquals(bag.getBag().size(), 100);
+        bag.getRandomLetter();
+        assertEquals(bag.getBag().size(), 99);
     }
 
 
     @Test
     public void testGetRandomLetter()
     {
-
+        LetterBag bag = new LetterBag();
+        assertNotNull(bag.getRandomLetter());
+        for(int i = 100; i>0; i++)
+        {
+            bag.getRandomLetter();
+        }
+        assertNull(bag.getRandomLetter());
     }
 
 
     @Test
-    public void testAdd2()
+    public void testAddLetterBag()
     {
-
+        LetterBag bag = new LetterBag();
+        bag.add( new Letter('C') );
+        assertEquals(bag.size(), 101);
     }
 
+    @Test
+    public void testAddMultipleLetters()
+    {
+        LetterBag bag = new LetterBag();
+        ArrayList<Letter> letters = new ArrayList<Letter>();
+        letters.add( new Letter('C') );
+        letters.add( new Letter('B') );
+        letters.add( new Letter('E') );
+        letters.add( new Letter('A') );
+        letters.add( new Letter('H') );
+        bag.add( letters );
+        assertEquals(bag.size(), 105);
+    }
 
     @Test
-    public void testIsEmpty2()
+    public void testIsEmptyLetterBag()
     {
+        LetterBag bag = new LetterBag();
+        assertFalse(bag.isEmpty());
+        for(int i = 0; i<100; i++)
+        {
+            bag.getRandomLetter();
+        }
+        assertTrue(bag.isEmpty());
 
+    }
+    
+    @Test
+    public void testGetLetterBag()
+    {
+        LetterBag bag = new LetterBag();
+        assertNotNull(bag.getBag());
     }
 }

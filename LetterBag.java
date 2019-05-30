@@ -32,7 +32,7 @@ public class LetterBag
      * initializes all letters according to how often they appear in the
      * scrabble bag
      */
-    public void initLetters()
+    private void initLetters()
     {
         for ( int i = 0; i < 9; i++ )
         {
@@ -151,13 +151,13 @@ public class LetterBag
      */
     public ArrayList<Letter> getRandomLetters( int num )
     {
-        if ( letters.size() == 0 )
+        if ( num>=letters.size() )
         {
             return null;
         }
         ArrayList<Letter> letterlist = new ArrayList<Letter>();
 
-        for ( int i = 0; i < num; i++ )
+        
         {
             int rand = (int)( Math.random() * letters.size() );
             letterlist.add( letters.remove( rand ) );
@@ -253,5 +253,13 @@ public class LetterBag
     public boolean isEmpty()
     {
         return ( letters.isEmpty() );
+    }
+    
+    /**
+     * for testing - get bag
+     */
+    public ArrayList<Letter> getBag()
+    {
+        return letters;
     }
 }

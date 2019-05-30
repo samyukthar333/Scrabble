@@ -310,6 +310,8 @@ public class Board //does not work only for when letter has both up and side nei
      */
     public BitSet getBitVector(int row, int col)
     {
+        if(!isValid(row,col))
+            return null;
         return bitVectors[row][col];
     }
 
@@ -624,7 +626,7 @@ public class Board //does not work only for when letter has both up and side nei
      * @param j
      * @return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j) && !board[i+1][j].isEmpty())
      */
-    private boolean containsToporBottom(int i, int j)
+    public boolean containsToporBottom(int i, int j)
     {
         return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j) && !board[i+1][j].isEmpty());
     }
