@@ -3,19 +3,21 @@ import java.util.ArrayList;
 import java.util.BitSet;
 import java.util.HashMap;
 
+
 /**
  * 
- *  Represents a board filled with Square objects
- *  
+ * Represents a board filled with Square objects
+ * 
  *
- *  @author  Samyuktha, saanvi, richa
- *  @version May 25, 2019
- *  @author  Period: 4
- *  @author  Assignment: Scrabble
+ * @author Samyuktha, saanvi, richa
+ * @version May 25, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
  *
- *  @author  Sources: none
+ * @author Sources: none
  */
-public class Board //does not work only for when letter has both up and side neighbors
+public class Board // does not work only for when letter has both up and side
+                   // neighbors
 {
     private Square[][] board;
 
@@ -44,19 +46,35 @@ public class Board //does not work only for when letter has both up and side nei
 
     }
 
-    public void setBoard(Square[][] squares)
+
+    /**
+     * 
+     * creates the board
+     * 
+     * @param squares
+     *            what each letter tile is placed on
+     */
+    public void setBoard( Square[][] squares )
     {
         board = squares;
     }
-    
+
+
+    /**
+     * 
+     * checks if square is empty
+     * 
+     * @return true || false && true
+     */
     public boolean isEmpty()
     {
         for ( int i = 0; i < board.length; i++ )
             for ( int j = 0; j < board[0].length; j++ )
-                if(!board[i][j].isEmpty())
+                if ( !board[i][j].isEmpty() )
                     return false;
         return true;
     }
+
 
     /**
      * sets/resets bitVectors for all squares in board
@@ -68,60 +86,65 @@ public class Board //does not work only for when letter has both up and side nei
         {
             for ( int j = 0; j < bitVectors[0].length; j++ )
             {
-                bitVectors[i][j] = new BitSet(26);
-                if(board[i][j].isEmpty())
+                bitVectors[i][j] = new BitSet( 26 );
+                if ( board[i][j].isEmpty() )
                 {
-                    if((!isValid(i-1, j) || board[i-1][j].isEmpty()) && (!isValid(i+1, j) || board[i+1][j].isEmpty()))
+                    if ( ( !isValid( i - 1, j ) || board[i - 1][j].isEmpty() )
+                        && ( !isValid( i + 1, j ) || board[i + 1][j].isEmpty() ) )
                     {
-                       // System.out.println( board[i][j] + "pleaseeeeeee" );
+                        // System.out.println( board[i][j] + "pleaseeeeeee" );
                         bitVectors[i][j].set( 0, 25, true );
                     }
                     else
                     {
-                        int num = i-1;
+                        int num = i - 1;
                         String s = "";
-                        while ( num >= 0 && board[num][j].getLetter()!=null )
+                        while ( num >= 0 && board[num][j].getLetter() != null )
                         {
-                           //System.out.println( "if it doesn't..." + s);
+                            // System.out.println( "if it doesn't..." + s);
                             s = board[num][j].getLetter().getLetter() + s;
                             num--;
                         }
-                        //System.out.println("s: " + s );
-                        if(s.isEmpty()) //if empty square is above 
+                        // System.out.println("s: " + s );
+                        if ( s.isEmpty() ) // if empty square is above
                         {
-                            num = i+1;
+                            num = i + 1;
                             while ( num <= 14 && board[num][j].getLetter() != null )
                             {
                                 s = s + board[num][j].getLetter().getLetter();
                                 num++;
-                                
+
                             }
-                            //System.out.println( "s1: " + s );
-                            String tmp = new String(s);
+                            // System.out.println( "s1: " + s );
+                            String tmp = new String( s );
                             String alphabet = "ABCDEFGHIJKLMOPQRSTUVWXYZ";
-                            for(char c: alphabet.toCharArray())
+                            for ( char c : alphabet.toCharArray() )
                             {
-                                //System.out.println("c: " + c);
-                                s = new String(c+tmp);
-                                if(Words.wordTrie.contains( s ))
+                                // System.out.println("c: " + c);
+                                s = new String( c + tmp );
+                                if ( Words.wordTrie.contains( s ) )
                                 {
-                                     bitVectors[i][j].set(Character.getNumericValue( c ) - Character.getNumericValue( 'A' ), true);
+                                    bitVectors[i][j].set( Character.getNumericValue( c )
+                                        - Character.getNumericValue( 'A' ), true );
                                 }
                             }
                         }
                         else
                         {
-                            //System.out.println( "goodnessaslfjkas" );
-                            if(Words.wordTrie.getEndNode( s )!=null)
+                            // System.out.println( "goodnessaslfjkas" );
+                            if ( Words.wordTrie.getEndNode( s ) != null )
                             {
-                                HashMap<Character, TrieNode> children = Words.wordTrie.getEndNode( s ).getChildren();
-                                if(children!=null)
+                                HashMap<Character, TrieNode> children = Words.wordTrie
+                                    .getEndNode( s )
+                                    .getChildren();
+                                if ( children != null )
                                 {
                                     for ( char c : children.keySet() )
                                     {
-                                        //System.out.println("char: "+ c );
-                                        bitVectors[i][j].set(Character.getNumericValue( c ) - Character.getNumericValue( 'A' ), true );
-                                    }                         
+                                        // System.out.println("char: "+ c );
+                                        bitVectors[i][j].set( Character.getNumericValue( c )
+                                            - Character.getNumericValue( 'A' ), true );
+                                    }
                                 }
                             }
                         }
@@ -217,16 +240,18 @@ public class Board //does not work only for when letter has both up and side nei
             for ( int j = 0; j < board[0].length; j++ )
             {
                 temp[i][j] = board[j][board[0].length - 1 - i];
-            
+
             }
         }
         board = temp;
         transposed = true;
     }
-    
+
+
     /**
      * 
      * returns a copy of board
+     * 
      * @return copy
      */
     public Square[][] copy()
@@ -236,11 +261,11 @@ public class Board //does not work only for when letter has both up and side nei
         {
             for ( int j = 0; j < board[0].length; j++ )
             {
-                copy[i][j] = new Square(board[i][j].getSpecial(), i, j);
-                copy[i][j].setLetter(board[i][j].getLetter());
+                copy[i][j] = new Square( board[i][j].getSpecial(), i, j );
+                copy[i][j].setLetter( board[i][j].getLetter() );
             }
         }
-        
+
         for ( int i = 0; i < board.length; i++ )
         {
             for ( int j = 0; j < board[0].length; j++ )
@@ -249,8 +274,7 @@ public class Board //does not work only for when letter has both up and side nei
             }
             System.out.println();
         }
-        
-        
+
         return copy;
     }
 
@@ -260,9 +284,9 @@ public class Board //does not work only for when letter has both up and side nei
      * returns square if coordinates are valid
      * 
      * @param r
-     *            row
+     *            row the rows of the board
      * @param c
-     *            col
+     *            col the columns of the board
      * @return square
      */
     public Square getSquare( int r, int c )
@@ -300,17 +324,21 @@ public class Board //does not work only for when letter has both up and side nei
     {
         return ( x >= 0 && x < 15 && y >= 0 && y < 15 );
     }
-    
+
+
     /**
      * 
      * gets the bit vector
+     * 
      * @param row
+     *            the rows of the board
      * @param col
+     *            the columns of the board
      * @return bitVectors[row][col]
      */
-    public BitSet getBitVector(int row, int col)
+    public BitSet getBitVector( int row, int col )
     {
-        if(!isValid(row,col))
+        if ( !isValid( row, col ) )
             return null;
         return bitVectors[row][col];
     }
@@ -350,7 +378,8 @@ public class Board //does not work only for when letter has both up and side nei
     /**
      * returns neighbors to the left and right of given square
      * 
-     * @param square input square
+     * @param square
+     *            input square
      * @return right and left neighbors in an arraylist
      */
     public ArrayList<Square> getRightandLeft( Square square )
@@ -366,9 +395,11 @@ public class Board //does not work only for when letter has both up and side nei
             myOccNeighbors.add( board[i][j] );
         return myOccNeighbors;
     }
+
+
     /**
      * 
-     * cross checks 
+     * cross checks
      */
     public void fixAnchors()
     {
@@ -377,121 +408,129 @@ public class Board //does not work only for when letter has both up and side nei
             for ( int j = 0; j < 15; j++ )
             {
                 Square square = board[i][j];
-                if(!square.isEmpty())
+                if ( !square.isEmpty() )
                 {
-                    if(isValid(i, j-1) && board[i][j-1].isEmpty())
+                    if ( isValid( i, j - 1 ) && board[i][j - 1].isEmpty() )
                     {
-                        anchors.add( board[i][j-1] );
+                        anchors.add( board[i][j - 1] );
                     }
                 }
             }
         }
     }
 
-    
 
     /**
      * 
      * places a word on the board if possible and returns point value
      * 
-     * @param squares input locations
+     * @param squares
+     *            input locations
      * @return number of points the word is worth, or -1 if not placeable
      */
     public int placeWord( ArrayList<Square> squares )
     {
-        if(squares.isEmpty()) // if squares is empty
+        if ( squares.isEmpty() ) // if squares is empty
         {
-            System.out.println("squares is empty");
+            System.out.println( "squares is empty" );
             return -1;
         }
-        
-        if(isEmpty())
+
+        if ( isEmpty() )
         {
-            int points = placeFirstWord(squares);
-            if(transposed)
+            int points = placeFirstWord( squares );
+            if ( transposed )
                 transposeBack();
             return points;
         }
-        
+
         boolean connected = false;
-        for(Square s: squares) // if square overlaps with existing
+        for ( Square s : squares ) // if square overlaps with existing
         {
-            if(!board[s.getRow()][s.getCol()].isEmpty())
+            if ( !board[s.getRow()][s.getCol()].isEmpty() )
             {
                 System.out.println( "Cannot print on occ square" );
                 return -1;
             }
-            if(getOccupiedNeighbors( s ).size()>0)
+            if ( getOccupiedNeighbors( s ).size() > 0 )
             {
                 connected = true;
             }
-            
+
         }
-        if(!connected)
+        if ( !connected )
             return -1;
-        
+
         Square[][] temp = copy();
         printBoard();
         squares = sortSquares( squares );
         initBitSet();
-        //System.out.println( "t: " + transposed );
-        for(Square s : squares)
+        // System.out.println( "t: " + transposed );
+        for ( Square s : squares )
         {
-            addLetter(s.getLetter(), s.getRow(), s.getCol());
+            addLetter( s.getLetter(), s.getRow(), s.getCol() );
             BitSet set = bitVectors[s.getRow()][s.getCol()];
-            int num = Character.getNumericValue(s.getLetter().getLetter()) - Character.getNumericValue( 'A' );
-            System.out.println("" + num + set.get( num ));
-            if(!set.get( num ))
+            int num = Character.getNumericValue( s.getLetter().getLetter() )
+                - Character.getNumericValue( 'A' );
+            System.out.println( "" + num + set.get( num ) );
+            if ( !set.get( num ) )
             {
-                //System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
+                // System.out.println("aikhkajdsfhakjlsdfhaldskjfhaskdfj");
                 board = temp;
                 return -1;
-            }     
+            }
         }
-        System.out.println("before checkrow");
-        int points = checkRow(squares);
-        if(points == -1)
+        System.out.println( "before checkrow" );
+        int points = checkRow( squares );
+        if ( points == -1 )
         {
-            System.out.println("points wrong...");
+            System.out.println( "points wrong..." );
             board = temp;
-            
-            
+
             return -1;
         }
-        
-        if(transposed)
+
+        if ( transposed )
             transposeBack();
-        
+
         return points;
     }
-    
-    
-    public int placeFirstWord(ArrayList<Square> squares)
+
+
+    /**
+     * 
+     * places the first word available
+     * 
+     * @param squares
+     *            what each letter tile will be placed on
+     * @return -1
+     */
+    public int placeFirstWord( ArrayList<Square> squares )
     {
-        if(squares.size()==1)
+        if ( squares.size() == 1 )
         {
             Square onlyLetter = squares.get( 0 );
-            if(Words.isWord( "" + onlyLetter.getLetter().getLetter()))
+            if ( Words.isWord( "" + onlyLetter.getLetter().getLetter() ) )
             {
                 this.addLetter( onlyLetter.getLetter(), onlyLetter.getRow(), onlyLetter.getCol() );
             }
             int points = onlyLetter.getPoints();
-            if(points==-10)
+            if ( points == -10 )
             {
-                points = onlyLetter.getLetter().getPointValue()*2;
+                points = onlyLetter.getLetter().getPointValue() * 2;
             }
-            else if(points==-20)
+            else if ( points == -20 )
             {
-                points = onlyLetter.getLetter().getPointValue()*3;
+                points = onlyLetter.getLetter().getPointValue() * 3;
             }
             return points;
         }
-        
-        for(Square s: squares)
+
+        for ( Square s : squares )
         {
             this.addLetter( s.getLetter(), s.getRow(), s.getCol() );
         }
-        
+
         boolean x = true, y = true;
         int sameX = squares.get( 0 ).getRow(), sameY = squares.get( 0 ).getCol();
         for ( Square s : squares )
@@ -512,29 +551,29 @@ public class Board //does not work only for when letter has both up and side nei
         else if ( x ) // rows are the same -- sort by column
         {
             squares = sortbyY( squares );
-            
+
         }
         else if ( y ) // columns are the same -- sort by row
         {
             squares = sortbyX( squares );
             transpose();
             squares = transposeSquares( squares );
-            
+
         }
-        
+
         String word = "";
         int points = 0;
         int pointNum = 1;
-        for(Square s: squares)
+        for ( Square s : squares )
         {
             word += s.getLetter().getLetter();
             int temp = s.getPoints();
-            if(temp == -10)
+            if ( temp == -10 )
             {
                 temp = s.getLetter().getPointValue();
                 pointNum = 2;
             }
-            else if(temp == -20)
+            else if ( temp == -20 )
             {
                 temp = s.getLetter().getPointValue();
                 pointNum = 3;
@@ -542,32 +581,32 @@ public class Board //does not work only for when letter has both up and side nei
             points += temp;
             s.removeSpecial();
         }
-        if(Words.isWord( word ))
+        if ( Words.isWord( word ) )
         {
-            return points*pointNum;
+            return points * pointNum;
         }
-        
+
         return -1;
     }
-    
-    
-    
+
 
     /**
      * 
      * sorts the squares
+     * 
      * @param squares
+     *            what each letter tile is placed on
      * @return squares
      */
     private ArrayList<Square> sortSquares( ArrayList<Square> squares )
     {
-        //System.out.println( squares.size() );
-        if(squares.size()==1)
+        // System.out.println( squares.size() );
+        if ( squares.size() == 1 )
         {
-            
-            if(containsToporBottom(squares.get( 0 ).getRow(), squares.get( 0 ).getCol()))
+
+            if ( containsToporBottom( squares.get( 0 ).getRow(), squares.get( 0 ).getCol() ) )
             {
-                if(getRightandLeft( squares.get( 0 )).size()==0)
+                if ( getRightandLeft( squares.get( 0 ) ).size() == 0 )
                 {
                     transpose();
                     squares = transposeSquares( squares );
@@ -603,15 +642,17 @@ public class Board //does not work only for when letter has both up and side nei
             transpose();
             printBoard();
             squares = transposeSquares( squares );
-            
+
         }
         return squares;
 
     }
-    
+
+
     /**
      * 
      * checks if it is transposed
+     * 
      * @return transposed
      */
     public boolean isTransposed()
@@ -619,29 +660,39 @@ public class Board //does not work only for when letter has both up and side nei
         return transposed;
     }
 
+
     /**
      * 
      * checks if it has a top or bottom letter
+     * 
      * @param i
+     *            x value
      * @param j
-     * @return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j) && !board[i+1][j].isEmpty())
+     *            y value
+     * @return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j)
+     *         && !board[i+1][j].isEmpty())
      */
-    public boolean containsToporBottom(int i, int j)
+    public boolean containsToporBottom( int i, int j )
     {
-        return (isValid(i-1, j) && !board[i-1][j].isEmpty()) || (isValid(i+1, j) && !board[i+1][j].isEmpty());
+        return ( isValid( i - 1, j ) && !board[i - 1][j].isEmpty() )
+            || ( isValid( i + 1, j ) && !board[i + 1][j].isEmpty() );
     }
+
 
     /**
      * 
      * checks the row
+     * 
      * @param squares
+     *            what each letter tile is placed on
      * @return -1
      */
-    private int checkRow( ArrayList<Square> squares)
+    private int checkRow( ArrayList<Square> squares )
     {
-        int row = squares.get(0).getRow();
+        int row = squares.get( 0 ).getRow();
         int start = 0;
-        for ( int i = squares.get( 0 ).getCol(); i > 0; i-- ) //go back constantly
+        for ( int i = squares.get( 0 ).getCol(); i > 0; i-- ) // go back
+                                                              // constantly
         {
             if ( board[row][i].getLetter() == null )
             {
@@ -661,30 +712,28 @@ public class Board //does not work only for when letter has both up and side nei
             }
             char c = s.getLetter().getLetter();
             word += c;
-            
-            //calculating points stuff
+
+            // calculating points stuff
             int temp = s.getPoints();
-            if(temp == -10)
+            if ( temp == -10 )
             {
                 temp = s.getLetter().getPointValue();
                 pointNum = 2;
             }
-            else if(temp == -20)
+            else if ( temp == -20 )
             {
                 temp = s.getLetter().getPointValue();
                 pointNum = 3;
             }
             points += temp;
             s.removeSpecial();
-            
-        }
-        System.out.println("checkrow word"+word);
 
-        points = points*pointNum;
-        
-        
-        
-        if(squares.size()==1 || Words.isWord( word ))
+        }
+        System.out.println( "checkrow word" + word );
+
+        points = points * pointNum;
+
+        if ( squares.size() == 1 || Words.isWord( word ) )
         {
             return points;
         }
@@ -695,7 +744,9 @@ public class Board //does not work only for when letter has both up and side nei
     /**
      * 
      * transposes the squares' locations clockwise
-     * @param squares squares to transpose
+     * 
+     * @param squares
+     *            squares to transpose
      * @return transposed squares
      */
     public ArrayList<Square> transposeSquares( ArrayList<Square> squares )
@@ -707,8 +758,7 @@ public class Board //does not work only for when letter has both up and side nei
             s.setRow( board[0].length - 1 - s.getCol() );
             s.setCol( tempX );
             squares2.add( s );
-            
-            
+
         }
 
         return squares2;
@@ -718,7 +768,9 @@ public class Board //does not work only for when letter has both up and side nei
     /**
      * 
      * transposes the squares' locations clockwise
-     * @param squares squares to transpose
+     * 
+     * @param squares
+     *            squares to transpose
      * @return transposed squares
      */
     public ArrayList<Square> transposeSquaresBack( ArrayList<Square> squares )
@@ -728,7 +780,7 @@ public class Board //does not work only for when letter has both up and side nei
             int tempX = s.getRow();
             s.setRow( s.getCol() );
             s.setCol( board[0].length - 1 - tempX );
-            
+
         }
 
         return squares;
@@ -881,7 +933,7 @@ public class Board //does not work only for when letter has both up and side nei
         myArray.set( high, temp );
         return small + 1;
     }
-    
+
 
     /**
      * 
@@ -960,31 +1012,28 @@ public class Board //does not work only for when letter has both up and side nei
     {
         Board board = new Board();
         board.printBoardSp();
-        
-//        board.addLetter( new Letter('D'), 4, 6 );
-//        board.addLetter( new Letter('E'), 4, 7 );
-//        board.addLetter( new Letter('E'), 4, 8 );
-//        board.addLetter( new Letter('R'), 4, 9 );
-        
 
-//        ArrayList<Square> input = new ArrayList<Square>();
-//        input.add( new Square( new Letter( 'D' ), 4, 6 ) );
-//        input.add( new Square( new Letter( 'E' ), 4, 7 ) );
-//        input.add( new Square( new Letter( 'E' ), 4, 8 ) );
-//        input.add( new Square( new Letter( 'R' ), 4, 9 ) );
-//        int points = board.placeWord( input );
-//        board.printBoard();
-//        System.out.println( points );
-//        
-//        input = new ArrayList<Square>();
-//        input.add( new Square( new Letter( 'A' ), 3, 6 ) );
-//        input.add( new Square( new Letter( 'D' ), 2, 6 ) );
-//        points = board.placeWord( input );
-//        board.printBoard();
-//        System.out.println( points );
-        
+        // board.addLetter( new Letter('D'), 4, 6 );
+        // board.addLetter( new Letter('E'), 4, 7 );
+        // board.addLetter( new Letter('E'), 4, 8 );
+        // board.addLetter( new Letter('R'), 4, 9 );
 
-        
+        // ArrayList<Square> input = new ArrayList<Square>();
+        // input.add( new Square( new Letter( 'D' ), 4, 6 ) );
+        // input.add( new Square( new Letter( 'E' ), 4, 7 ) );
+        // input.add( new Square( new Letter( 'E' ), 4, 8 ) );
+        // input.add( new Square( new Letter( 'R' ), 4, 9 ) );
+        // int points = board.placeWord( input );
+        // board.printBoard();
+        // System.out.println( points );
+        //
+        // input = new ArrayList<Square>();
+        // input.add( new Square( new Letter( 'A' ), 3, 6 ) );
+        // input.add( new Square( new Letter( 'D' ), 2, 6 ) );
+        // points = board.placeWord( input );
+        // board.printBoard();
+        // System.out.println( points );
+
         ArrayList<Square> input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'B' ), 2, 2 ) );
         input.add( new Square( new Letter( 'O' ), 2, 3 ) );
@@ -993,7 +1042,7 @@ public class Board //does not work only for when letter has both up and side nei
         int points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-        
+
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'O' ), 3, 2 ) );
         input.add( new Square( new Letter( 'A' ), 4, 2 ) );
@@ -1001,7 +1050,7 @@ public class Board //does not work only for when letter has both up and side nei
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-        
+
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'O' ), 4, 7 ) );
         input.add( new Square( new Letter( 'L' ), 4, 8 ) );
@@ -1009,10 +1058,7 @@ public class Board //does not work only for when letter has both up and side nei
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-        
 
-
-        
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'U' ), 5, 9 ) );
         input.add( new Square( new Letter( 'M' ), 6, 9 ) );
@@ -1023,10 +1069,9 @@ public class Board //does not work only for when letter has both up and side nei
         board.printBoard();
         System.out.println( points );
 
-        
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'D' ), 6, 2 ) );
-        //input.add( new Square( new Letter( 'S' ), 7, 2 ) );
+        // input.add( new Square( new Letter( 'S' ), 7, 2 ) );
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
@@ -1036,34 +1081,34 @@ public class Board //does not work only for when letter has both up and side nei
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-        
+
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'R' ), 3, 3 ) );
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-        
+
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'N' ), 5, 7 ) );
         points = board.placeWord( input );
         board.printBoard();
         System.out.println( points );
-        
+
         board.printBoardSp();
-//        
-//        Board board = new Board();
-//        board.addLetter( new Letter('A'), 3, 5 );
-//        board.addLetter( new Letter('T'), 3, 6 );
-//        board.printBoard();
-//        ArrayList<Square> input = new ArrayList<Square>();
-//        input.add( new Square( new Letter( 'B' ), 3, 3 ) );
-//        input.add( new Square( new Letter( 'R' ), 3, 4 ) );
-//        input.add( new Square( new Letter( 'T' ), 3, 7 ) );
-//        input.add( new Square( new Letter( 'Y' ), 3, 8 ) );
-//        int points = board.placeWord( input );
-//        board.printBoard();
-//        System.out.println( points );
-        
+        //
+        // Board board = new Board();
+        // board.addLetter( new Letter('A'), 3, 5 );
+        // board.addLetter( new Letter('T'), 3, 6 );
+        // board.printBoard();
+        // ArrayList<Square> input = new ArrayList<Square>();
+        // input.add( new Square( new Letter( 'B' ), 3, 3 ) );
+        // input.add( new Square( new Letter( 'R' ), 3, 4 ) );
+        // input.add( new Square( new Letter( 'T' ), 3, 7 ) );
+        // input.add( new Square( new Letter( 'Y' ), 3, 8 ) );
+        // int points = board.placeWord( input );
+        // board.printBoard();
+        // System.out.println( points );
+
         // testing purposes
     }
 
