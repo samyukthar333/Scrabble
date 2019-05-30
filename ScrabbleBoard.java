@@ -73,6 +73,16 @@ public class ScrabbleBoard extends JPanel
     {
         return squares;
     }
+    
+    /**
+     * reset squares
+     * 
+     */
+    public void resetSquares()
+    {
+        squares = new ArrayList<Square>();
+    }
+    
 
     /**
      * 

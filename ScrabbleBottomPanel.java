@@ -137,7 +137,7 @@ public class ScrabbleBottomPanel extends JPanel
 
     /**
      * 
-     * resets the player after the game is finished
+     * resets the player after the turn is finished
      */
     public void resetPlayer()
     {
@@ -155,6 +155,9 @@ public class ScrabbleBottomPanel extends JPanel
         }
         ScrabbleFrontEnd sfe = (ScrabbleFrontEnd)this.getParent().getParent();
         ScrabbleBoard sb = (ScrabbleBoard)( (JComponent)sfe.getComponent( 4 ) ).getComponent( 0 );
+        
+        sb.resetSquares();
+        sb.updateUI();
         sfe.repaintTop();
     }
 
@@ -310,10 +313,19 @@ public class ScrabbleBottomPanel extends JPanel
                 {
                     ArrayList<Square> squares = ( (ComputerPlayer)game.getComputer() )
                         .findWord( game.getBoard() );
-                    boolean isValid = game.play( squares );
-                    System.out.println( "Computer play is done? " + isValid );
-                    if ( isValid )
-                        resetPlayer();
+                    if(squares==null)
+                    {
+                        ArrayList<Letter> letters = game.getComputer().getExchange();
+                        game.exchange( letters );
+                        JOptionPane.showMessageDialog( null, "Computer exchanged" );
+                    }
+                    else
+                    {
+                        int points = game.play( squares );
+                        JOptionPane.showMessageDialog( null, "Computer placed word for " + points + " points" );
+                        
+                    }
+                    resetPlayer();
                     return;
                 }
 
@@ -326,6 +338,8 @@ public class ScrabbleBottomPanel extends JPanel
                     j++;
                 }
                 ArrayList<Square> squares = jp.getSquares();
+                
+                System.out.println( "Squares: " + squares );
                 if ( squares.size() == 0 )
                 {
                     return;
@@ -336,13 +350,14 @@ public class ScrabbleBottomPanel extends JPanel
                 }
 
                 Player myPlayer = jp.getGame().getCurrentPlayer();
-                boolean isValid = jp.getGame().play(squares);
-                System.out.println("Play done? " + isValid);
+                int points = jp.getGame().play(squares);
+              //  System.out.println("Play done? " + isValid);
                 System.out.println("Player points are " + myPlayer.getPoints());
-                if (!isValid){
+                if (points==-1){
                     JOptionPane.showMessageDialog(null, "Invalid Words. Try again");
                 }else{
-                    JOptionPane.showMessageDialog(null, "You get " + myPlayer.getPoints() + " points");
+                    JOptionPane.showMessageDialog(null, "You get " + points + " points");
+                    sfe.repaintLeft();
                     sfe.refreshGame();
                 }
             }

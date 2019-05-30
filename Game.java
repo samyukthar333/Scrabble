@@ -13,7 +13,7 @@ import java.util.ArrayList;
  */
 public class Game
 {
-    private Player player1; //computer player
+    private ComputerPlayer player1; //computer player
 
     private Player player2; //human player
 
@@ -34,13 +34,12 @@ public class Game
     {
         this.twoPlayer = twoPlayer;
         board = new Board();
-        if(!twoPlayer)
-            player1 = new ComputerPlayer();
-        else
-            player1 = new Player();
+        player1 = new ComputerPlayer();
         player2 = new Player();
         myBag = new LetterBag();
         currentPlayer = player2;
+        replenishLetters(player1);
+        replenishLetters(player2);
 //        chooseFirstPlayer();
     }
     
@@ -52,13 +51,12 @@ public class Game
     {
         this.twoPlayer = false;
         board = new Board();
-        if(!twoPlayer)
-            player1 = new ComputerPlayer();
-        else
-            player1 = new Player();
+        player1 = new ComputerPlayer();
         player2 = new Player();
         myBag = new LetterBag();
         currentPlayer = player2;
+        replenishLetters(player1);
+        replenishLetters(player2);
 //        chooseFirstPlayer();
     }
 
@@ -69,7 +67,7 @@ public class Game
      * 
      * @return null if two person, else human player
      */
-    public Player getComputer()
+    public ComputerPlayer getComputer()
     {
         if(!twoPlayer)
             return player1;
@@ -226,23 +224,23 @@ public class Game
      *            represents the tiles that are on the board and racks
      * @return true
      */
-    public boolean play( ArrayList<Square> squares )
+    public int play( ArrayList<Square> squares )
     {
         for ( Square s : squares )
         {
             if ( !currentPlayer.getLetters().getLetters().contains( s.getLetter() ) )
-                return false;
+                return -1;
             currentPlayer.getLetters().remove( s.getLetter() );
         }
         int points = board.placeWord( squares );
         if ( points == -1 )
-            return false;
+            return -1;
         currentPlayer.addPoints( points );
         
         replenishLetters();
         
         switchPlayers();
-        return true;
+        return points;
     }
     
     /**
@@ -255,6 +253,20 @@ public class Game
         while(currentPlayer.getLetters().size()<7)
         {
             currentPlayer.getLetters().add( myBag.getRandomLetter());
+        }
+    }
+    
+    
+    /**
+     * 
+     * refills letters until size of playerLetters is 7
+     * 
+     */
+    public void replenishLetters(Player player)
+    {
+        while(player.getLetters().size()<7)
+        {
+            player.getLetters().add( myBag.getRandomLetter());
         }
     }
 

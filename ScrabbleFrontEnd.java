@@ -116,6 +116,7 @@ public class ScrabbleFrontEnd extends JPanel
         repaintTop();
         repaintBottom();
         repaintLeft();
+        //this.drawBoard(mainPanel);
     }
 
     /**
@@ -238,7 +239,8 @@ public class ScrabbleFrontEnd extends JPanel
      * calls for game
      */
     public ScrabbleFrontEnd(){
-        game = new Game(false);
+        game = new Game();
+        mainPanel = new JPanel();
         //System.out.println("Width " + dim.width + " Height " + dim.height);
     }
 
