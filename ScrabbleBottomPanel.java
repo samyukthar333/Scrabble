@@ -354,6 +354,10 @@ public class ScrabbleBottomPanel extends JPanel
             {
                 game.pass();
                 resetPlayer();
+                JButton btn = (JButton)e.getSource();
+                ScrabbleBottomPanel panel = (ScrabbleBottomPanel)btn.getParent();
+                ScrabbleFrontEnd sfe = (ScrabbleFrontEnd)panel.getParent().getParent();
+                sfe.refreshGame();
             };
         };
         pass.addActionListener( passListener );
