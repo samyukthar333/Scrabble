@@ -203,6 +203,18 @@ public class UIUtilities {
                 JPanel parent = (JPanel)c.getParent();
                 if(parent == null)
                     return;
+                System.out.println("Rurur " + parent);
+                if(parent instanceof ScrabbleLeftPanel){
+                    ScrabbleLeftPanel spl = (ScrabbleLeftPanel) parent;
+                    ArrayList<Letter> mls = spl.getMyLetters();
+                    try{
+                        String d = (String)data.getTransferData(DataFlavor.stringFlavor);
+                        Letter l = new Letter(d.charAt(0));
+                        mls.remove(l);
+                    }catch (Exception ex){
+                        ex.printStackTrace();
+                    }
+                }
                 parent.remove(c);
                 parent.getDropTarget().setActive(true);
                 parent.updateUI();

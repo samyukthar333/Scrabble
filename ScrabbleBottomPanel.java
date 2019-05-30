@@ -7,6 +7,11 @@ import javax.swing.border.Border;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JFrame;
+import javax.imageio.ImageIO;
+import java.io.FileInputStream;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class ScrabbleBottomPanel extends JPanel
 {
@@ -15,7 +20,17 @@ public class ScrabbleBottomPanel extends JPanel
     private JPanel bottomPanel;
     private ArrayList<Letter> exchangeLetters;
 
+    private final Image checkwordbtn;
+    private final Image passbtn;
+    private final Image playbtn;
+    private final Image exchangebtn;
+
     public ScrabbleBottomPanel(Game game, JPanel panel){
+        super();
+        checkwordbtn = getImage( "checkWord");
+        passbtn = getImage( "pass");
+        playbtn = getImage( "play");
+        exchangebtn = getImage("exchange");
         System.out.println(" " + panel.getWidth() + " " + panel.getHeight());
         this.game = game;
         this.bottomPanel = panel;
@@ -23,6 +38,36 @@ public class ScrabbleBottomPanel extends JPanel
         drawBottomPanel(game, this);
         panel.add(this);
     }
+
+    /**
+     *
+     * TODO Write your method description here.
+     * @param bg background
+     * @return
+     */
+    private Image getImage( String bg )
+    {
+        try
+        {
+            String file = "./images/" + bg + ".jpg";
+            System.out.println( "File: " + file );
+            FileInputStream fis = new FileInputStream( file );
+            // BufferedImage myPicture = ImageIO.read(new File("./images/" + bg
+            // + ".jpeg"));
+            BufferedImage myPicture = ImageIO.read( fis );
+            Image dimg = myPicture.getScaledInstance( 40, 40, Image.SCALE_SMOOTH );
+            return dimg;
+        }
+        catch ( Exception ex )
+        {
+            System.out.println( bg + "Error: " + ex );
+            ex.printStackTrace();
+        }
+        return null;
+    }
+
+
+
 
     public ArrayList<Letter> getExchangeLetters(){
         return exchangeLetters;
@@ -80,10 +125,26 @@ public class ScrabbleBottomPanel extends JPanel
         bottomPanel.add(j);
 
         JTextField f = new JTextField(20);
-        JButton check = new JButton("Check Word");
-        JButton play = new JButton("Play");
-        JButton exchange = new JButton("Exchange");
-        JButton pass = new JButton("Pass");
+        JButton check = new JButton();
+        check.setIcon(new ImageIcon(checkwordbtn));
+        check.setMargin(new Insets(0, 0, 0, 0));
+        check.setBorder(null);
+
+        JButton play = new JButton();
+        play.setIcon(new ImageIcon(playbtn));
+        play.setMargin(new Insets(0, 0, 0, 0));
+        play.setBorder(null);
+
+        JButton exchange = new JButton();
+        exchange.setIcon(new ImageIcon(exchangebtn));
+        exchange.setMargin(new Insets(0, 0, 0, 0));
+        exchange.setBorder(null);
+
+        JButton pass = new JButton();
+        pass.setIcon(new ImageIcon(passbtn));
+        pass.setMargin(new Insets(0, 0, 0, 0));
+        pass.setBorder(null);
+
         bottomPanel.add(f);
         bottomPanel.add(check);
         bottomPanel.add(play);

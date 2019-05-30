@@ -68,15 +68,21 @@ public class ScrabbleLeftPanel extends JPanel
         drawLeftPanel(game, this, player1);
     }
     public void drawLeftPanel(Game game, JPanel bottomPanel, Player player1){
+        System.out.println("RICHA " + bottomPanel.getLayout());
+
+
+
         for(Component c: bottomPanel.getComponents())
             bottomPanel.remove(c);
         bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
         bottomPanel.addMouseListener(UIUtilities.getMouseListener());
         TransferHandler tfhP = UIUtilities.getTransferHandlerForLeftPanel();
         bottomPanel.setTransferHandler(tfhP);
-        JLabel user = new JLabel("Human Player");
+        //JLabel user = new JLabel("<html>\tHuman Player</html>");
+        JLabel user = new JLabel("                                                        ");
         user.setAlignmentX(Component.CENTER_ALIGNMENT);
-        JLabel points = new JLabel("Total Points: " + player1.getPoints());
+        //JLabel points = new JLabel("Total Points: " + player1.getPoints());
+        JLabel points = new JLabel("<html><br/><br/></html");
         points.setAlignmentX(Component.CENTER_ALIGNMENT);
         bottomPanel.add(user);
         bottomPanel.add(points);
