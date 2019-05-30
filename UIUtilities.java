@@ -18,8 +18,26 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
 import java.awt.dnd.*;
-
+/**
+ * 
+ *  TODO Write a one-sentence summary of your class here.
+ *  TODO Follow it with additional details about its purpose, what abstraction
+ *  it represents, and how to use it.
+ *
+ *  @author  saanvi, samyuktha, richa
+ *  @version May 29, 2019
+ *  @author  Period: 4
+ *  @author  Assignment: Scrabble
+ *
+ *  @author  Sources: none
+ */
 public class UIUtilities {
+    /**
+     * 
+     * gui for jpanel
+     * @param img
+     * @return jP
+     */
     private static JPanel getPanel(Image img){
         final Image i = img;
         JPanel jP = new JPanel() {
@@ -33,6 +51,11 @@ public class UIUtilities {
         return jP;
     }
 
+    /**
+     * 
+     * 
+     * @return listener
+     */
     public static MouseListener getMouseListener(){
         MouseListener listener = new MouseAdapter(){
             public void mousePressed(MouseEvent me){

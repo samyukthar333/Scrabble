@@ -105,7 +105,7 @@ public class TrieNode
 
     /**
      * 
-     * TODO Write your method description here.
+     * checks if the node has children
      * 
      * @return !children.isEmpty() || (children != null)
      */
