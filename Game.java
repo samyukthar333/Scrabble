@@ -35,6 +35,7 @@ public class Game
             player1 = new Player();
         player2 = new Player();
         myBag = new LetterBag();
+        currentPlayer = player2;
 //        chooseFirstPlayer();
     }
 

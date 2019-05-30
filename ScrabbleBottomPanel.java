@@ -202,9 +202,16 @@ public class ScrabbleBottomPanel extends JPanel
                 for (Square s: squares){
                     System.out.println("S is " + s);
                 }
+                Player myPlayer = jp.getGame().getCurrentPlayer();
                 boolean isValid = jp.getGame().play(squares);
+                System.out.println("Play done? " + isValid);
+                System.out.println("Player points are " + myPlayer.getPoints());
                 if (!isValid){
                     JOptionPane.showMessageDialog(null, "Invalid Words. Try again");
+                }else{
+                    JOptionPane.showMessageDialog(null, "You get " + myPlayer.getPoints() + " points");
+                    sfe.refreshGame();
+
                 }
             }
         };

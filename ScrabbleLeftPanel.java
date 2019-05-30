@@ -39,6 +39,7 @@ public class ScrabbleLeftPanel extends JPanel
     }
 
     public void repaintLeft(){
+        drawLeftPanel();
     }
 
     public ScrabbleLeftPanel(Game game, JPanel bottomPanel, Player player1){
