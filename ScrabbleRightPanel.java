@@ -13,7 +13,7 @@ import javax.swing.JFrame;
  * 
  * creates the right panel
  *
- * @author saanvi, samyuktha, richa
+ * @author Richa Bavadekar
  * @version May 29, 2019
  * @author Period: 4
  * @author Assignment: Scrabble
@@ -27,11 +27,13 @@ public class ScrabbleRightPanel
 
     /**
      * 
-     * creates the toggle button
+     * gets button
      * 
-     * @param c the character
+     * @param c
+     *            char
      * @param p
-     * @return jtb
+     *            int
+     * @return JToggleButton button
      */
     private static JToggleButton getTButton( char c, int p )
     {
@@ -44,24 +46,15 @@ public class ScrabbleRightPanel
      * 
      * draws the right panel
      * 
-     * @param game the game that is currently being played
-     * @param bottomPanel the bottom panel of the game
-     * @param player1 the player that is currently playing
+     * @param game
+     *            the game that is currently being played
+     * @param bottomPanel
+     *            the bottom panel of the game
+     * @param player1
+     *            the player that is currently playing
      */
     public static void drawRightPanel( Game game, JPanel bottomPanel, Player player1 )
     {
         return;
-        /*
-         * bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
-         * JLabel user = new JLabel("Computer Player");
-         * user.setAlignmentX(Component.CENTER_ALIGNMENT); JLabel points = new
-         * JLabel("Total Points: " + player1.getPoints());
-         * points.setAlignmentX(Component.CENTER_ALIGNMENT);
-         * bottomPanel.add(user); bottomPanel.add(points);
-         * bottomPanel.add(Box.createHorizontalGlue()); PlayerLetters pl =
-         * player1.getLetters(); for(Letter l: pl.getLetters()){ char c =
-         * l.getLetter(); int p = l.getPointValue(); JToggleButton jb =
-         * getTButton(c, p); bottomPanel.add(jb); }
-         */
     }
 }

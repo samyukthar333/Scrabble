@@ -18,9 +18,9 @@ import java.io.FileInputStream;
 
 /**
  *
- * creates and draws the board
+ * creates and draws the board (the center panel of the screen)
  *
- * @author saanvi, samyuktha, richa
+ * @author Richa Bavadekar
  * @version May 29, 2019
  * @author Period: 4
  * @author Assignment: Scrabble
@@ -45,10 +45,14 @@ public class ScrabbleBoard extends JPanel
 
     private final Image twoletter;
 
+
     /**
      * constructor
-     * @param game sets local game variable to game
-     * @param centerPanel sets local central panel to central panel
+     * 
+     * @param game
+     *            current game
+     * @param centerPanel
+     *            current panel
      */
     public ScrabbleBoard( Game game, JPanel centerPanel )
     {
@@ -64,15 +68,18 @@ public class ScrabbleBoard extends JPanel
         centerPanel.add( this );
     }
 
+
     /**
      *
      * gets squares
+     * 
      * @return squares
      */
     public ArrayList<Square> getSquares()
     {
         return squares;
     }
+
 
     /**
      * reset squares
@@ -86,9 +93,11 @@ public class ScrabbleBoard extends JPanel
 
     /**
      *
-     * creates the panel
-     * @param img image being used
-     * @return jP
+     * gets the panel
+     * 
+     * @param img
+     *            image being used
+     * @return jPanel this panel
      */
     private JPanel getPanel( final Image img )
     {
@@ -107,18 +116,21 @@ public class ScrabbleBoard extends JPanel
         return jP;
     }
 
+
     /**
      *
      * gets the image used for the game board
-     * @param bg the background
-     * @return null
+     * 
+     * @param bg
+     *            the background
+     * @return Image current image
      */
     private Image getImage( String bg )
     {
         try
         {
             String file = "./images/" + bg + ".jpg";
-            System.out.println( "File: " + file );
+            //System.out.println( "File: " + file );
             FileInputStream fis = new FileInputStream( file );
             // BufferedImage myPicture = ImageIO.read(new File("./images/" + bg
             // + ".jpeg"));
@@ -128,11 +140,12 @@ public class ScrabbleBoard extends JPanel
         }
         catch ( Exception ex )
         {
-            System.out.println( bg + "Error: " + ex );
+            //System.out.println( bg + "Error: " + ex );
             ex.printStackTrace();
         }
         return null;
     }
+
 
     /**
      *
@@ -143,9 +156,11 @@ public class ScrabbleBoard extends JPanel
         drawBoard( game, this );
     }
 
+
     /**
      *
-     * creates the game
+     * gets game
+     * 
      * @return this.game
      */
     public Game getGame()
@@ -153,11 +168,15 @@ public class ScrabbleBoard extends JPanel
         return this.game;
     }
 
+
     /**
      *
      * draws the board
-     * @param game the current game being played
-     * @param centerPanel the center panel of the current game
+     * 
+     * @param game
+     *            the current game being played
+     * @param centerPanel
+     *            current panel
      */
     public void drawBoard( Game game, JPanel centerPanel )
     {
@@ -171,7 +190,7 @@ public class ScrabbleBoard extends JPanel
             scrDim = height;
 
         scrDim = ( scrDim / 100 ) * 100;
-        System.out.println( "Dimensions " + scrDim );
+       // System.out.println( "Dimensions " + scrDim );
         JPanel panel = new JPanel();
         panel.setLayout( new GridLayout( 15, 15 ) );
         // panel.setBackground(Color.BLACK);
@@ -217,71 +236,53 @@ public class ScrabbleBoard extends JPanel
                 // jP.setTransferHandler(UIUtilities.getTransferHandler());
                 jP.setTransferHandler( UIUtilities.getTransferHandlerForBoard() );
                 jP.setBorder( border );
-                if (s.getLetter() != null){
+                if ( s.getLetter() != null )
+                {
                     JLabel jl = new JLabel();
-                    jl.setText(s.toString());
+                    jl.setText( s.toString() );
                 }
-                /*
-                 * // System.out.println(" " + i + "\t" + j + "\t" +
-                 * squares[i][j].getSpecial()); //int special =
-                 * squares[i][j].getSpecial(); if (special == 4){ Image img =
-                 * getImage("tripleword"); //jP.setBackground(Color.RED);
-                 * jP.drawImage(img, 0, 0, null); jP.setOpaque(true); } if
-                 * (special == 3){ jP.setBackground(Color.CYAN);
-                 * jP.setOpaque(true); } if (special == 2){
-                 * jP.setBackground(Color.BLUE); jP.setOpaque(true); } if
-                 * (special == 1){ jP.setBackground(Color.MAGENTA);
-                 * jP.setOpaque(true); }
-                 */
+
                 panel.add( jP );
             }
         }
 
-        /*
-         * JPanel panel = new JPanel(); panel.setLayout(new GridLayout(15, 15));
-         * Dimension dim = frame.getSize(); panel.setSize((int)(dim.width *
-         * 0.5), (int)(dim.height * 0.5)); panel.setPreferredSize(new
-         * Dimension((int)(dim.width * 0.6), (int)(dim.height * 0.6))); Border
-         * border = BorderFactory.createLineBorder(Color.BLACK, 1); Board board
-         * = game.getBoard(); Square[][] squares = board.getBoard();
-         */
-
     }
 
-        public void redraw(){
-            JPanel jp = (JPanel) this.getComponent(0);
-            Board board = game.getBoard();
-            Square[][] squares = board.getBoard();
-            int k = 0;
-            for ( int i = 0; i < squares.length; i++ )
-            {
-                for ( int j = 0; j < squares[0].length; j++ )
-                {
-                    Square s = squares[i][j];
-                    if(s.getLetter() != null){
-                        System.out.println(k + "ME " + s.toString());
-                        String data = s.toString();
-                        String file = "./images/" + data + ".jpg";
-                        System.out.println( "File: " + file );
-                        java.net.URL imageURL = UIUtilities.class.getResource( file );
-                        ImageIcon ii = new ImageIcon( imageURL );
-                        Image iii = ii.getImage();
-                        Image newi = iii.getScaledInstance( 40, 40, java.awt.Image.SCALE_SMOOTH );
-                        JLabel jb = new JLabel();
-                        jb.setBounds( 0, 0, 40, 40 );
-                        jb.setToolTipText( data );
-                        jb.setIcon( new ImageIcon( newi ) );
-                        /*
-                        JLabel jb = new JLabel();
-                        jb.setBounds( 0, 0, 40, 40 );
-                        jb.setToolTipText( s.toString() );
-                        jb.setIcon( new ImageIcon( getImage(s.toString()) ));
 
-                        */
-                        ((JPanel)(jp.getComponent(k))).add(jb);
-                    }
-                    k++;
+    /**
+     * 
+     * repaints the board
+     */
+    public void redraw()
+    {
+        JPanel jp = (JPanel)this.getComponent( 0 );
+        Board board = game.getBoard();
+        Square[][] squares = board.getBoard();
+        int k = 0;
+        for ( int i = 0; i < squares.length; i++ )
+        {
+            for ( int j = 0; j < squares[0].length; j++ )
+            {
+                Square s = squares[i][j];
+                if ( s.getLetter() != null )
+                {
+                   // System.out.println( k + "ME " + s.toString() );
+                    String data = s.toString();
+                    String file = "./images/" + data + ".jpg";
+                   // System.out.println( "File: " + file );
+                    java.net.URL imageURL = UIUtilities.class.getResource( file );
+                    ImageIcon ii = new ImageIcon( imageURL );
+                    Image iii = ii.getImage();
+                    Image newi = iii.getScaledInstance( 40, 40, java.awt.Image.SCALE_SMOOTH );
+                    JLabel jb = new JLabel();
+                    jb.setBounds( 0, 0, 40, 40 );
+                    jb.setToolTipText( data );
+                    jb.setIcon( new ImageIcon( newi ) );
+
+                    ( (JPanel)( jp.getComponent( k ) ) ).add( jb );
                 }
+                k++;
             }
         }
+    }
 }

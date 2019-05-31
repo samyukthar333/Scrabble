@@ -19,7 +19,7 @@ import javax.imageio.ImageIO;
  * 
  * constructs the left panel
  *
- * @author saanvi, samyuktha, richa
+ * @author Richa Bavadekar
  * @version May 29, 2019
  * @author Period: 4
  * @author Assignment: Scrabble
@@ -43,12 +43,13 @@ public class ScrabbleLeftPanel extends JPanel
 
     /**
      * 
-     * creates button
+     * gets button
      * 
      * @param c
-     *            the character
+     *            buttons character
      * @param p
-     * @return null
+     *            int
+     * @return JLabel current label
      */
     private static JLabel getTButton( char c, int p )
     {
@@ -73,7 +74,7 @@ public class ScrabbleLeftPanel extends JPanel
 
     /**
      * 
-     * draws the left panel
+     * repaints left panel
      */
     public void repaintLeft()
     {
@@ -82,7 +83,7 @@ public class ScrabbleLeftPanel extends JPanel
 
 
     /**
-     * creates the left panel
+     * constructor method
      * 
      * @param game
      *            the game that is currently being played
@@ -108,13 +109,13 @@ public class ScrabbleLeftPanel extends JPanel
 
     /**
      * 
-     * returns player1
+     * returns player
      * 
-     * @return player1
+     * @return Player player 1
      */
     public Player getPlayer()
     {
-        System.out.println( "Player 1 is at " + player1 );
+        // System.out.println( "Player 1 is at " + player1 );
         return player1;
     }
 
@@ -123,7 +124,7 @@ public class ScrabbleLeftPanel extends JPanel
      * 
      * returns the player letters
      * 
-     * @return myLetters
+     * @return ArrayList<Letter> my letters
      */
     public ArrayList<Letter> getMyLetters()
     {
@@ -133,7 +134,7 @@ public class ScrabbleLeftPanel extends JPanel
 
     /**
      * 
-     * parameters for left panel
+     * draws left panel
      */
     public void drawLeftPanel()
     {
@@ -141,9 +142,20 @@ public class ScrabbleLeftPanel extends JPanel
     }
 
 
+    /**
+     * 
+     * draws left panel
+     * 
+     * @param game
+     *            current game
+     * @param bottomPanel
+     *            bottom panel
+     * @param player1
+     *            current player
+     */
     public void drawLeftPanel( Game game, JPanel bottomPanel, Player player1 )
     {
-        System.out.println( "RICHA " + bottomPanel.getLayout() );
+        // System.out.println( "RICHA " + bottomPanel.getLayout() );
 
         for ( Component c : bottomPanel.getComponents() )
             bottomPanel.remove( c );

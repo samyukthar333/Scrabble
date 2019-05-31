@@ -1,6 +1,4 @@
 
-// https://docs.oracle.com/javase/tutorial/uiswing/dnd/dropmodedemo.html
-// https://docs.oracle.com/javase/tutorial/uiswing/dnd/dropaction.html
 import java.awt.BorderLayout;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -22,12 +20,10 @@ import java.awt.dnd.*;
 
 
 /**
+ * has common helper methods for the GUI classes
  * 
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
  *
- * @author saanvi, samyuktha, richa
+ * @author Richa Bavadekar
  * @version May 29, 2019
  * @author Period: 4
  * @author Assignment: Scrabble
@@ -38,10 +34,11 @@ public class UIUtilities
 {
     /**
      * 
-     * gui for jpanel
+     * gets panel
      * 
      * @param img
-     * @return jP
+     *            image
+     * @return JPanel current pannel
      */
     private static JPanel getPanel( Image img )
     {
@@ -63,9 +60,9 @@ public class UIUtilities
 
     /**
      * 
-     * computer acts upon players clicks
+     * gets mouse listener
      * 
-     * @return listener
+     * @return MouseListener current listener
      */
     public static MouseListener getMouseListener()
     {
@@ -85,9 +82,9 @@ public class UIUtilities
 
     /**
      * 
-     * creates mouselistener
+     * gets mouse listener
      * 
-     * @return listener
+     * @return MouseListener current listener
      */
     public static MouseListener getMouseListenerForLabelInLeftPanel()
     {
@@ -109,9 +106,9 @@ public class UIUtilities
 
     /**
      * 
-     * handles the transfer of a transferable to to and from swing components
+     * gets transfer handler
      * 
-     * @return tfh1
+     * @return TransferHandler current transfer handler
      */
     public static TransferHandler getTransferHandler()
     {
@@ -193,9 +190,9 @@ public class UIUtilities
 
     /**
      * 
-     * handles the transfer of a transferable to to and from swing components
+     * gets transfer handler
      * 
-     * @return tfh1
+     * @return TransferHandler current transfer handler
      */
     public static TransferHandler getTransferHandlerForBoard()
     {
@@ -286,9 +283,9 @@ public class UIUtilities
 
     /**
      * 
-     * handles the transfer of a transferable to to and from swing components
+     * gets transfer handler
      * 
-     * @return tfh1
+     * @return TransferHandler current transfer handler
      */
     public static TransferHandler getTransferHandlerForLabel()
     {
@@ -313,20 +310,24 @@ public class UIUtilities
                 JPanel parent = (JPanel)c.getParent();
                 if ( parent == null )
                     return;
-                System.out.println("Rurur " + parent);
-                if(parent instanceof ScrabbleLeftPanel){
-                    ScrabbleLeftPanel spl = (ScrabbleLeftPanel) parent;
+                System.out.println( "Rurur " + parent );
+                if ( parent instanceof ScrabbleLeftPanel )
+                {
+                    ScrabbleLeftPanel spl = (ScrabbleLeftPanel)parent;
                     ArrayList<Letter> mls = spl.getMyLetters();
-                    try{
-                        String d = (String)data.getTransferData(DataFlavor.stringFlavor);
-                        Letter l = new Letter(d.charAt(0));
-                        mls.remove(l);
-                    }catch (Exception ex){
+                    try
+                    {
+                        String d = (String)data.getTransferData( DataFlavor.stringFlavor );
+                        Letter l = new Letter( d.charAt( 0 ) );
+                        mls.remove( l );
+                    }
+                    catch ( Exception ex )
+                    {
                         ex.printStackTrace();
                     }
                 }
-                parent.remove(c);
-                parent.getDropTarget().setActive(true);
+                parent.remove( c );
+                parent.getDropTarget().setActive( true );
                 parent.updateUI();
             };
 
@@ -344,9 +345,9 @@ public class UIUtilities
 
     /**
      * 
-     * handles the transfer of a transferable to to and from swing components
+     * gets transfer handler
      * 
-     * @return tfh1
+     * @return TransferHandler current transfer handler
      */
     public static TransferHandler getTransferHandlerForLeftPanel()
     {
@@ -396,9 +397,9 @@ public class UIUtilities
 
     /**
      * 
-     * handles the transfer of a transferable to to and from swing components
+     * gets transfer handler
      * 
-     * @return tfh1
+     * @return TransferHandler current transfer handler
      */
     public static TransferHandler getTransferHandlerForExchange()
     {
