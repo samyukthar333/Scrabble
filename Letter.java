@@ -19,7 +19,8 @@ public class Letter
     /**
      * assigns point values to each letter
      *
-     * @param c stands for character
+     * @param c
+     *            stands for character
      */
     public Letter( char c )
     {
@@ -104,7 +105,8 @@ public class Letter
     {
         return pointValue;
     }
-    
+
+
     /**
      * tostring method
      */
@@ -114,33 +116,41 @@ public class Letter
 
     }
 
-    /**
-    * Object Identity
-    *
-    * @param obj the object that gets compared when checking for equality
-    */
-    @Override
-    public boolean equals(Object obj){
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        Letter other = (Letter) obj;
-        return (this.letter == other.getLetter());
-    }
 
     /**
-    * Object Identity
-    *
-    */
+     * Object Identity
+     *
+     * @param obj
+     *            the object that gets compared when checking for equality
+     */
     @Override
-    public int hashCode() {
-        Character c = Character.valueOf(letter);
+    public boolean equals( Object obj )
+    {
+        if ( this == obj )
+        {
+            return true;
+        }
+        if ( obj == null )
+        {
+            return false;
+        }
+        if ( getClass() != obj.getClass() )
+        {
+            return false;
+        }
+        Letter other = (Letter)obj;
+        return ( this.letter == other.getLetter() );
+    }
+
+
+    /**
+     * Object Identity
+     *
+     */
+    @Override
+    public int hashCode()
+    {
+        Character c = Character.valueOf( letter );
         return c.hashCode();
     }
 }
