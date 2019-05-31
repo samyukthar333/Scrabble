@@ -164,7 +164,7 @@ public class ScrabbleBottomPanel extends JPanel
         ScrabbleBoard sb = (ScrabbleBoard)( (JComponent)sfe.getComponent( 4 ) ).getComponent( 0 );
         
         sb.resetSquares();
-        sb.updateUI();
+        sb.redraw();
         sfe.repaintTop();
     }
 

@@ -17,7 +17,7 @@ import java.io.FileInputStream;
 
 
 /**
- * 
+ *
  * creates and draws the board
  *
  * @author saanvi, samyuktha, richa
@@ -65,7 +65,7 @@ public class ScrabbleBoard extends JPanel
     }
 
     /**
-     * 
+     *
      * gets squares
      * @return squares
      */
@@ -73,19 +73,19 @@ public class ScrabbleBoard extends JPanel
     {
         return squares;
     }
-    
+
     /**
      * reset squares
-     * 
+     *
      */
     public void resetSquares()
     {
         squares = new ArrayList<Square>();
     }
-    
+
 
     /**
-     * 
+     *
      * creates the panel
      * @param img image being used
      * @return jP
@@ -108,7 +108,7 @@ public class ScrabbleBoard extends JPanel
     }
 
     /**
-     * 
+     *
      * gets the image used for the game board
      * @param bg the background
      * @return null
@@ -135,7 +135,7 @@ public class ScrabbleBoard extends JPanel
     }
 
     /**
-     * 
+     *
      * draws the board
      */
     public void drawBoard()
@@ -144,7 +144,7 @@ public class ScrabbleBoard extends JPanel
     }
 
     /**
-     * 
+     *
      * creates the game
      * @return this.game
      */
@@ -154,7 +154,7 @@ public class ScrabbleBoard extends JPanel
     }
 
     /**
-     * 
+     *
      * draws the board
      * @param game the current game being played
      * @param centerPanel the center panel of the current game
@@ -217,7 +217,10 @@ public class ScrabbleBoard extends JPanel
                 // jP.setTransferHandler(UIUtilities.getTransferHandler());
                 jP.setTransferHandler( UIUtilities.getTransferHandlerForBoard() );
                 jP.setBorder( border );
-                // jP.setText(s.toString());
+                if (s.getLetter() != null){
+                    JLabel jl = new JLabel();
+                    jl.setText(s.toString());
+                }
                 /*
                  * // System.out.println(" " + i + "\t" + j + "\t" +
                  * squares[i][j].getSpecial()); //int special =
@@ -244,4 +247,41 @@ public class ScrabbleBoard extends JPanel
          */
 
     }
+
+        public void redraw(){
+            JPanel jp = (JPanel) this.getComponent(0);
+            Board board = game.getBoard();
+            Square[][] squares = board.getBoard();
+            int k = 0;
+            for ( int i = 0; i < squares.length; i++ )
+            {
+                for ( int j = 0; j < squares[0].length; j++ )
+                {
+                    Square s = squares[i][j];
+                    if(s.getLetter() != null){
+                        System.out.println(k + "ME " + s.toString());
+                        String data = s.toString();
+                        String file = "./images/" + data + ".jpg";
+                        System.out.println( "File: " + file );
+                        java.net.URL imageURL = UIUtilities.class.getResource( file );
+                        ImageIcon ii = new ImageIcon( imageURL );
+                        Image iii = ii.getImage();
+                        Image newi = iii.getScaledInstance( 40, 40, java.awt.Image.SCALE_SMOOTH );
+                        JLabel jb = new JLabel();
+                        jb.setBounds( 0, 0, 40, 40 );
+                        jb.setToolTipText( data );
+                        jb.setIcon( new ImageIcon( newi ) );
+                        /*
+                        JLabel jb = new JLabel();
+                        jb.setBounds( 0, 0, 40, 40 );
+                        jb.setToolTipText( s.toString() );
+                        jb.setIcon( new ImageIcon( getImage(s.toString()) ));
+
+                        */
+                        ((JPanel)(jp.getComponent(k))).add(jb);
+                    }
+                    k++;
+                }
+            }
+        }
 }
