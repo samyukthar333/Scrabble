@@ -27,10 +27,14 @@ public class Square
 
 
     /**
+     * the location of the tile
      * 
      * @param special
+     *            score multipliers
      * @param x
+     *            the x coordinate
      * @param y
+     *            the y coordinate
      */
     public Square( int special, int x, int y )
     {
@@ -43,15 +47,18 @@ public class Square
         else
             myY = -1;
         letter = null;
-        if(special >= 0 && special <= 4)
+        if ( special >= 0 && special <= 4 )
             this.special = special;
     }
 
 
     /**
+     * the location of the tile
      * 
      * @param x
+     *            the x coordinate
      * @param y
+     *            the y coordinate
      */
     public Square( int x, int y )
     {
@@ -69,10 +76,10 @@ public class Square
 
 
     /**
-     * 
-     * @param letter
-     * @param x
-     * @param y
+     * the location of the tile
+     * @param letter the letter thats on the tile
+     * @param x the x coordinate
+     * @param y the y coordinate
      */
     public Square( Letter letter, int x, int y )
     {
@@ -93,7 +100,7 @@ public class Square
      * 
      * returns the row value / x coordinate of letter
      * 
-     * @return myX
+     * @return myX the x coordinate of a letter tile
      */
     public int getRow()
     {
@@ -105,7 +112,7 @@ public class Square
      * 
      * returns the column value / y coordinate of letter
      * 
-     * @return myY
+     * @return myY the y coordinate of a letter tile
      */
     public int getCol()
     {
@@ -115,8 +122,8 @@ public class Square
 
     /**
      * 
-     * sets the score multiplier to the local score multiplier
-     * sets the value of the local letter to letter
+     * sets the score multiplier to the local score multiplier sets the value of
+     * the local letter to letter
      * 
      * @param letter
      *            the letters in the word
@@ -138,7 +145,7 @@ public class Square
      */
     public void setSpecial( int num )
     {
-        if(num>=0 && num<=4)
+        if ( num >= 0 && num <= 4 )
             special = num;
     }
 
@@ -157,8 +164,8 @@ public class Square
 
     /**
      * 
-     * if the row number is out of bounds, return false
-     * if it is in bounds, set the x coordinate to row number, return true
+     * if the row number is out of bounds, return false if it is in bounds, set
+     * the x coordinate to row number, return true
      * 
      * @param row
      * @return false || false && true
@@ -174,8 +181,8 @@ public class Square
 
     /**
      * 
-     * if the column number is out of bounds, return false
-     * if it is in bounds, set the x coordinate to column number, return true
+     * if the column number is out of bounds, return false if it is in bounds,
+     * set the x coordinate to column number, return true
      * 
      * @param col
      * @return false || false && true

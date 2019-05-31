@@ -108,8 +108,8 @@ public class ComputerPlayer extends Player
     /**
      * finds the left part
      * 
-     * @param board 
-     * @param square
+     * @param board the board in play
+     * @param square location of the tile
      */
     private void findLeftPart( Board board, Square square )
     {
@@ -152,10 +152,10 @@ public class ComputerPlayer extends Player
      * 
      * finds the left part with helper
      * 
-     * @param board
-     * @param partialWord
-     * @param node
-     * @param limit
+     * @param board the board in play
+     * @param partialWord 
+     * @param node node in the trie
+     * @param limit 
      * @param anchor
      */
     private void findLeftPartHelper( Board board, String partialWord, TrieNode node, int limit, Square anchor, Square placesquare )
@@ -196,10 +196,10 @@ public class ComputerPlayer extends Player
      * 
      * extends to the right
      * 
-     * @param board
+     * @param board the board that is being used
      * @param wordPart
-     * @param node
-     * @param square
+     * @param node the node in the trie
+     * @param square location of the tile
      */
     // fix square!!
     private void extendRight( Board board, String wordPart, TrieNode node, Square square )
@@ -290,7 +290,7 @@ public class ComputerPlayer extends Player
      * 
      * executes the best play
      * 
-     * @param board
+     * @param board the board thats being used
      * @return squares
      */
     private ArrayList<Square> executePlay( Board board )
@@ -352,7 +352,7 @@ public class ComputerPlayer extends Player
      * 
      * for testing purposes
      * 
-     * @param args
+     * @param args sets up the main method
      */
     public static void main( String[] args )
     {
