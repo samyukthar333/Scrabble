@@ -212,7 +212,7 @@ public class Game
      * 
      * switches the players
      */
-    private void switchPlayers()
+    public void switchPlayers()
     {
         if ( currentPlayer.equals( player1 ) )
             currentPlayer = player2;
@@ -255,7 +255,7 @@ public class Game
      */
     public void replenishLetters()
     {
-        while(currentPlayer.getLetters().size()<7)
+        while(!myBag.isEmpty() && currentPlayer.getLetters().size()<7)
         {
             currentPlayer.getLetters().add( myBag.getRandomLetter());
         }
@@ -269,7 +269,7 @@ public class Game
      */
     public void replenishLetters(Player player)
     {
-        while(player.getLetters().size()<7)
+        while(!myBag.isEmpty() && player.getLetters().size()<7)
         {
             player.getLetters().add( myBag.getRandomLetter());
         }

@@ -324,6 +324,32 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testPlaceWord()
     {
         Board board = new Board();
+
+        board.getBoard()[2][6].setLetter( new Letter( 'B' ) );
+        board.getBoard()[3][6].setLetter( new Letter( 'U' ) );
+        board.getBoard()[4][6].setLetter( new Letter( 'S' ) );
+
+        ArrayList<Square> input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'C' ), 2, 3 ) );
+        input.add( new Square( new Letter( 'R' ), 2, 4 ) );
+        input.add( new Square( new Letter( 'A' ), 2, 5 ) );
+        input.add( new Square( new Letter( 'B' ), 2, 7 ) );
+        input.add( new Square( new Letter( 'Y' ), 2, 8 ) );
+        
+        int points = board.placeWord( input );
+        assertEquals(points, 22);
+        
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'B' ), 4, 1 ) );
+        input.add( new Square( new Letter( 'A' ), 4, 2 ) );
+        input.add( new Square( new Letter( 'C' ), 4, 3 ) );
+        input.add( new Square( new Letter( 'O' ), 4, 4 ) );
+        input.add( new Square( new Letter( 'N' ), 4, 5 ) );
+        
+        
+        points = board.placeWord( input );
+        assertEquals(points, 20);
+        
     }
 
     @Test
@@ -482,7 +508,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test
     public void testGetBoardGame()
     {
-        Game game = new Game(false);
+        Game game = new Game();
         assertNotNull(game.getBoard());
     }
 
@@ -490,57 +516,95 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test
     public void testGetBag()
     {
-        Game game = new Game(false);
-        assertNotNull(game.getBoard());
+        Game game = new Game();
+        assertEquals(game.getBag().size(), 100);
+        
     }
 
 
     @Test
     public void testGetRandomThree()
     {
-
+        Game game = new Game();
+        ArrayList<Letter> letters = game.getRandomThree();
+        assertEquals(letters.size(), 3);
+        assertNotNull(letters);
+        
     }
-
-
-    @Test
-    public void testChooseFirstPlayer()
-    {
-
-    }
-
 
     @Test
     public void testSwitchPlayers()
     {
-
+        Game game = new Game();
+        assertEquals(game.getCurrentPlayer(), game.getPlayer2());
+        game.switchPlayers();
+        assertEquals(game.getCurrentPlayer(), game.getPlayer1());
     }
 
 
     @Test
     public void testPlay()
     {
-
+        Game game = new Game();
+        ArrayList<Square> input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'B' ), 4, 1 ) );
+        input.add( new Square( new Letter( 'A' ), 4, 2 ) );
+        input.add( new Square( new Letter( 'C' ), 4, 3 ) );
+        input.add( new Square( new Letter( 'O' ), 4, 4 ) );
+        input.add( new Square( new Letter( 'N' ), 4, 5 ) );
+        assertEquals(game.play( input ), 19);
+        input = new ArrayList<Square>();
+        input.add( new Square( new Letter( 'H' ), 10, 11 ) );
+        input.add( new Square( new Letter( 'F' ), 10, 12 ) );
+        assertEquals(game.play( input ), -1);
+        
     }
 
 
     @Test
-    public void testReplenishLetters()
+    public void testReplenishLettersWithoutPlayer()
     {
-
+        Game game = new Game();
+        game.getHuman().getLetters().getLetters().remove(0);
+        game.replenishLetters( );
+        assertEquals(game.getHuman().getLetters().size(), 7);
+       
     }
+
+    
+    @Test
+    public void testReplenishLettersWithPlayer()
+    {
+        Game game = new Game();
+        game.getComputer().getLetters().getLetters().remove(0);
+        game.replenishLetters( game.getComputer() );
+        assertEquals(game.getComputer().getLetters().size(), 7);
+        
+    }
+    
+    
 
 
     @Test
     public void testExchange()
     {
-
+        Game game = new Game();
+        ArrayList<Letter> letters = new ArrayList<Letter>();
+        letters.add( new Letter('S') );
+        letters.add( new Letter('C') );
+        letters.add( new Letter('A') );
+        game.exchange( letters );
+        assertEquals(game.getCurrentPlayer().getLetters().size(), 7);
     }
 
 
     @Test
     public void testPass()
     {
-
+        Game game = new Game();
+        assertEquals(game.getCurrentPlayer(), game.getHuman());
+        game.pass();
+        assertEquals(game.getCurrentPlayer(), game.getComputer());
     }
 
 
@@ -618,7 +682,25 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test
     public void testFindWord()
     {
+        Board board = new Board();
+        ComputerPlayer player = new ComputerPlayer();
 
+        board.getBoard()[2][6].setLetter( new Letter( 'C' ) );
+        board.getBoard()[3][6].setLetter( new Letter( 'A' ) );
+        board.getBoard()[4][6].setLetter( new Letter( 'P' ) );
+        
+        player.getLetters().add( new Letter( 'B' ) );
+        player.getLetters().add( new Letter( 'A' ) );
+        player.getLetters().add( new Letter( 'R' ) );
+        player.getLetters().add( new Letter( 'C' ) );
+        player.getLetters().add( new Letter( 'T' ) );
+        player.getLetters().add( new Letter( 'Y' ) );
+        player.getLetters().add( new Letter( 'B' ) );
+
+        ArrayList<Square> letters = player.findWord( board );
+        int points = board.placeWord( letters );
+        assertEquals(points, 36);
+        
     }
 
     // Square
