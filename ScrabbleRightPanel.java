@@ -29,7 +29,7 @@ public class ScrabbleRightPanel
      * 
      * creates the toggle button
      * 
-     * @param c
+     * @param c the character
      * @param p
      * @return jtb
      */
@@ -44,9 +44,9 @@ public class ScrabbleRightPanel
      * 
      * draws the right panel
      * 
-     * @param game
-     * @param bottomPanel
-     * @param player1
+     * @param game the game that is currently being played
+     * @param bottomPanel the bottom panel of the game
+     * @param player1 the player that is currently playing
      */
     public static void drawRightPanel( Game game, JPanel bottomPanel, Player player1 )
     {

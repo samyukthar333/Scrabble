@@ -46,6 +46,7 @@ public class ScrabbleLeftPanel extends JPanel
      * creates button
      * 
      * @param c
+     *            the character
      * @param p
      * @return null
      */
@@ -84,8 +85,11 @@ public class ScrabbleLeftPanel extends JPanel
      * creates the left panel
      * 
      * @param game
+     *            the game that is currently being played
      * @param bottomPanel
+     *            the bottom panel of the game
      * @param player1
+     *            the player that is playing the game
      */
     public ScrabbleLeftPanel( Game game, JPanel bottomPanel, Player player1 )
     {
@@ -136,26 +140,26 @@ public class ScrabbleLeftPanel extends JPanel
         drawLeftPanel( game, this, player1 );
     }
 
-    public void drawLeftPanel(Game game, JPanel bottomPanel, Player player1){
-        System.out.println("RICHA " + bottomPanel.getLayout());
 
+    public void drawLeftPanel( Game game, JPanel bottomPanel, Player player1 )
+    {
+        System.out.println( "RICHA " + bottomPanel.getLayout() );
 
-
-        for(Component c: bottomPanel.getComponents())
-            bottomPanel.remove(c);
-        bottomPanel.setLayout(new BoxLayout(bottomPanel, BoxLayout.Y_AXIS));
-        bottomPanel.addMouseListener(UIUtilities.getMouseListener());
+        for ( Component c : bottomPanel.getComponents() )
+            bottomPanel.remove( c );
+        bottomPanel.setLayout( new BoxLayout( bottomPanel, BoxLayout.Y_AXIS ) );
+        bottomPanel.addMouseListener( UIUtilities.getMouseListener() );
         TransferHandler tfhP = UIUtilities.getTransferHandlerForLeftPanel();
-        bottomPanel.setTransferHandler(tfhP);
-        //JLabel user = new JLabel("<html>\tHuman Player</html>");
-        JLabel user = new JLabel("                                                        ");
-        user.setAlignmentX(Component.CENTER_ALIGNMENT);
-        //JLabel points = new JLabel("Total Points: " + player1.getPoints());
-        JLabel points = new JLabel("<html><br/><br/></html");
-        points.setAlignmentX(Component.CENTER_ALIGNMENT);
-        bottomPanel.add(user);
-        bottomPanel.add(points);
-        bottomPanel.add(Box.createHorizontalGlue());
+        bottomPanel.setTransferHandler( tfhP );
+        // JLabel user = new JLabel("<html>\tHuman Player</html>");
+        JLabel user = new JLabel( "                                                        " );
+        user.setAlignmentX( Component.CENTER_ALIGNMENT );
+        // JLabel points = new JLabel("Total Points: " + player1.getPoints());
+        JLabel points = new JLabel( "<html><br/><br/></html" );
+        points.setAlignmentX( Component.CENTER_ALIGNMENT );
+        bottomPanel.add( user );
+        bottomPanel.add( points );
+        bottomPanel.add( Box.createHorizontalGlue() );
         /*
          * try{ BufferedImage myPicture = ImageIO.read(new
          * File("./images/A.jpeg")); Image dimg =
@@ -166,7 +170,7 @@ public class ScrabbleLeftPanel extends JPanel
 
         PlayerLetters pl = player1.getLetters();
         ArrayList<Letter> letters = pl.getLetters();
-//        System.out.println(letters);
+        // System.out.println(letters);
         if ( player1.getPoints() == 0 && myLetters.size() == 0 )
         {
             LetterBag myBag = game.getBag();
