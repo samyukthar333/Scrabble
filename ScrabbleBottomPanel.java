@@ -39,7 +39,12 @@ public class ScrabbleBottomPanel extends JPanel
     private final Image passbtn;
     private final Image playbtn;
     private final Image exchangebtn;
-
+    
+    /**
+     * the bottom panel of the scrabble board
+     * @param game the current game being played
+     * @param panel the panel being used
+     */
     public ScrabbleBottomPanel(Game game, JPanel panel){
         super();
         checkwordbtn = getImage( "checkWord");
@@ -56,9 +61,9 @@ public class ScrabbleBottomPanel extends JPanel
 
     /**
      *
-     * TODO Write your method description here.
+     * retrieves the image that is being used
      * @param bg background
-     * @return
+     * @return null
      */
     private Image getImage( String bg )
     {
@@ -81,9 +86,11 @@ public class ScrabbleBottomPanel extends JPanel
         return null;
     }
 
-
-
-
+    /**
+     * 
+     * exchanges the letters
+     * @return exchangeLetters
+     */
     public ArrayList<Letter> getExchangeLetters(){
         return exchangeLetters;
     }
@@ -93,7 +100,7 @@ public class ScrabbleBottomPanel extends JPanel
      * 
      * sets the exchanged letters
      * 
-     * @param exch
+     * @param exch letters to be exchanged
      */
     public void setExchangeLetters( ArrayList<Letter> exch )
     {
@@ -166,8 +173,8 @@ public class ScrabbleBottomPanel extends JPanel
      * 
      * draws the bottom panel
      * 
-     * @param game
-     * @param bottomPanel
+     * @param game the game currently being played
+     * @param bottomPanel the bottom panel that is being used
      */
     public void drawBottomPanel( Game game, JPanel bottomPanel )
     {

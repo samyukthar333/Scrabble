@@ -156,8 +156,8 @@ public class ScrabbleBoard extends JPanel
     /**
      * 
      * draws the board
-     * @param game
-     * @param centerPanel
+     * @param game the current game being played
+     * @param centerPanel the center panel of the current game
      */
     public void drawBoard( Game game, JPanel centerPanel )
     {

@@ -23,7 +23,7 @@ public class PlayerLetters
     /**
      * 
      * adds or doesnt add letter(s) depending on your current number of letters
-     * @param letter
+     * @param letter the letter on the tile
      * @return false || true
      */
     public boolean add( Letter letter )
@@ -42,7 +42,7 @@ public class PlayerLetters
     /**
      * 
      * removes a letter if your letters already has that letter
-     * @param letter
+     * @param letter the letter on the tile
      * @return false || true
      */
     public boolean remove( Letter letter )
@@ -61,7 +61,7 @@ public class PlayerLetters
     /**
      * 
      * removes a letter if your letters already has that letter
-     * @param letter
+     * @param letter the letter on the tile
      * @return false || true
      */
     public boolean remove( char c )
@@ -80,7 +80,7 @@ public class PlayerLetters
     /**
      * 
      * removes the letter at that index
-     * @param index the index of your letter
+     * @param index the index of your letter 
      * @return letter
      */
     public Letter removeIndex( int index )
