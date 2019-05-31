@@ -8,7 +8,7 @@ import java.util.Iterator;
  * Represents a Computer Player, which is a Player that finds words using a
  * computer algorithm
  *
- * @author Samyuktha, saanvi, richa
+ * @author Samyuktha
  * @version Apr 30, 2019
  * @author Period: 4
  * @author Assignment: Scrabble

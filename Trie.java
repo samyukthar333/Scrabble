@@ -6,7 +6,7 @@ import java.util.HashMap;
  * 
  * constructs a trie for the given word
  *
- * @author samyuktha, saanvi, richa
+ * @author samyuktha
  * @version May 19, 2019
  * @author Period: 4
  * @author Assignment: Scrabble

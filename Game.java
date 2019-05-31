@@ -4,7 +4,7 @@ import java.util.ArrayList;
 /**
  * sets up the game
  *
- * @author samyuktha, saanvi, richa
+ * @author samyuktha, richa
  * @version Apr 30, 2019
  * @author Period: 4
  * @author Assignment: Scrabble

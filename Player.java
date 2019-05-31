@@ -4,7 +4,7 @@
 /**
  * includes methods around gameplay for the player
  *
- * @author samyuktha, saanvi, richa
+ * @author samyuktha
  * @version Apr 30, 2019
  * @author Period: 4
  * @author Assignment: Scrabble

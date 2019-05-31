@@ -9,7 +9,7 @@ import java.util.HashMap;
  * Represents a board filled with Square objects
  * 
  *
- * @author Samyuktha, saanvi, richa
+ * @author Samyuktha
  * @version May 25, 2019
  * @author Period: 4
  * @author Assignment: Scrabble
