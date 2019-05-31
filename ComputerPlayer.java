@@ -36,7 +36,7 @@ public class ComputerPlayer extends Player
 
     /**
      * exchanges 3 random letters with 3 letters from the bag
-     * 
+     * @return letters will be exchanged
      */
     public ArrayList<Letter> getExchange()
     {
@@ -55,7 +55,8 @@ public class ComputerPlayer extends Player
      * 
      * finds all the possible words
      * 
-     * @return executePlay(board)
+     * @param board the board to find a word on 
+     * @return an arrayList of squares that represent the word computerplayer found
      */
     public ArrayList<Square> findWord( Board board )
     {

@@ -274,7 +274,7 @@ public class Game
     /**
      * 
      * refills letters until size of playerLetters is 7
-     * 
+     * @param player the player to refill letters for
      */
     public void replenishLetters(Player player)
     {

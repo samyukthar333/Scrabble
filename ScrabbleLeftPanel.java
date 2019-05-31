@@ -124,7 +124,7 @@ public class ScrabbleLeftPanel extends JPanel
      * 
      * returns the player letters
      * 
-     * @return ArrayList<Letter> my letters
+     * @return myLetters the player's letters
      */
     public ArrayList<Letter> getMyLetters()
     {

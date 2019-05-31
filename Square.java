@@ -132,7 +132,7 @@ public class Square
     public int setLetter( Letter letter )
     {
         this.letter = letter;
-        System.out.println( "In set letter, letter = " + letter + "special = " + special );
+        //System.out.println( "In set letter, letter = " + letter + "special = " + special );
         return special;
     }
 
@@ -167,7 +167,7 @@ public class Square
      * the x coordinate to row number, return true
      * 
      * @param row the row the letter is on
-     * @return false || false && true
+     * @return true if successfully set row, false otherwise
      */
     public boolean setRow( int row )
     {
@@ -184,7 +184,7 @@ public class Square
      * set the x coordinate to column number, return true
      * 
      * @param col the column the letter is on
-     * @return false || false && true
+     * @return true if successfully set col, false otherwise
      */
     public boolean setCol( int col )
     {

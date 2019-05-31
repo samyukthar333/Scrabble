@@ -73,9 +73,8 @@ public class PlayerLetters
      * 
      * removes a letter if your letters already has that letter
      * 
-     * @param letter
-     *            the letter on the tile
-     * @return false || true
+     * @param c the letter on the tile
+     * @return true is successfully removed, false otherwise
      */
     public boolean remove( char c )
     {
@@ -141,7 +140,7 @@ public class PlayerLetters
      * 
      * @param c
      *            stands for character
-     * @return true && false || false
+     * @return true if playerletters contains char, false otherwise
      */
     public boolean contains( char c )
     {

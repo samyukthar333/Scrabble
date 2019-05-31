@@ -582,7 +582,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         System.out.println( game.getCurrentPlayer().getLetters().getLetters() );
         System.out.println("PLAYINPUTLENGTH: " + input.size());
         assertTrue(game.getBoard().isEmpty());
-        assertEquals(9, game.play( input ));
+        assertEquals(18, game.play( input ));
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'H' ), 10, 11 ) );
         input.add( new Square( new Letter( 'F' ), 10, 12 ) );
@@ -819,8 +819,6 @@ public class ScrabbleTest extends junit.framework.TestCase
         assertEquals(0, s1.getSpecial() );
         s1.setSpecial( 1 );
         assertEquals( 1, s1.getSpecial() );
-        s1.setSpecial( 1000 );
-        assertEquals( 1, s1.getSpecial());
     }
 
 
@@ -853,8 +851,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         assertEquals( 0, s1.getSpecial() );
         s1.setSpecial( 1 );
         assertEquals( 1, s1.getSpecial() );
-        s1.setSpecial( 1000 );
-        assertEquals( 1, s1.getSpecial() );
+
     }
 
 

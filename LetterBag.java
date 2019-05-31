@@ -143,11 +143,11 @@ public class LetterBag
 
     /**
      * 
-     * return a list of letters from the bag PRECONDITION: num>0
+     * return a list of letters from the bag PRECONDITION:num greater than 0
      * 
      * @param num
      *            number of letters to return
-     * @return null if letters is empty, arraylist of letters
+     * @return null if letters is empty, arraylist of letters otherwise
      */
     public ArrayList<Letter> getRandomLetters( int num )
     {
@@ -257,6 +257,7 @@ public class LetterBag
     
     /**
      * for testing - get bag
+     * @return letters the letter bag - for testing
      */
     public ArrayList<Letter> getBag()
     {
