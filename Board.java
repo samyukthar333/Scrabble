@@ -291,7 +291,7 @@ public class Board // does not work only for when letter has both up and side
      * 
      * returns a copy of board
      * 
-     * @return copy
+     * @return copy copies the board
      */
     public Square[][] copy()
     {
@@ -342,7 +342,7 @@ public class Board // does not work only for when letter has both up and side
      * 
      * get the anchors on board (for computer player use)
      * 
-     * @return anchors
+     * @return anchors returns anchors of the word for computer player
      */
     public ArrayList<Square> getAnchors()
     {
@@ -723,7 +723,7 @@ public class Board // does not work only for when letter has both up and side
      * 
      * checks if it is transposed
      * 
-     * @return transposed
+     * @return transposed checks if the board transposed
      */
     public boolean isTransposed()
     {

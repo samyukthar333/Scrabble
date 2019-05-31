@@ -141,7 +141,7 @@ public class Square
      * 
      * sets the score multiplier to a specified number
      * 
-     * @param num
+     * @param num the score multiplier
      */
     public void setSpecial( int num )
     {
@@ -154,7 +154,7 @@ public class Square
      * 
      * returns the letter
      * 
-     * @return letter
+     * @return letter the letter on the tile
      */
     public Letter getLetter()
     {
@@ -167,7 +167,7 @@ public class Square
      * if the row number is out of bounds, return false if it is in bounds, set
      * the x coordinate to row number, return true
      * 
-     * @param row
+     * @param row the row the letter is on
      * @return false || false && true
      */
     public boolean setRow( int row )
@@ -184,7 +184,7 @@ public class Square
      * if the column number is out of bounds, return false if it is in bounds,
      * set the x coordinate to column number, return true
      * 
-     * @param col
+     * @param col the column the letter is on
      * @return false || false && true
      */
     public boolean setCol( int col )
