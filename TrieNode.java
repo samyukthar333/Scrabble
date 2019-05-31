@@ -2,9 +2,7 @@ import java.util.HashMap;
 
 
 /**
- * TODO Write a one-sentence summary of your class here. TODO Follow it with
- * additional details about its purpose, what abstraction it represents, and how
- * to use it.
+ * the nodes of the tries
  *
  * @author samyuktha, saanvi, richa
  * @version May 19, 2019
