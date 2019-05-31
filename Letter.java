@@ -117,7 +117,7 @@ public class Letter
     /**
     * Object Identity
     *
-    * @param obj
+    * @param obj the object that gets compared when checking for equality
     */
     @Override
     public boolean equals(Object obj){

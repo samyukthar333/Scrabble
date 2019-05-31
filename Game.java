@@ -145,7 +145,7 @@ public class Game
      * 
      * adds the letters into the bag
      * 
-     * @param myLetters
+     * @param myLetters the players letters
      */
     public void putLetters( ArrayList<Letter> myLetters )
     {
@@ -176,6 +176,11 @@ public class Game
 
     }
     
+    /**
+     * 
+     * checks if there are two players
+     * @return twoPlayer
+     */
     public boolean isTwoPlayer()
     {
         return twoPlayer;
