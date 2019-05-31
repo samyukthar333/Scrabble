@@ -234,15 +234,19 @@ public class Game
         
         for ( Square s : squares )
         {
-            System.out.println("ROW: " + s.getRow() + " COL: " + s.getCol() + " LETTER: " + s.getLetter());
+            //System.out.println("ROW: " + s.getRow() + " COL: " + s.getCol() + " LETTER: " + s.getLetter());
             if ( !currentPlayer.getLetters().contains( s.getLetter().getLetter() ) )
+            {
                 return -1;
+            }
+                
             currentPlayer.getLetters().remove( s.getLetter() );
         }
         int points = board.placeWord( squares );
+        
         if ( points == -1 )
         {
-            System.out.println("Points: " + points);
+            //System.out.println("Points: " + points);
             return -1;
         }
         currentPlayer.addPoints( points );

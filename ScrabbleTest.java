@@ -556,6 +556,14 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testPlay()
     {
         Game game = new Game();
+        game.getCurrentPlayer().getLetters().getLetters().remove( 0 );
+        game.getCurrentPlayer().getLetters().getLetters().remove( 0 );
+        game.getCurrentPlayer().getLetters().getLetters().remove( 0 );
+        game.getCurrentPlayer().getLetters().getLetters().remove( 0 );
+        game.getCurrentPlayer().getLetters().getLetters().remove( 0 );
+        game.getCurrentPlayer().getLetters().getLetters().remove( 0 );
+        game.getCurrentPlayer().getLetters().getLetters().remove( 0 );
+        
         game.getCurrentPlayer().getLetters().add( new Letter('B'));
         game.getCurrentPlayer().getLetters().add( new Letter('A'));
         game.getCurrentPlayer().getLetters().add( new Letter('C'));
@@ -567,13 +575,14 @@ public class ScrabbleTest extends junit.framework.TestCase
         ArrayList<Square> input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'B' ), 4, 1 ) );
         input.add( new Square( new Letter( 'A' ), 4, 2 ) );
-        //input.add( new Square( new Letter( 'C' ), 4, 3 ) );
-        //input.add( new Square( new Letter( 'O' ), 4, 4 ) );
+        input.add( new Square( new Letter( 'C' ), 4, 3 ) );
+        input.add( new Square( new Letter( 'O' ), 4, 4 ) );
         input.add( new Square( new Letter( 'N' ), 4, 3 ) );
         
+        System.out.println( game.getCurrentPlayer().getLetters().getLetters() );
         System.out.println("PLAYINPUTLENGTH: " + input.size());
         assertTrue(game.getBoard().isEmpty());
-        assertEquals(19, game.play( input ));
+        assertEquals(9, game.play( input ));
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'H' ), 10, 11 ) );
         input.add( new Square( new Letter( 'F' ), 10, 12 ) );

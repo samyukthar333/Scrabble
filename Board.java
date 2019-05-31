@@ -214,6 +214,7 @@ public class Board // does not work only for when letter has both up and side
         board[7][7].setSpecial( 3 );
         flipHorizontally();
         flipVertically();
+        this.printBoardSp();
 
     }
 
@@ -551,6 +552,7 @@ public class Board // does not work only for when letter has both up and side
         // System.out.println( "t: " + transposed );
         for ( Square s : squares )
         {
+            s.setSpecial( board[s.getRow()][s.getCol()].getSpecial() );
             addLetter( s.getLetter(), s.getRow(), s.getCol() );
             BitSet set = bitVectors[s.getRow()][s.getCol()];
             int num = Character.getNumericValue( s.getLetter().getLetter() )
@@ -597,6 +599,7 @@ public class Board // does not work only for when letter has both up and side
             Square onlyLetter = squares.get( 0 );
             if ( Words.isWord( "" + onlyLetter.getLetter().getLetter() ) )
             {
+                onlyLetter.setSpecial( board[onlyLetter.getRow()][onlyLetter.getCol()].getSpecial() );
                 this.addLetter( onlyLetter.getLetter(), onlyLetter.getRow(), onlyLetter.getCol() );
             }
             int points = onlyLetter.getPoints();
@@ -611,11 +614,14 @@ public class Board // does not work only for when letter has both up and side
             return points;
         }
 
-        Square[][] tmp = copy();
         
         for ( Square s : squares )
         {
+            s.setSpecial( board[s.getRow()][s.getCol()].getSpecial() );
             this.addLetter( s.getLetter(), s.getRow(), s.getCol() );
+            
+            System.out.println( "in loop0 , special = " + s.getSpecial() );
+
         }
 
         boolean x = true, y = true;
@@ -630,6 +636,8 @@ public class Board // does not work only for when letter has both up and side
             {
                 y = false;
             }
+            System.out.println( "in loop1 , special = " + s.getSpecial() );
+
         }
         if ( !( x || y ) )
         {
@@ -649,6 +657,7 @@ public class Board // does not work only for when letter has both up and side
             squares = transposeSquares( squares );
 
         }
+        
 
         String word = "";
         int points = 0;
@@ -656,14 +665,17 @@ public class Board // does not work only for when letter has both up and side
         for ( Square s : squares )
         {
             word += s.getLetter().getLetter();
+            System.out.println( "in loop2 , special = " + s.getSpecial() );
             int temp = s.getPoints();
             if ( temp == -10 )
             {
+                System.out.println("Double word");
                 temp = s.getLetter().getPointValue();
                 pointNum = 2;
             }
             else if ( temp == -20 )
             {
+                System.out.println("Triple word");
                 temp = s.getLetter().getPointValue();
                 pointNum = 3;
             }
@@ -672,7 +684,11 @@ public class Board // does not work only for when letter has both up and side
         }
         if ( Words.isWord( word ) )
         {
+            System.out.println("POINTS: " + points*pointNum);
+            
             return points * pointNum;
+            
+            
         }
         
         
@@ -790,6 +806,7 @@ public class Board // does not work only for when letter has both up and side
                 break;
             }
         }
+        
         String word = "";
         int points = 0;
         int pointNum = 1;
@@ -1104,7 +1121,7 @@ public class Board // does not work only for when letter has both up and side
     {
 
         Board board = new Board();
-        ComputerPlayer player = new ComputerPlayer();
+        //ComputerPlayer player = new ComputerPlayer();
 
         board.getBoard()[2][6].setLetter( new Letter( 'B' ) );
         board.getBoard()[3][6].setLetter( new Letter( 'U' ) );

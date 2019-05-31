@@ -132,8 +132,8 @@ public class Square
     public int setLetter( Letter letter )
     {
         this.letter = letter;
-        int sp = special;
-        return sp;
+        System.out.println( "In set letter, letter = " + letter + "special = " + special );
+        return special;
     }
 
 
@@ -145,8 +145,7 @@ public class Square
      */
     public void setSpecial( int num )
     {
-        if ( num >= 0 && num <= 4 )
-            special = num;
+        special = num;
     }
 
 
@@ -251,6 +250,7 @@ public class Square
      */
     public int getPoints()
     {
+        System.out.println( "SPECIAL:" + special );
         if ( special == 0 ) // none
             return letter.getPointValue();
         else if ( special == 1 ) // double letter
