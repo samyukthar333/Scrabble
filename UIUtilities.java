@@ -236,11 +236,11 @@ public class UIUtilities
                             if ( c == comp )
                             {
                                 System.out.println( "This is the square " + j );
-                                int col = j / 15;
-                                int row = j % 15;
+                                int col = j % 15; // used to be /
+                                int row = j / 15; // used to be %
                                 Square s = new Square( new Letter( data.charAt( 0 ) ), row, col );
                                 System.out.println( "SS is " + s );
-                                System.out.println( "SS is " + s.getCol() + " " + s.getRow() );
+                                System.out.println( "SS is " + s.getRow() + " " + s.getCol() );
                                 ( (ScrabbleBoard)comp.getParent().getParent() ).getSquares()
                                     .add( s );
                                 break;

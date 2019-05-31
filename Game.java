@@ -231,8 +231,10 @@ public class Game
      */
     public int play( ArrayList<Square> squares )
     {
+        
         for ( Square s : squares )
         {
+            System.out.println("ROW: " + s.getRow() + " COL: " + s.getCol() + " LETTER: " + s.getLetter());
             if ( !currentPlayer.getLetters().getLetters().contains( s.getLetter() ) )
                 return -1;
             currentPlayer.getLetters().remove( s.getLetter() );

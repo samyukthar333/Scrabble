@@ -23,7 +23,7 @@ public class ScrabbleFrontEnd extends JPanel
 {//  testing log add a dicitonary at the bottom and players tiles at the bottom of the screen 
     // this class runs the game
     private static final long serialVersionUID = 1L;
-    private String frameName = "Scrabble - LHS project 2019 - By Richa, Samyukta, Sanvi";
+    private String frameName = "Scrabble - LHS project 2019 - By Richa, Samyuktha, Saanvi";
     private JFrame frame;
     private JPanel mainPanel;
     private Game game;

@@ -611,6 +611,8 @@ public class Board // does not work only for when letter has both up and side
             return points;
         }
 
+        Square[][] tmp = copy();
+        
         for ( Square s : squares )
         {
             this.addLetter( s.getLetter(), s.getRow(), s.getCol() );
@@ -635,11 +637,13 @@ public class Board // does not work only for when letter has both up and side
         }
         else if ( x ) // rows are the same -- sort by column
         {
+            System.out.println( "horiz" );
             squares = sortbyY( squares );
 
         }
         else if ( y ) // columns are the same -- sort by row
         {
+            System.out.println( "WRONGGG" );
             squares = sortbyX( squares );
             transpose();
             squares = transposeSquares( squares );
@@ -670,7 +674,8 @@ public class Board // does not work only for when letter has both up and side
         {
             return points * pointNum;
         }
-
+        
+        
         return -1;
     }
 

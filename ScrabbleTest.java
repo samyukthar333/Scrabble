@@ -5,16 +5,16 @@ import org.junit.runners.Suite;
 import org.junit.runners.Suite.SuiteClasses;
 
 
-@RunWith(Suite.class)
-@SuiteClasses({})
+//@RunWith(Suite.class)
+//@SuiteClasses({})
 public class ScrabbleTest extends junit.framework.TestCase
 {
     @Test // Letter
     public void testLetterConstructorParam()
     {
         Letter a = new Letter( 'A' );
-        assertEquals( a.getPointValue(), 1 );
-        assertEquals( a.getLetter(), 'A' );
+        assertEquals( 1, a.getPointValue());
+        assertEquals('A', a.getLetter());
 
     }
 
@@ -23,7 +23,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetLetter()
     {
         Letter a = new Letter( 'A' );
-        assertEquals( a.getLetter(), 'A' );
+        assertEquals( 'A' , a.getLetter());
     }
 
 
@@ -31,7 +31,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetPointValue()
     {
         Letter a = new Letter( 'A' );
-        assertEquals( a.getPointValue(), 1 );
+        assertEquals( 1, a.getPointValue() );
     }
 
 
@@ -40,7 +40,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
         PlayerLetters myLetters = new PlayerLetters();
         assertNotNull( myLetters.getLetters() );
-        assertEquals( myLetters.getLetters().size(), 0 );
+        assertEquals( 0, myLetters.getLetters().size() );
 
     }
 
@@ -52,7 +52,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         myLetters.add( new Letter( 'A' ) );
         myLetters.add( new Letter( 'B' ) );
         assertTrue( myLetters.contains( 'A' ) );
-        assertEquals( myLetters.size(), 2 );
+        assertEquals(2, myLetters.size() );
     }
 
 
@@ -62,8 +62,8 @@ public class ScrabbleTest extends junit.framework.TestCase
         PlayerLetters myLetters = new PlayerLetters();
         Letter letter = new Letter( 'A' );
         myLetters.add( letter );
-        assertEquals( myLetters.remove( letter ), letter );
-        assertEquals( myLetters.size(), 0 );
+        assertEquals( letter, myLetters.remove( letter ) );
+        assertEquals( 0, myLetters.size() );
         assertNull( myLetters.remove( letter ) );
     }
 
@@ -74,8 +74,8 @@ public class ScrabbleTest extends junit.framework.TestCase
         PlayerLetters myLetters = new PlayerLetters();
         Letter letter = new Letter( 'A' );
         myLetters.add( letter );
-        assertEquals( myLetters.remove( 'A' ), letter );
-        assertEquals( myLetters.size(), 0 );
+        assertEquals( letter, myLetters.remove( 'A' ) );
+        assertEquals(0, myLetters.size());
         assertNull( myLetters.remove( 'A' ) );
     }
 
@@ -86,8 +86,8 @@ public class ScrabbleTest extends junit.framework.TestCase
         PlayerLetters myLetters = new PlayerLetters();
         Letter letter = new Letter( 'A' );
         myLetters.add( letter );
-        assertEquals( myLetters.removeIndex( 0 ), letter );
-        assertEquals( myLetters.size(), 0 );
+        assertEquals(letter, myLetters.removeIndex( 0 ) );
+        assertEquals(0, myLetters.size());
         assertNull( myLetters.removeIndex( 1 ) );
     }
 
@@ -98,7 +98,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         PlayerLetters myLetters = new PlayerLetters();
         Letter letter = new Letter( 'A' );
         myLetters.add( letter );
-        assertEquals( myLetters.size(), 1 );
+        assertEquals( 1, myLetters.size() );
     }
 
 
@@ -110,7 +110,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         myLetters.add( letter );
         ArrayList<Letter> temp = new ArrayList<Letter>();
         temp.add( letter );
-        assertEquals( myLetters.getLetters(), temp );
+        assertEquals( temp, myLetters.getLetters() );
     }
 
 
@@ -130,9 +130,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testPlayerConstructor()
     {
         Player p = new Player();
-        assertEquals(p.getPoints(), 0);
+        assertEquals(0, p.getPoints());
         assertNotNull(p.getLetters());
-        assertEquals(p.getLetters().size(),0);
+        assertEquals(0, p.getLetters().size());
     }
 
 
@@ -140,9 +140,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testAddPoints()
     {
         Player p = new Player();
-        assertEquals(p.getPoints(), 0);
+        assertEquals(0, p.getPoints());
         p.addPoints( 100 );
-        assertEquals(p.getPoints(),100);
+        assertEquals(100, p.getPoints());
     }
 
 
@@ -150,9 +150,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetPoints()
     {       
         Player p = new Player();
-        assertEquals(p.getPoints(), 0);
+        assertEquals(0, p.getPoints());
         p.addPoints( 100 );
-        assertEquals(p.getPoints(),100);
+        assertEquals(100, p.getPoints());
     }
 
 
@@ -160,11 +160,11 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetLettersPlayer()
     {
         Player p = new Player();
-        assertEquals(p.getLetters().size(), 0);
+        assertEquals(0, p.getLetters().size());
         Letter l = new Letter('S');
         p.getLetters().add( l );
-        assertEquals(p.getLetters().getLetters().get( 0 ), l);
-        assertEquals(p.getLetters().getLetters().size(), 1);
+        assertEquals(l, p.getLetters().getLetters().get( 0 ));
+        assertEquals(1, p.getLetters().getLetters().size());
     }
 
 
@@ -174,9 +174,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
         Board board = new Board();
         assertNotNull(board.getBoard());
-        assertEquals(board.getBoard()[0][0].getSpecial(), 4);
+        assertEquals(4, board.getBoard()[0][0].getSpecial());
         assertFalse( board.isTransposed() );
-        assertEquals(board.getAnchors().size(), 0);
+        assertEquals(0, board.getAnchors().size());
         assertTrue(board.getBitVector( 0, 0 ).get( 0 ));
     }
 
@@ -187,7 +187,10 @@ public class ScrabbleTest extends junit.framework.TestCase
         Square[][] squares = new Square[15][15];
         for ( int i = 0; i < squares.length; i++ )
             for ( int j = 0; j < squares[0].length; j++ )
+            {
+                squares[i][j] = new Square(i, j);
                 squares[i][j].setLetter( new Letter('A') );
+            }
         board.setBoard( squares );
         assertTrue(board.getBoard().equals( squares ));
         
@@ -216,7 +219,7 @@ public class ScrabbleTest extends junit.framework.TestCase
                 board.getBoard()[i][j].setLetter( new Letter('B') );
         board.transpose();
         board.transposeBack();
-        assertEquals(board,temp);
+        assertEquals(temp, board);
         assertFalse(board.isTransposed());
         
     }
@@ -258,7 +261,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         Board board = new Board();
         Letter l = new Letter('S');
         board.getBoard()[0][0].setLetter( l );
-        assertEquals(board.getSquare( 0,0 ).getLetter(), l);
+        assertEquals(l, board.getSquare( 0,0 ).getLetter());
         assertNull(board.getSquare( 17, 17 ));
     }
 
@@ -298,12 +301,12 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetOccupiedNeighbors()
     {
         Board board = new Board();
-        assertEquals(board.getOccupiedNeighbors( board.getSquare( 6, 6 )).size(), 0);
+        assertEquals(0, board.getOccupiedNeighbors( board.getSquare( 6, 6 )).size());
         board.getBoard()[6][5].setLetter( new Letter('S') );
         board.getBoard()[6][7].setLetter( new Letter('S') );
         board.getBoard()[5][6].setLetter( new Letter('S') );
         board.getBoard()[7][6].setLetter( new Letter('S') );
-        assertEquals(board.getOccupiedNeighbors( board.getSquare( 6, 6 )).size(), 4);
+        assertEquals(4, board.getOccupiedNeighbors( board.getSquare( 6, 6 )).size());
         
     }
 
@@ -312,11 +315,11 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetRightAndLeft()
     {
         Board board = new Board();
-        assertEquals(board.getRightandLeft( board.getSquare( 6, 6 )).size(), 0);
+        assertEquals(0, board.getRightandLeft( board.getSquare( 6, 6 )).size());
         board.getBoard()[5][6].setLetter( new Letter('S') );
-        assertEquals(board.getRightandLeft( board.getSquare( 6, 6 )).size(), 1);
+        assertEquals(1, board.getRightandLeft( board.getSquare( 6, 6 )).size());
         board.getBoard()[7][6].setLetter( new Letter('S') );
-        assertEquals(board.getRightandLeft( board.getSquare( 6, 6 )).size(), 2);
+        assertEquals(2, board.getRightandLeft( board.getSquare( 6, 6 )).size());
     }
 
 
@@ -337,7 +340,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         input.add( new Square( new Letter( 'Y' ), 2, 8 ) );
         
         int points = board.placeWord( input );
-        assertEquals(points, 22);
+        assertEquals(22, points);
         
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'B' ), 4, 1 ) );
@@ -348,7 +351,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         
         
         points = board.placeWord( input );
-        assertEquals(points, 20);
+        assertEquals(20, points);
         
     }
 
@@ -397,7 +400,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         board.transposeSquares(squares);
         Square s2 = squares.get( 0 );
         board.transposeSquaresBack( squares );
-        assertEquals(s2,s1);
+        assertEquals(s1, s2);
     }
 
     @Test
@@ -406,7 +409,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         Board board = new Board();
         Letter l = new Letter('P');
         assertTrue(board.addLetter( l, 6, 6 ));
-        assertEquals(board.getSquare( 6, 6 ).getLetter(), l);
+        assertEquals(l, board.getSquare( 6, 6 ).getLetter());
         assertFalse(board.addLetter( l, 100, 136 ));
         
     }
@@ -446,8 +449,8 @@ public class ScrabbleTest extends junit.framework.TestCase
         assertNotNull(game.getHuman());
         assertNotNull(game.getPlayer1());
         assertNotNull(game.getPlayer2());
-        assertEquals(game.getBag().size(),100);
-        assertEquals(game.getCurrentPlayer(), game.getPlayer2());
+        assertEquals(100, game.getBag().size());
+        assertEquals(game.getPlayer2(), game.getCurrentPlayer());
         assertNotNull(game.getBoard());
         game = new Game(true);
         assertTrue(game.isTwoPlayer());
@@ -491,7 +494,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
         
         Game game = new Game(false);
-        assertEquals(game.getCurrentPlayer(), game.getHuman());
+        assertEquals( game.getHuman(), game.getCurrentPlayer());
         assertFalse(game.getCurrentPlayer().equals(game.getComputer()));
     }
     
@@ -517,7 +520,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetBag()
     {
         Game game = new Game();
-        assertEquals(game.getBag().size(), 100);
+        assertEquals(100, game.getBag().size());
         
     }
 
@@ -527,7 +530,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
         Game game = new Game();
         ArrayList<Letter> letters = game.getRandomThree();
-        assertEquals(letters.size(), 3);
+        assertEquals(3, letters.size());
         assertNotNull(letters);
         
     }
@@ -536,9 +539,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testSwitchPlayers()
     {
         Game game = new Game();
-        assertEquals(game.getCurrentPlayer(), game.getPlayer2());
+        assertEquals(game.getPlayer2(), game.getCurrentPlayer());
         game.switchPlayers();
-        assertEquals(game.getCurrentPlayer(), game.getPlayer1());
+        assertEquals(game.getPlayer1(), game.getCurrentPlayer());
     }
 
 
@@ -552,11 +555,11 @@ public class ScrabbleTest extends junit.framework.TestCase
         input.add( new Square( new Letter( 'C' ), 4, 3 ) );
         input.add( new Square( new Letter( 'O' ), 4, 4 ) );
         input.add( new Square( new Letter( 'N' ), 4, 5 ) );
-        assertEquals(game.play( input ), 19);
+        assertEquals(19, game.play( input ));
         input = new ArrayList<Square>();
         input.add( new Square( new Letter( 'H' ), 10, 11 ) );
         input.add( new Square( new Letter( 'F' ), 10, 12 ) );
-        assertEquals(game.play( input ), -1);
+        assertEquals(-1, game.play( input ));
         
     }
 
@@ -567,7 +570,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         Game game = new Game();
         game.getHuman().getLetters().getLetters().remove(0);
         game.replenishLetters( );
-        assertEquals(game.getHuman().getLetters().size(), 7);
+        assertEquals(7, game.getHuman().getLetters().size());
        
     }
 
@@ -578,7 +581,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         Game game = new Game();
         game.getComputer().getLetters().getLetters().remove(0);
         game.replenishLetters( game.getComputer() );
-        assertEquals(game.getComputer().getLetters().size(), 7);
+        assertEquals(7, game.getComputer().getLetters().size());
         
     }
     
@@ -594,7 +597,7 @@ public class ScrabbleTest extends junit.framework.TestCase
         letters.add( new Letter('C') );
         letters.add( new Letter('A') );
         game.exchange( letters );
-        assertEquals(game.getCurrentPlayer().getLetters().size(), 7);
+        assertEquals(7, game.getCurrentPlayer().getLetters().size());
     }
 
 
@@ -602,9 +605,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testPass()
     {
         Game game = new Game();
-        assertEquals(game.getCurrentPlayer(), game.getHuman());
+        assertEquals( game.getHuman(), game.getCurrentPlayer());
         game.pass();
-        assertEquals(game.getCurrentPlayer(), game.getComputer());
+        assertEquals(game.getComputer(), game.getCurrentPlayer());
     }
 
 
@@ -639,8 +642,8 @@ public class ScrabbleTest extends junit.framework.TestCase
     @Test
     public void testGetPointsWords()
     {
-        assertEquals( Words.getPoints( "AA" ), 2 );
-        assertEquals( Words.getPoints( "ALSJDK" ), -1 );
+        assertEquals( 2, Words.getPoints( "AA" ));
+        assertEquals( -1, Words.getPoints( "ALSJDK" ) );
     }
 
 
@@ -649,11 +652,11 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testComputerPlayerConstuctor()
     {
         Player p = new ComputerPlayer();
-        assertEquals(p.getPoints(), 0);
-        assertEquals(p.getLetters().size(), 0);
+        assertEquals(0, p.getPoints());
+        assertEquals(0, p.getLetters().size());
         ComputerPlayer cp = new ComputerPlayer();
-        assertEquals(cp.getPoints(), 0);
-        assertEquals(cp.getLetters().size(), 0);
+        assertEquals(0, cp.getPoints());
+        assertEquals(0, cp.getLetters().size());
     }
 
 
@@ -699,7 +702,7 @@ public class ScrabbleTest extends junit.framework.TestCase
 
         ArrayList<Square> letters = player.findWord( board );
         int points = board.placeWord( letters );
-        assertEquals(points, 36);
+        assertEquals(36, points);
         
     }
 
@@ -708,15 +711,15 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testSquareConstructor1()
     {
         Square s1 = new Square( 2, 2, 6 );
-        assertEquals( s1.getRow(), 2 );
-        assertEquals( s1.getCol(), 6 );
-        assertEquals( s1.getSpecial(), 2 );
+        assertEquals(2, s1.getRow() );
+        assertEquals(6, s1.getCol() );
+        assertEquals(2, s1.getSpecial());
         assertNull( s1.getLetter() );
 
         Square s2 = new Square( 10, 1000, 1000 );
-        assertEquals( s2.getRow(), -1 );
-        assertEquals( s2.getCol(), -1 );
-        assertEquals( s2.getSpecial(), 0 );
+        assertEquals(-1, s2.getRow() );
+        assertEquals(-1, s2.getCol() );
+        assertEquals(0, s2.getSpecial() );
         assertNull( s2.getLetter() );
     }
 
@@ -725,15 +728,15 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testSquareConstructor2()
     {
         Square s1 = new Square( 2, 6 );
-        assertEquals( s1.getRow(), 2 );
-        assertEquals( s1.getCol(), 6 );
-        assertEquals( s1.getSpecial(), 0 );
+        assertEquals(2, s1.getRow() );
+        assertEquals(6, s1.getCol() );
+        assertEquals(2, s1.getSpecial());
         assertNull( s1.getLetter() );
 
         Square s2 = new Square( 1000, 1000 );
-        assertEquals( s2.getRow(), -1 );
-        assertEquals( s2.getCol(), -1 );
-        assertEquals( s2.getSpecial(), 0 );
+        assertEquals(-1, s2.getRow() );
+        assertEquals(-1, s2.getCol() );
+        assertEquals(0, s2.getSpecial() );
         assertNull( s2.getLetter() );
     }
 
@@ -742,7 +745,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetRow()
     {
         Square s1 = new Square( 2, 6 );
-        assertEquals( s1.getRow(), 2 );
+        assertEquals( 2, s1.getRow() );
     }
 
 
@@ -750,7 +753,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testGetCol()
     {
         Square s1 = new Square( 2, 6 );
-        assertEquals( s1.getCol(), 6 );
+        assertEquals(6, s1.getCol());
     }
 
 
@@ -759,8 +762,8 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
         Square s1 = new Square( 2, 6 );
         Letter l = new Letter( 'A' );
-        assertEquals( s1.setLetter( l ), 1 );
-        assertEquals( s1.getLetter(), l );
+        assertEquals(1, s1.setLetter( l ) );
+        assertEquals( l, s1.getLetter());
     }
 
 
@@ -768,11 +771,11 @@ public class ScrabbleTest extends junit.framework.TestCase
     public void testSetSpecial()
     {
         Square s1 = new Square( 2, 6 );
-        assertEquals( s1.getSpecial(), 0 );
+        assertEquals(0, s1.getSpecial() );
         s1.setSpecial( 1 );
-        assertEquals( s1.getSpecial(), 1 );
+        assertEquals( 1, s1.getSpecial() );
         s1.setSpecial( 1000 );
-        assertEquals( s1.getSpecial(), 1 );
+        assertEquals( 1, s1.getSpecial());
     }
 
 
@@ -781,9 +784,9 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
         Square s1 = new Square( 2, 6 );
         assertTrue( s1.setRow( 10 ) );
-        assertEquals( s1.getRow(), 10 );
+        assertEquals(10, s1.getRow() );
         assertFalse( s1.setRow( 1000 ) );
-        assertEquals( s1.getRow(), 10 );
+        assertEquals(10, s1.getRow() );
     }
 
 
@@ -1063,7 +1066,7 @@ public class ScrabbleTest extends junit.framework.TestCase
     {
         LetterBag bag = new LetterBag();
         bag.add( new Letter('C') );
-        assertEquals(bag.size(), 101);
+        assertEquals(101, bag.size());
     }
 
     @Test
