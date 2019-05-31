@@ -1,29 +1,36 @@
 import java.util.ArrayList;
 
+
 /**
  * 
- *  keeps track of the player's letters
+ * keeps track of the player's letters
  *
- *  @author  samyuktha, saanvi, richa
- *  @version May 22, 2019
- *  @author  Period: 4
- *  @author  Assignment: Scrabble
+ * @author samyuktha, saanvi, richa
+ * @version May 22, 2019
+ * @author Period: 4
+ * @author Assignment: Scrabble
  *
- *  @author  Sources: none
+ * @author Sources: none
  */
 public class PlayerLetters
 {
     ArrayList<Letter> playerletters;
-    
+
+    /**
+     * constructor
+     */
     public PlayerLetters()
     {
         playerletters = new ArrayList<Letter>();
     }
 
+
     /**
      * 
      * adds or doesnt add letter(s) depending on your current number of letters
-     * @param letter the letter on the tile
+     * 
+     * @param letter
+     *            the letter on the tile
      * @return false || true
      */
     public boolean add( Letter letter )
@@ -39,10 +46,13 @@ public class PlayerLetters
         }
     }
 
+
     /**
      * 
      * removes a letter if your letters already has that letter
-     * @param letter the letter on the tile
+     * 
+     * @param letter
+     *            the letter on the tile
      * @return false || true
      */
     public boolean remove( Letter letter )
@@ -58,18 +68,21 @@ public class PlayerLetters
         }
     }
 
+
     /**
      * 
      * removes a letter if your letters already has that letter
-     * @param letter the letter on the tile
+     * 
+     * @param letter
+     *            the letter on the tile
      * @return false || true
      */
     public boolean remove( char c )
     {
-        for(Letter letter: playerletters)
+        for ( Letter letter : playerletters )
         {
-            if(letter.getLetter()==c)
-            {   
+            if ( letter.getLetter() == c )
+            {
                 playerletters.remove( letter );
                 return true;
             }
@@ -77,24 +90,28 @@ public class PlayerLetters
         return false;
     }
 
+
     /**
      * 
      * removes the letter at that index
-     * @param index the index of your letter 
+     * 
+     * @param index
+     *            the index of your letter
      * @return letter
      */
     public Letter removeIndex( int index )
     {
         Letter letter = null;
-        if ( playerletters.size()>index )
+        if ( playerletters.size() > index )
         {
             letter = playerletters.get( index );
             playerletters.remove( letter );
-            
+
         }
         return letter;
     }
-    
+
+
     /**
      * returns size of playerLetters
      *
@@ -104,28 +121,33 @@ public class PlayerLetters
     {
         return playerletters.size();
     }
-    
+
+
     /**
      * 
      * returns playerletters
+     * 
      * @return playerletters
      */
-    public ArrayList<Letter> getLetters( )
+    public ArrayList<Letter> getLetters()
     {
         return playerletters;
     }
-    
+
+
     /**
      * 
      * checks if the letter is in the player's letters
-     * @param c stands for character
+     * 
+     * @param c
+     *            stands for character
      * @return true && false || false
      */
-    public boolean contains(char c)
+    public boolean contains( char c )
     {
-        for(Letter letter: playerletters)
+        for ( Letter letter : playerletters )
         {
-            if(letter.getLetter()==c)
+            if ( letter.getLetter() == c )
                 return true;
         }
         return false;

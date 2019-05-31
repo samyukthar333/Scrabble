@@ -1,8 +1,6 @@
 
 // import java.util.ArrayList;
 
-
-
 /**
  * includes methods around gameplay for the player
  *
