@@ -157,7 +157,7 @@ public class LetterBag
         }
         ArrayList<Letter> letterlist = new ArrayList<Letter>();
 
-        
+        for(int i = 0; i<num; i++)
         {
             int rand = (int)( Math.random() * letters.size() );
             letterlist.add( letters.remove( rand ) );

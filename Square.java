@@ -38,11 +38,11 @@ public class Square
      */
     public Square( int special, int x, int y )
     {
-        if ( x < 15 || x >= 0 )
+        if ( x < 15 && x >= 0 )
             myX = x;
         else
             myX = -1;
-        if ( y < 15 || y >= 0 )
+        if ( y < 15 && y >= 0 )
             myY = y;
         else
             myY = -1;

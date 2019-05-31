@@ -164,17 +164,17 @@ public class Game
     }
 
 
-    /**
-     * 
-     * returns 3 random letters from the letter bag
-     * 
-     * @return myBag.getRandomLetters(3);
-     */
-    public ArrayList<Letter> getRandomThree()
-    {
-        return myBag.getRandomLetters( 3 );
-
-    }
+//    /**
+//     * 
+//     * returns 3 random letters from the letter bag
+//     * 
+//     * @return myBag.getRandomLetters(3);
+//     */
+//    public ArrayList<Letter> getRandomThree()
+//    {
+//        return myBag.getRandomLetters( 3 );
+//
+//    }
     
     /**
      * 
@@ -235,13 +235,16 @@ public class Game
         for ( Square s : squares )
         {
             System.out.println("ROW: " + s.getRow() + " COL: " + s.getCol() + " LETTER: " + s.getLetter());
-            if ( !currentPlayer.getLetters().getLetters().contains( s.getLetter() ) )
+            if ( !currentPlayer.getLetters().contains( s.getLetter().getLetter() ) )
                 return -1;
             currentPlayer.getLetters().remove( s.getLetter() );
         }
         int points = board.placeWord( squares );
         if ( points == -1 )
+        {
+            System.out.println("Points: " + points);
             return -1;
+        }
         currentPlayer.addPoints( points );
         
         replenishLetters();
