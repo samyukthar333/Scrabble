@@ -107,10 +107,10 @@ public class TrieNode
      * 
      * checks if the node has children
      * 
-     * @return !children.isEmpty() || (children != null)
+     * @return true if children is not empty false otherwise
      */
     public boolean hasChildren()
     {
-        return !children.isEmpty() || ( children != null );
+        return ( children != null ) &&  !children.isEmpty();
     }
 }
