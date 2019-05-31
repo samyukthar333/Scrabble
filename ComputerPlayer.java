@@ -153,7 +153,7 @@ public class ComputerPlayer extends Player
      * finds the left part with helper
      * 
      * @param board the board in play
-     * @param partialWord 
+     * @param partialWord the current word that the computer has that its trying to extend
      * @param node node in the trie
      * @param limit 
      * @param anchor

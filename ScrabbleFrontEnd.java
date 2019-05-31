@@ -191,7 +191,7 @@ public class ScrabbleFrontEnd extends JPanel
     /**
      * 
      * draws the overall board
-     * @param mainPanel
+     * @param mainPanel the main panel of the board
      */
     private void drawBoard(JPanel mainPanel){
         mainPanel.add(getTopPanel(), BorderLayout.NORTH);
@@ -205,7 +205,7 @@ public class ScrabbleFrontEnd extends JPanel
     /**
      * 
      * creates the main panel
-     * @param jp
+     * @param jp 
      */
     private void initMainPanel(JPanel jp){
         //mainPanel = new JPanel();
@@ -218,7 +218,7 @@ public class ScrabbleFrontEnd extends JPanel
 
     /**
      * 
-     * draws the overal game
+     * draws the overall game
      */
     private void drawGame(){
         initFrame();
@@ -234,7 +234,7 @@ public class ScrabbleFrontEnd extends JPanel
     }
 
     /**
-     * calls for game
+     * calls for game / visuals
      */
     public ScrabbleFrontEnd(){
         game = new Game();
@@ -254,7 +254,7 @@ public class ScrabbleFrontEnd extends JPanel
     /**
      * 
      * main method
-     * @param args
+     * @param args enables the main method
      */
     public static void main (String[] args)
     {

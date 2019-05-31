@@ -34,7 +34,7 @@ public class TrieNode
 
     /**
      * constructs TrieNode with given character
-     * @param c
+     * @param c the character
      */
     public TrieNode( char c )
     {
